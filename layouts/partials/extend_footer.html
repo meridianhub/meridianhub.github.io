@@ -43,17 +43,44 @@
   const hasMermaid = codeBlocks.length > 0 || preMermaidBlocks.length > 0;
 
   if (hasMermaid) {
-    mermaid.initialize({
-      startOnLoad: false,
-      theme: 'neutral',
-      securityLevel: 'loose',
-      flowchart: {
-        useMaxWidth: true,
-        htmlLabels: true
-      }
+    // Detect dark mode from PaperMod's data-theme attribute
+    const getTheme = () => document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral';
+
+    const renderMermaid = () => {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: getTheme(),
+        securityLevel: 'loose',
+        flowchart: {
+          useMaxWidth: true,
+          htmlLabels: true
+        }
+      });
+      mermaid.run().catch(err => console.error('Mermaid render error:', err));
+    };
+
+    // Initial render
+    renderMermaid();
+
+    // Re-render when theme changes (PaperMod toggles data-theme attribute)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'data-theme') {
+          // Clear existing diagrams and re-render
+          document.querySelectorAll('.mermaid[data-processed="true"]').forEach(el => {
+            el.removeAttribute('data-processed');
+            el.innerHTML = el.getAttribute('data-original') || el.textContent;
+          });
+          renderMermaid();
+        }
+      });
     });
 
-    // Manually render all .mermaid elements
-    mermaid.run().catch(err => console.error('Mermaid render error:', err));
+    observer.observe(document.documentElement, { attributes: true });
+
+    // Store original content for re-rendering
+    document.querySelectorAll('.mermaid').forEach(el => {
+      el.setAttribute('data-original', el.textContent);
+    });
   }
 </script>
