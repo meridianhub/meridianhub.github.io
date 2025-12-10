@@ -15,6 +15,20 @@ Every transaction in Meridian is immutably recorded from the moment it enters th
 
 When regulators ask questions, you have answers. When disputes arise, you have evidence. Built-in compliance means fewer surprises and faster audits.
 
+## Designed Against Known Failure Modes
+
+High-profile failures in financial record-keeping systems have destroyed livelihoods and reputations. Systems that showed phantom shortfalls. Race conditions that caused transactions to be counted twice. Audit logs that couldn't prove what actually happened. Organisations that trusted their software's output - until they couldn't.
+
+Meridian is engineered to prevent these failure modes:
+
+- **Idempotent operations** - The same request processed twice produces the same result once. No phantom transactions from network retries or message replays.
+- **Proper double-entry** - Every movement of value creates balanced debits and credits. The books must balance; the system enforces it.
+- **Atomic audit records** - Audit entries are written in the same database transaction as business operations. They cannot be lost or become inconsistent.
+- **Lien-based payment safety** - Funds are reserved before movement. A payment can't debit an account that doesn't have the funds - even under concurrent load.
+- **Complete transaction lineage** - Parent-child relationships, batch references, and correction chains are preserved. You can always explain how a balance was reached.
+
+When your system accuses someone of a shortfall, you need absolute certainty that the shortfall is real. Meridian gives you that certainty - or proves the accusation false.
+
 ## Flexible Organisation Structure
 
 Meridian implements BIAN's organisation model, giving you logical boundaries that match how your business actually operates. A single deployment can serve multiple divisions, subsidiaries, or programmes - each with complete data isolation.
