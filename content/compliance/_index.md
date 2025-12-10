@@ -15,11 +15,13 @@ Every transaction in Meridian is immutably recorded from the moment it enters th
 
 When regulators ask questions, you have answers. When disputes arise, you have evidence. Built-in compliance means fewer surprises and faster audits.
 
-## Secure Multi-Organisation Support
+## Flexible Organisation Structure
 
-Meridian supports multiple organisations from day one, with complete data isolation between tenants. Whether you're a bank serving multiple subsidiaries, an NGO managing separate programmes, or a service provider hosting multiple clients, the platform keeps everything separate and secure.
+Meridian implements BIAN's organisation model, giving you logical boundaries that match how your business actually operates. A single deployment can serve multiple divisions, subsidiaries, or programmes - each with complete data isolation.
 
-No retrofitting. No workarounds. Multi-tenant security is foundational, not an afterthought.
+Account 123 in Organisation A is entirely separate from Account 123 in Organisation B. Same infrastructure, same account types, completely independent data. There's no backdoor between organisations - transferring assets between them requires the same external settlement process as transferring to any third party.
+
+Deploy on-premises with a single cloud-agnostic cluster under your complete control. Your data stays where you put it. Your organisation structure reflects your business, not our architecture.
 
 ## Bank-Grade, Open Source
 
