@@ -1,3 +1,71 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 50">
-  <text x="0" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="#1a365d">Meridian</text>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Enhanced globe with meridian lines -->
+  <g transform="translate(100,100)">
+    <!-- Outer circle (sphere) - thicker for more globe presence -->
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#1a365d" stroke-width="4"/>
+
+    <!-- Meridian lines (longitude) - elliptical for 3D effect -->
+    <ellipse cx="0" cy="0" rx="25" ry="80" fill="none" stroke="#2d4a6f" stroke-width="2" opacity="0.5"/>
+    <ellipse cx="0" cy="0" rx="50" ry="80" fill="none" stroke="#2d4a6f" stroke-width="2" opacity="0.6"/>
+    <ellipse cx="0" cy="0" rx="70" ry="80" fill="none" stroke="#2d4a6f" stroke-width="2" opacity="0.4"/>
+
+    <!-- Curved equator line for 3D globe effect -->
+    <path d="M -80,0 Q -40,12 0,0 Q 40,-12 80,0" stroke="#1a365d" stroke-width="2.5" fill="none" opacity="0.8"/>
+
+    <!-- Additional latitude lines for more globe-like appearance -->
+    <ellipse cx="0" cy="-40" rx="69" ry="20" fill="none" stroke="#2d4a6f" stroke-width="1.5" opacity="0.3"/>
+    <ellipse cx="0" cy="40" rx="69" ry="20" fill="none" stroke="#2d4a6f" stroke-width="1.5" opacity="0.3"/>
+
+    <!-- Network graph lines - connecting through the meridians -->
+    <line x1="-50" y1="0" x2="50" y2="0" stroke="#38a169" stroke-width="2" stroke-dasharray="2,2" opacity="0.6"/>
+    <line x1="0" y1="-50" x2="0" y2="50" stroke="#38a169" stroke-width="2" stroke-dasharray="2,2" opacity="0.6"/>
+
+    <!-- Diagonal network connections -->
+    <line x1="-35" y1="-35" x2="35" y2="35" stroke="#38a169" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.4"/>
+    <line x1="-35" y1="35" x2="35" y2="-35" stroke="#38a169" stroke-width="1.5" stroke-dasharray="2,2" opacity="0.4"/>
+
+    <!-- Central hub -->
+    <circle cx="0" cy="0" r="10" fill="#1a365d"/>
+    <circle cx="0" cy="0" r="6" fill="#38a169"/>
+
+    <!-- Network nodes at meridian intersections -->
+    <!-- Horizontal meridian intersections -->
+    <circle cx="50" cy="0" r="7" fill="#ffffff" stroke="#38a169" stroke-width="2"/>
+    <circle cx="50" cy="0" r="4" fill="#38a169"/>
+
+    <circle cx="-50" cy="0" r="7" fill="#ffffff" stroke="#38a169" stroke-width="2"/>
+    <circle cx="-50" cy="0" r="4" fill="#38a169"/>
+
+    <circle cx="25" cy="0" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="2"/>
+    <circle cx="25" cy="0" r="2.5" fill="#48bb78"/>
+
+    <circle cx="-25" cy="0" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="2"/>
+    <circle cx="-25" cy="0" r="2.5" fill="#48bb78"/>
+
+    <!-- Vertical meridian intersections -->
+    <circle cx="0" cy="50" r="7" fill="#ffffff" stroke="#38a169" stroke-width="2"/>
+    <circle cx="0" cy="50" r="4" fill="#38a169"/>
+
+    <circle cx="0" cy="-50" r="7" fill="#ffffff" stroke="#38a169" stroke-width="2"/>
+    <circle cx="0" cy="-50" r="4" fill="#38a169"/>
+
+    <!-- Diagonal intersection nodes -->
+    <circle cx="35" cy="35" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="1.5"/>
+    <circle cx="35" cy="35" r="2.5" fill="#48bb78"/>
+
+    <circle cx="-35" cy="35" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="1.5"/>
+    <circle cx="-35" cy="35" r="2.5" fill="#48bb78"/>
+
+    <circle cx="35" cy="-35" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="1.5"/>
+    <circle cx="35" cy="-35" r="2.5" fill="#48bb78"/>
+
+    <circle cx="-35" cy="-35" r="5" fill="#ffffff" stroke="#48bb78" stroke-width="1.5"/>
+    <circle cx="-35" cy="-35" r="2.5" fill="#48bb78"/>
+
+    <!-- Small connection indicators -->
+    <circle cx="17" cy="17" r="2" fill="#68d391"/>
+    <circle cx="-17" cy="17" r="2" fill="#68d391"/>
+    <circle cx="17" cy="-17" r="2" fill="#68d391"/>
+    <circle cx="-17" cy="-17" r="2" fill="#68d391"/>
+  </g>
 </svg>
