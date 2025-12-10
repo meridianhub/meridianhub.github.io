@@ -20,23 +20,18 @@ enableEmoji = false
   category = "categories"
   service = "services"
 
-# Menu
+# Menu - Question-based navigation anchors
 [menu]
   [[menu.main]]
-    identifier = "features"
-    name = "Features"
-    url = "/features/"
+    identifier = "how-it-works"
+    name = "How it works"
+    url = "/#measure"
     weight = 10
   [[menu.main]]
-    identifier = "compliance"
-    name = "Compliance"
-    url = "/compliance/"
+    identifier = "trust"
+    name = "Why trust it"
+    url = "/#trust"
     weight = 20
-  [[menu.main]]
-    identifier = "who-its-for"
-    name = "Who It's For"
-    url = "/who-its-for/"
-    weight = 40
   [[menu.main]]
     identifier = "github"
     name = "GitHub"
