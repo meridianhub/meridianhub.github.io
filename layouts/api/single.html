@@ -3,17 +3,21 @@
   <link rel="stylesheet" href="/swagger/swagger-ui.css" />
   <div id="swagger-ui"></div>
   <script src="/swagger/swagger-ui-bundle.js"></script>
+  <script src="/swagger/swagger-ui-standalone-preset.js"></script>
   <script>
     window.onload = function() {
-      SwaggerUIBundle({
+      const ui = SwaggerUIBundle({
         url: "/swagger/openapi.json",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
           SwaggerUIBundle.presets.apis,
-          SwaggerUIBundle.SwaggerUIStandalonePreset
+          SwaggerUIStandalonePreset
         ],
-        layout: "BaseLayout",
+        plugins: [
+          SwaggerUIBundle.plugins.DownloadUrl
+        ],
+        layout: "StandaloneLayout",
         defaultModelsExpandDepth: 1,
         defaultModelExpandDepth: 1,
         docExpansion: "list",
@@ -22,6 +26,7 @@
         showCommonExtensions: true,
         tryItOutEnabled: false
       });
+      window.ui = ui;
     };
   </script>
 </div>
@@ -29,7 +34,8 @@
 <style>
   .api-docs {
     margin: 0 auto;
-    max-width: 1200px;
+    max-width: 1400px;
+    padding: 0 20px;
   }
   .swagger-ui .topbar {
     display: none;
@@ -39,6 +45,12 @@
   }
   .swagger-ui .scheme-container {
     display: none;
+  }
+  .swagger-ui .opblock-tag {
+    font-size: 18px;
+  }
+  .swagger-ui .opblock-summary-method {
+    min-width: 80px;
   }
 </style>
 {{ end }}
