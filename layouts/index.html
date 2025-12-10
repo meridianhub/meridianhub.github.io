@@ -1,77 +1,96 @@
 {{ define "main" }}
 <article class="landing-page">
-  <!-- Hero Section -->
+  <!-- Hero Section: Stakes-First -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">Trust Your Numbers</h1>
-      <p class="hero-tagline">Open source treasury infrastructure for the modern economy</p>
-      <p class="hero-subtagline">Measure. Value. Settle.</p>
-      <div class="hero-cta">
-        <a href="/features/" class="btn btn-primary">Learn More</a>
-        <a href="https://github.com/meridianhub/meridian" class="btn btn-secondary" target="_blank" rel="noopener">View on GitHub</a>
+      <h1 class="hero-headline">
+        When your system accuses someone of a shortfall,<br>
+        you need absolute certainty.
+      </h1>
+
+      <nav class="hero-nav">
+        <a href="#measure" class="hero-word">Measure</a>
+        <span class="hero-dot"></span>
+        <a href="#value" class="hero-word">Value</a>
+        <span class="hero-dot"></span>
+        <a href="#settle" class="hero-word">Settle</a>
+      </nav>
+
+      <p class="hero-subtext">
+        Treasury infrastructure that proves itself.
+      </p>
+    </div>
+  </section>
+
+  <!-- Measure Section -->
+  <section id="measure" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Measure</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Phantom shortfalls destroy lives. A duplicate transaction, a race condition,
+          a network retry counted twice &mdash; and someone faces an accusation they cannot disprove.
+        </p>
+        <p class="proof">
+          Every position recorded with atomic audit trails. Parent-child transaction lineage preserved.
+          Idempotent operations mean the same request twice produces the same result once.
+          The accused can demand proof &mdash; and get it.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Problem Section -->
-  <section class="section problem-section">
+  <!-- Value Section -->
+  <section id="value" class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2>The Problem</h2>
-      <div class="problem-grid">
-        <div class="problem-item">
-          <p>Finance teams reconcile spreadsheets manually</p>
-        </div>
-        <div class="problem-item">
-          <p>Auditors ask questions systems can't answer</p>
-        </div>
-        <div class="problem-item">
-          <p>No one can prove where value went</p>
-        </div>
-        <div class="problem-item">
-          <p>Trust is assumed, not verified</p>
-        </div>
+      <h2 class="pillar-title">Value</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Value doesn't always look like currency anymore. Energy credits, carbon offsets,
+          agricultural commodities &mdash; the economy runs on assets that traditional ledgers can't handle.
+        </p>
+        <p class="proof">
+          Multi-asset architecture handles kilowatt-hours, tonnes of CO<sub>2</sub>, and commodity units
+          with the same rigour as pounds and euros. Proper dimensional typing prevents
+          nonsense calculations. One system, any asset class.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Solution Section -->
-  <section class="section solution-section">
+  <!-- Settle Section -->
+  <section id="settle" class="section pillar-section">
     <div class="section-content">
-      <h2>The Solution</h2>
-      <p class="solution-intro">Meridian makes every transaction provable.</p>
-      <div class="solution-grid">
-        <div class="solution-item">
-          <h3>Measure</h3>
-          <p>Position recorded</p>
-        </div>
-        <div class="solution-item">
-          <h3>Value</h3>
-          <p>Value calculated</p>
-        </div>
-        <div class="solution-item">
-          <h3>Settle</h3>
-          <p>Settlement final</p>
-        </div>
+      <h2 class="pillar-title">Settle</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          When settlement fails, it cascades. Livelihoods depend on money arriving when promised,
+          not stuck in a partial state that requires manual intervention.
+        </p>
+        <p class="proof">
+          Lien-based fund reservation guarantees availability before commitment.
+          Saga orchestration with automatic compensation &mdash; if anything fails,
+          the system unwinds cleanly. Settlement completes or reverts. No orphaned debits.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Why Open Source Section -->
-  <section class="section opensource-section">
+  <!-- Manifesto Section -->
+  <section class="section manifesto-section">
     <div class="section-content">
-      <h2>Why Open Source?</h2>
-      <p class="opensource-intro">Trust infrastructure shouldn't be a privilege.</p>
-      <div class="opensource-grid">
-        <div class="opensource-item">
-          <p>Same tools for banks, NGOs, microfinance, and community organisations</p>
-        </div>
-        <div class="opensource-item">
-          <p>Transparency builds confidence</p>
-        </div>
-        <div class="opensource-item">
-          <p>No vendor lock-in</p>
-        </div>
-      </div>
+      <blockquote class="manifesto">
+        <p>Trust infrastructure shouldn't be a privilege.</p>
+        <p>
+          The same system that serves a multinational bank<br>
+          should serve a village savings group.
+        </p>
+      </blockquote>
+      <p class="manifesto-cta">
+        <a href="https://github.com/meridianhub/meridian" target="_blank" rel="noopener">
+          Open source. Apache 2.0. Inspect every line.
+        </a>
+      </p>
     </div>
   </section>
 
@@ -79,7 +98,7 @@
   <section class="section contact-section">
     <div class="section-content">
       <h2>Get in Touch</h2>
-      <p>Interested in learning more about how Meridian can help your organisation?</p>
+      <p>Building something that needs trust infrastructure?</p>
       <p class="contact-email">
         <a href="mailto:hello@meridianhub.org">hello@meridianhub.org</a>
       </p>
