@@ -1,4 +1,4 @@
-<svg width="280" height="50" viewBox="0 0 280 50" xmlns="http://www.w3.org/2000/svg">
+<svg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
   <!-- Globe icon -->
   <g transform="translate(25,25)">
     <!-- Outer circle -->
@@ -17,6 +17,4 @@
     <circle cx="0" cy="14" r="2.5" fill="#38a169"/>
     <circle cx="0" cy="-14" r="2.5" fill="#38a169"/>
   </g>
-  <!-- Meridian text -->
-  <text x="55" y="35" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="currentColor">Meridian</text>
 </svg>

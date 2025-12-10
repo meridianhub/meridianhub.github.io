@@ -3,14 +3,9 @@
  * Accent: Green (#38a169) - Success/Financial
  */
 
+/* Light mode - override PaperMod defaults */
 :root {
-  --primary: #1a365d;
-  --accent: #38a169;
-}
-
-/* Light mode - PaperMod default */
-body {
-  --theme: #fff;
+  --theme: #ffffff;
   --entry: #f8fafc;
   --primary: #1a365d;
   --secondary: #4a5568;
@@ -18,30 +13,32 @@ body {
   --content: #2d3748;
   --code-bg: #f1f5f9;
   --border: #e2e8f0;
+  --accent: #38a169;
 }
 
-/* Dark mode - PaperMod uses [data-theme="dark"] on :root */
+/* Dark mode - truly dark background */
 :root[data-theme="dark"] {
-  --theme: #1a202c;
-  --entry: #2d3748;
-  --primary: #90cdf4;
-  --secondary: #a0aec0;
-  --tertiary: #4a5568;
-  --content: #e2e8f0;
-  --code-bg: #2d3748;
-  --border: #4a5568;
+  --theme: #0d1117;
+  --entry: #161b22;
+  --primary: #58a6ff;
+  --secondary: #8b949e;
+  --tertiary: #30363d;
+  --content: #c9d1d9;
+  --code-bg: #161b22;
+  --border: #30363d;
+  --accent: #3fb950;
 }
 
 [data-theme="dark"] a {
-  color: #68d391;
+  color: #3fb950;
 }
 
 [data-theme="dark"] a:hover {
-  color: #9ae6b4;
+  color: #56d364;
 }
 
 [data-theme="dark"] .nav a {
-  color: #90cdf4;
+  color: #58a6ff;
 }
 
 /* Links use accent green */
@@ -161,7 +158,7 @@ a:hover {
 }
 
 [data-theme="dark"] .hero-subtagline {
-  color: #68d391;
+  color: #3fb950;
 }
 
 .hero-cta {
@@ -202,13 +199,13 @@ a:hover {
 }
 
 [data-theme="dark"] .btn-secondary {
-  color: #90cdf4;
-  border-color: #90cdf4;
+  color: #58a6ff;
+  border-color: #58a6ff;
 }
 
 [data-theme="dark"] .btn-secondary:hover {
-  background: #90cdf4;
-  color: #1a202c;
+  background: #58a6ff;
+  color: #0d1117;
 }
 
 /* Sections */
