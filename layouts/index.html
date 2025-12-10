@@ -96,8 +96,39 @@
     </div>
   </section>
 
+  <!-- Architecture Section -->
+  <section id="architecture" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">What's Inside</h2>
+      <div class="arch-flow">
+        <div class="arch-domain">
+          <span class="arch-name">CurrentAccount</span>
+          <span class="arch-desc">Customer accounts &amp; balances</span>
+        </div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-domain">
+          <span class="arch-name">PositionKeeping</span>
+          <span class="arch-desc">Immutable transaction log</span>
+        </div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-domain">
+          <span class="arch-name">FinancialAccounting</span>
+          <span class="arch-desc">Double-entry ledger</span>
+        </div>
+        <span class="arch-arrow">&rarr;</span>
+        <div class="arch-domain">
+          <span class="arch-name">PaymentOrder</span>
+          <span class="arch-desc">Saga-based settlement</span>
+        </div>
+      </div>
+      <p class="arch-stats">
+        4 BIAN service domains &bull; Event-driven &bull; Protobuf APIs &bull; BIAN 13.0 compliant
+      </p>
+    </div>
+  </section>
+
   <!-- Why I Built This Section -->
-  <section id="story" class="section pillar-section">
+  <section id="story" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">Why I Built This</h2>
       <div class="pillar-content">

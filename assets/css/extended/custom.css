@@ -551,6 +551,56 @@ a:hover {
   border-bottom-color: var(--accent);
 }
 
+/* Architecture Flow Section */
+.arch-flow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.arch-domain {
+  background: var(--entry);
+  border: 2px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  min-width: 140px;
+}
+
+.arch-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="dark"] .arch-name {
+  color: #7dd3fc;
+}
+
+.arch-desc {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--secondary);
+}
+
+.arch-arrow {
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: 300;
+}
+
+.arch-stats {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  letter-spacing: 0.02em;
+}
+
 /* Responsive: Stakes-first homepage */
 @media (max-width: 768px) {
   .hero-headline {
@@ -576,6 +626,20 @@ a:hover {
 
   .manifesto {
     font-size: 1.25rem;
+  }
+
+  .arch-flow {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .arch-arrow {
+    transform: rotate(90deg);
+  }
+
+  .arch-domain {
+    width: 100%;
+    max-width: 200px;
   }
 }
 
