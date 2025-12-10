@@ -16,6 +16,7 @@
   // We detect mermaid blocks by looking for code starting with mermaid keywords.
   const mermaidKeywords = ['graph ', 'flowchart ', 'sequenceDiagram', 'classDiagram', 'stateDiagram', 'erDiagram', 'gantt', 'pie ', 'gitGraph'];
 
+  // Handle markdown code blocks (pre.chroma > code)
   const codeBlocks = Array.from(document.querySelectorAll('pre.chroma code')).filter(code => {
     const text = code.textContent.trim();
     return mermaidKeywords.some(keyword => text.startsWith(keyword));
@@ -29,8 +30,19 @@
     pre.parentElement.replaceChild(div, pre);
   });
 
-  // Only initialize and run if we found mermaid blocks
-  if (codeBlocks.length > 0) {
+  // Handle direct <pre class="mermaid"> elements (from HTML templates)
+  const preMermaidBlocks = document.querySelectorAll('pre.mermaid');
+  preMermaidBlocks.forEach((pre) => {
+    const div = document.createElement('div');
+    div.className = 'mermaid';
+    div.textContent = pre.textContent;
+    pre.parentElement.replaceChild(div, pre);
+  });
+
+  // Check if we have any mermaid content to render
+  const hasMermaid = codeBlocks.length > 0 || preMermaidBlocks.length > 0;
+
+  if (hasMermaid) {
     mermaid.initialize({
       startOnLoad: false,
       theme: 'neutral',
