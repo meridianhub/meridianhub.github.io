@@ -551,6 +551,24 @@ a:hover {
   border-bottom-color: var(--accent);
 }
 
+/* Architecture Diagram Section */
+.arch-diagram {
+  margin-bottom: 2rem;
+  overflow-x: auto;
+}
+
+.arch-diagram .mermaid {
+  display: flex;
+  justify-content: center;
+}
+
+.arch-stats {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--secondary);
+  letter-spacing: 0.02em;
+}
+
 /* Responsive: Stakes-first homepage */
 @media (max-width: 768px) {
   .hero-headline {
