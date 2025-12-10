@@ -55,6 +55,23 @@ Deploy on-premises with a single cluster under your control. Your organisation s
 
 A typical payment flows through the system:
 
+```mermaid
+sequenceDiagram
+    participant Client as Your System
+    participant Meridian as Meridian
+    participant Bank as Payment Network
+
+    Client->>Meridian: 1. Initiate Payment
+    Note over Meridian: Validate & Reserve Funds
+    Meridian->>Meridian: 2. Record Position
+    Meridian->>Bank: 3. Execute Payment
+    Bank-->>Meridian: Confirmation
+    Meridian->>Meridian: 4. Post to Ledger
+    Meridian-->>Client: 5. Complete ✓
+
+    Note over Client,Bank: If anything fails, automatic rollback
+```
+
 1. **Initiate** - Payment request received with idempotency guarantee
 2. **Reserve** - Funds held via lien, available balance reduced
 3. **Record** - Position logged with full audit context
@@ -73,6 +90,26 @@ If anything fails, automatic compensation unwinds the transaction. Liens release
 Meridian follows Banking Industry Architecture Network (BIAN) service domain patterns. The same architectural language used by major global banks structures our services.
 
 This isn't arbitrary design. BIAN provides proven boundaries between account management, position keeping, financial accounting, and payment processing.
+
+```mermaid
+graph TB
+    subgraph BIAN["BIAN Service Domains"]
+        CA[Account Management]
+        PK[Position Keeping]
+        FA[Financial Accounting]
+        PO[Payment Processing]
+    end
+
+    CA --> PK
+    CA --> FA
+    PO --> CA
+
+    style BIAN fill:#f5f5f5,stroke:#424242
+    style CA fill:#bbdefb,stroke:#1976d2
+    style PK fill:#c8e6c9,stroke:#388e3c
+    style FA fill:#ffe0b2,stroke:#f57c00
+    style PO fill:#e1bee7,stroke:#7b1fa2
+```
 
 ### ISO 20022 Ready
 
