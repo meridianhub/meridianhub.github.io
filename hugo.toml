@@ -69,7 +69,11 @@ enableEmoji = false
     style = "monokai"
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true  # Allow raw HTML for Mermaid diagrams
+      # SECURITY NOTE: unsafe=true is required for Mermaid.js diagram rendering.
+      # Mermaid uses raw HTML in markdown code blocks (```mermaid).
+      # Only enable this because content is author-controlled (not user-submitted).
+      # See: https://gohugo.io/getting-started/configuration-markup/#goldmark
+      unsafe = true
 
 # PaperMod theme parameters
 [params]

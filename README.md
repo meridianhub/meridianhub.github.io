@@ -2,7 +2,7 @@
 
 Marketing and documentation site for [Meridian](https://github.com/meridianhub/meridian), the BIAN-compliant open banking ledger.
 
-**Live site**: https://www.meridianhub.org
+**Live site**: [www.meridianhub.org](https://www.meridianhub.org)
 
 ## Local Development
 
@@ -41,7 +41,7 @@ brew install hugo
 
 ## Project Structure
 
-```
+```text
 .
 ├── content/          # Markdown content
 │   ├── features/     # BIAN service domain pages

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Hugo static site deployed to GitHub Pages at www.meridianhub.org. The site uses Hugo Extended 0.128.0 with Dart Sass support and the PaperMod theme.
+This is a Hugo static site deployed to GitHub Pages at [www.meridianhub.org](https://www.meridianhub.org). The site uses Hugo Extended 0.128.0 with Dart Sass support and the PaperMod theme.
 
 ## Build Commands
 
