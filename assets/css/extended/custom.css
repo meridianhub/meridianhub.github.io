@@ -8,7 +8,7 @@
   --accent: #38a169;
 }
 
-/* Override PaperMod theme colours for light mode */
+/* Light mode - PaperMod default */
 body {
   --theme: #fff;
   --entry: #f8fafc;
@@ -18,6 +18,30 @@ body {
   --content: #2d3748;
   --code-bg: #f1f5f9;
   --border: #e2e8f0;
+}
+
+/* Dark mode - PaperMod uses .dark class */
+.dark {
+  --theme: #1a202c;
+  --entry: #2d3748;
+  --primary: #90cdf4;
+  --secondary: #a0aec0;
+  --tertiary: #4a5568;
+  --content: #e2e8f0;
+  --code-bg: #2d3748;
+  --border: #4a5568;
+}
+
+.dark a {
+  color: #68d391;
+}
+
+.dark a:hover {
+  color: #9ae6b4;
+}
+
+.dark .nav a {
+  color: #90cdf4;
 }
 
 /* Links use accent green */

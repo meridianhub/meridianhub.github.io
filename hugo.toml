@@ -109,7 +109,7 @@ enableEmoji = false
     Content = """
 BIAN-compliant, production-grade core banking engine.
 
-**Read. Bill. Collect. For any asset.**
+**Measure. Value. Settle.**
 
 Built with Go, Protocol Buffers, Kafka, and distributed SQL.
 """
