@@ -14,7 +14,8 @@
   // Hugo renders ```mermaid blocks as <pre><code class="language-mermaid">
   // Mermaid.js expects <pre class="mermaid"> or <div class="mermaid">
   // Convert Hugo's output to mermaid-compatible format
-  document.querySelectorAll('pre code.language-mermaid').forEach((codeBlock) => {
+  const codeBlocks = document.querySelectorAll('pre code.language-mermaid');
+  codeBlocks.forEach((codeBlock) => {
     const pre = codeBlock.parentElement;
     const div = document.createElement('div');
     div.className = 'mermaid';
@@ -22,18 +23,19 @@
     pre.parentElement.replaceChild(div, pre);
   });
 
-  // Initialize with startOnLoad: false since DOMContentLoaded has already fired
-  // by the time ES modules execute. We manually trigger rendering after conversion.
-  mermaid.initialize({
-    startOnLoad: false,
-    theme: 'neutral',
-    securityLevel: 'loose',
-    flowchart: {
-      useMaxWidth: true,
-      htmlLabels: true
-    }
-  });
+  // Only initialize and run if we found mermaid blocks
+  if (codeBlocks.length > 0) {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'neutral',
+      securityLevel: 'loose',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true
+      }
+    });
 
-  // Manually render all .mermaid elements
-  await mermaid.run();
+    // Manually render all .mermaid elements
+    mermaid.run().catch(err => console.error('Mermaid render error:', err));
+  }
 </script>
