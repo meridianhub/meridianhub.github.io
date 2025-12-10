@@ -38,9 +38,9 @@ enableEmoji = false
     url = "/api/"
     weight = 30
   [[menu.main]]
-    identifier = "roadmap"
-    name = "Roadmap"
-    url = "/roadmap/"
+    identifier = "who-its-for"
+    name = "Who It's For"
+    url = "/who-its-for/"
     weight = 40
   [[menu.main]]
     identifier = "github"
