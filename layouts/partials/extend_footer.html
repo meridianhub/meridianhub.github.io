@@ -11,10 +11,16 @@
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 
-  // Hugo renders ```mermaid blocks as <pre><code class="language-mermaid">
-  // Mermaid.js expects <pre class="mermaid"> or <div class="mermaid">
-  // Convert Hugo's output to mermaid-compatible format
-  const codeBlocks = document.querySelectorAll('pre code.language-mermaid');
+  // Hugo/Chroma renders ```mermaid blocks as <pre class="chroma"><code class="language-fallback">
+  // because Chroma doesn't recognize "mermaid" as a language.
+  // We detect mermaid blocks by looking for code starting with mermaid keywords.
+  const mermaidKeywords = ['graph ', 'flowchart ', 'sequenceDiagram', 'classDiagram', 'stateDiagram', 'erDiagram', 'gantt', 'pie ', 'gitGraph'];
+
+  const codeBlocks = Array.from(document.querySelectorAll('pre.chroma code')).filter(code => {
+    const text = code.textContent.trim();
+    return mermaidKeywords.some(keyword => text.startsWith(keyword));
+  });
+
   codeBlocks.forEach((codeBlock) => {
     const pre = codeBlock.parentElement;
     const div = document.createElement('div');
