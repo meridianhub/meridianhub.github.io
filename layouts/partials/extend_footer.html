@@ -22,8 +22,10 @@
     pre.parentElement.replaceChild(div, pre);
   });
 
+  // Initialize with startOnLoad: false since DOMContentLoaded has already fired
+  // by the time ES modules execute. We manually trigger rendering after conversion.
   mermaid.initialize({
-    startOnLoad: true,
+    startOnLoad: false,
     theme: 'neutral',
     securityLevel: 'loose',
     flowchart: {
@@ -31,4 +33,7 @@
       htmlLabels: true
     }
   });
+
+  // Manually render all .mermaid elements
+  await mermaid.run();
 </script>
