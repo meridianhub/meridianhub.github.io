@@ -395,3 +395,204 @@ a:hover {
     text-align: center;
   }
 }
+
+/* ==============================================
+   Stakes-First Homepage Redesign
+   ============================================== */
+
+/* Hero: Stakes-first headline */
+.hero-headline {
+  font-size: 2.25rem;
+  font-weight: 400;
+  color: var(--content);
+  margin-bottom: 2.5rem;
+  line-height: 1.4;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hero: Three-word navigation */
+.hero-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.hero-word {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.hero-word:hover {
+  color: var(--accent);
+}
+
+[data-theme="dark"] .hero-word {
+  color: #7dd3fc;
+}
+
+[data-theme="dark"] .hero-word:hover {
+  color: #4ade80;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  margin: 0 0.75rem;
+}
+
+.hero-subtext {
+  font-size: 1.125rem;
+  color: var(--secondary);
+  font-style: italic;
+}
+
+/* Pillar Sections (Measure, Value, Settle) */
+.pillar-section {
+  background: var(--theme);
+}
+
+.pillar-section.pillar-alt {
+  background: var(--entry);
+}
+
+.pillar-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+[data-theme="dark"] .pillar-title {
+  color: #7dd3fc;
+}
+
+.pillar-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Stakes: The human cost (italic, softer) */
+.stakes {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--secondary);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  border-left: 3px solid #e53e3e;
+}
+
+/* Proof: Technical backing (monospace feel, confident) */
+.proof {
+  font-size: 1rem;
+  color: var(--content);
+  line-height: 1.8;
+  padding-left: 1rem;
+  border-left: 3px solid var(--accent);
+}
+
+/* Manifesto Section */
+.manifesto-section {
+  background: var(--entry);
+  text-align: center;
+}
+
+.manifesto {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--content);
+  border: none;
+  margin: 0 0 2rem 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.manifesto p {
+  margin: 0 0 0.75rem 0;
+}
+
+.manifesto p:first-child {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+[data-theme="dark"] .manifesto p:first-child {
+  color: #7dd3fc;
+}
+
+.manifesto-cta {
+  margin-top: 1.5rem;
+}
+
+.manifesto-cta a {
+  font-size: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.manifesto-cta a:hover {
+  border-bottom-color: var(--accent);
+}
+
+/* Responsive: Stakes-first homepage */
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: 1.75rem;
+  }
+
+  .hero-nav {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero-dot {
+    display: none;
+  }
+
+  .hero-word {
+    font-size: 2rem;
+  }
+
+  .pillar-title {
+    font-size: 2rem;
+  }
+
+  .manifesto {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-headline {
+    font-size: 1.5rem;
+  }
+
+  .hero-word {
+    font-size: 1.75rem;
+  }
+
+  .pillar-title {
+    font-size: 1.75rem;
+  }
+
+  .stakes,
+  .proof {
+    padding-left: 0.75rem;
+  }
+}
