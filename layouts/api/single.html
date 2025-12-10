@@ -1,0 +1,44 @@
+{{ define "main" }}
+<div class="api-docs">
+  <link rel="stylesheet" href="/swagger/swagger-ui.css" />
+  <div id="swagger-ui"></div>
+  <script src="/swagger/swagger-ui-bundle.js"></script>
+  <script>
+    window.onload = function() {
+      SwaggerUIBundle({
+        url: "/swagger/openapi.json",
+        dom_id: '#swagger-ui',
+        deepLinking: true,
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIBundle.SwaggerUIStandalonePreset
+        ],
+        layout: "BaseLayout",
+        defaultModelsExpandDepth: 1,
+        defaultModelExpandDepth: 1,
+        docExpansion: "list",
+        filter: true,
+        showExtensions: true,
+        showCommonExtensions: true,
+        tryItOutEnabled: false
+      });
+    };
+  </script>
+</div>
+
+<style>
+  .api-docs {
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  .swagger-ui .topbar {
+    display: none;
+  }
+  .swagger-ui .info {
+    margin: 20px 0;
+  }
+  .swagger-ui .scheme-container {
+    display: none;
+  }
+</style>
+{{ end }}
