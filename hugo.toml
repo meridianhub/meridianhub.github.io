@@ -1,0 +1,134 @@
+baseURL = 'https://www.meridianhub.org/'
+languageCode = 'en-gb'
+title = 'Meridian - Open Banking Ledger'
+theme = 'PaperMod'
+
+# Build settings
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = false
+
+# Pagination
+[pagination]
+  pagerSize = 10
+
+# Taxonomies
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+  service = "services"
+
+# Menu
+[menu]
+  [[menu.main]]
+    identifier = "features"
+    name = "Features"
+    url = "/features/"
+    weight = 10
+  [[menu.main]]
+    identifier = "architecture"
+    name = "Architecture"
+    url = "/architecture/"
+    weight = 20
+  [[menu.main]]
+    identifier = "api"
+    name = "API"
+    url = "/api/"
+    weight = 30
+  [[menu.main]]
+    identifier = "roadmap"
+    name = "Roadmap"
+    url = "/roadmap/"
+    weight = 40
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/meridianhub/meridian"
+    weight = 50
+
+# Minify output
+[minify]
+  disableCSS = false
+  disableHTML = false
+  disableJS = false
+  disableJSON = false
+  disableSVG = false
+  disableXML = false
+  minifyOutput = true
+
+# Markup settings
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    noClasses = false
+    style = "monokai"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allow raw HTML for Mermaid diagrams
+
+# PaperMod theme parameters
+[params]
+  env = "production"
+  description = "BIAN-Compliant Open Banking Ledger - Production-grade, cloud-native core banking engine"
+  author = "Meridian Hub"
+
+  # Branding colours
+  # Primary: Deep Blue (#1a365d) - Enterprise/Trust
+  # Accent: Green (#38a169) - Success/Financial
+
+  defaultTheme = "light"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = false
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+
+  # Home page
+  [params.homeInfoParams]
+    Title = "The Open Banking Ledger"
+    Content = """
+BIAN-compliant, production-grade core banking engine.
+
+**Read. Bill. Collect. For any asset.**
+
+Built with Go, Protocol Buffers, Kafka, and distributed SQL.
+"""
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/meridianhub/meridian"
+
+  # Search
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ["title", "permalink", "summary", "content"]
+
+# Output formats
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Sitemap
+[sitemap]
+  changeFreq = "weekly"
+  priority = 0.5
