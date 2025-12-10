@@ -44,12 +44,52 @@
 
   if (hasMermaid) {
     // Detect dark mode from PaperMod's data-theme attribute
-    const getTheme = () => document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'neutral';
+    const isDarkMode = () => document.documentElement.getAttribute('data-theme') === 'dark';
+
+    // Theme variables matching site's CSS custom properties
+    const darkThemeVars = {
+      background: '#1a1f2e',
+      primaryColor: '#242b3d',
+      primaryTextColor: '#e2e8f0',
+      primaryBorderColor: '#334155',
+      secondaryColor: '#334155',
+      secondaryTextColor: '#e2e8f0',
+      tertiaryColor: '#242b3d',
+      lineColor: '#4ade80',
+      textColor: '#e2e8f0',
+      actorTextColor: '#e2e8f0',
+      actorLineColor: '#4ade80',
+      signalColor: '#e2e8f0',
+      signalTextColor: '#1a1f2e',
+      noteBkgColor: '#334155',
+      noteTextColor: '#e2e8f0',
+      noteBorderColor: '#4ade80'
+    };
+
+    const lightThemeVars = {
+      background: '#ffffff',
+      primaryColor: '#f8fafc',
+      primaryTextColor: '#2d3748',
+      primaryBorderColor: '#e2e8f0',
+      secondaryColor: '#e2e8f0',
+      secondaryTextColor: '#2d3748',
+      tertiaryColor: '#f8fafc',
+      lineColor: '#38a169',
+      textColor: '#2d3748',
+      actorTextColor: '#2d3748',
+      actorLineColor: '#38a169',
+      signalColor: '#2d3748',
+      signalTextColor: '#ffffff',
+      noteBkgColor: '#f8fafc',
+      noteTextColor: '#2d3748',
+      noteBorderColor: '#38a169'
+    };
 
     const renderMermaid = () => {
       mermaid.initialize({
         startOnLoad: false,
-        theme: getTheme(),
+        theme: 'base',
+        themeVariables: isDarkMode() ? darkThemeVars : lightThemeVars,
         securityLevel: 'loose',
         flowchart: {
           useMaxWidth: true,
