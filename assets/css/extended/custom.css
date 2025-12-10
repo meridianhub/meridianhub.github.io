@@ -16,29 +16,29 @@
   --accent: #38a169;
 }
 
-/* Dark mode - truly dark background */
+/* Dark mode - softer dark background */
 :root[data-theme="dark"] {
-  --theme: #0d1117;
-  --entry: #161b22;
-  --primary: #58a6ff;
-  --secondary: #8b949e;
-  --tertiary: #30363d;
-  --content: #c9d1d9;
-  --code-bg: #161b22;
-  --border: #30363d;
-  --accent: #3fb950;
+  --theme: #1a1f2e;
+  --entry: #242b3d;
+  --primary: #7dd3fc;
+  --secondary: #94a3b8;
+  --tertiary: #334155;
+  --content: #e2e8f0;
+  --code-bg: #242b3d;
+  --border: #334155;
+  --accent: #4ade80;
 }
 
 [data-theme="dark"] a {
-  color: #3fb950;
+  color: #4ade80;
 }
 
 [data-theme="dark"] a:hover {
-  color: #56d364;
+  color: #86efac;
 }
 
 [data-theme="dark"] .nav a {
-  color: #58a6ff;
+  color: #7dd3fc;
 }
 
 /* Links use accent green */
@@ -158,7 +158,7 @@ a:hover {
 }
 
 [data-theme="dark"] .hero-subtagline {
-  color: #3fb950;
+  color: #4ade80;
 }
 
 .hero-cta {
@@ -187,6 +187,17 @@ a:hover {
   color: #fff;
 }
 
+/* Ensure button text is always white, override link colour */
+[data-theme="dark"] .btn-primary {
+  background: #4ade80;
+  color: #1a1f2e;
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: #86efac;
+  color: #1a1f2e;
+}
+
 .btn-secondary {
   background: transparent;
   color: var(--primary);
@@ -199,13 +210,13 @@ a:hover {
 }
 
 [data-theme="dark"] .btn-secondary {
-  color: #58a6ff;
-  border-color: #58a6ff;
+  color: #7dd3fc;
+  border-color: #7dd3fc;
 }
 
 [data-theme="dark"] .btn-secondary:hover {
-  background: #58a6ff;
-  color: #0d1117;
+  background: #7dd3fc;
+  color: #1a1f2e;
 }
 
 /* Sections */
