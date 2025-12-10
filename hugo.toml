@@ -28,9 +28,9 @@ enableEmoji = false
     url = "/features/"
     weight = 10
   [[menu.main]]
-    identifier = "architecture"
-    name = "Architecture"
-    url = "/architecture/"
+    identifier = "compliance"
+    name = "Compliance"
+    url = "/compliance/"
     weight = 20
   [[menu.main]]
     identifier = "api"
@@ -79,7 +79,7 @@ enableEmoji = false
 [params]
   env = "production"
   description = "Open source treasury infrastructure for the modern economy. Measure. Value. Settle."
-  author = "Meridian Hub"
+  author = "Meridian"
 
   # Favicon
   favicon = "/favicon.svg"
