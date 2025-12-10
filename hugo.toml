@@ -78,8 +78,11 @@ enableEmoji = false
 # PaperMod theme parameters
 [params]
   env = "production"
-  description = "BIAN-Compliant Open Banking Ledger - Production-grade, cloud-native core banking engine"
+  description = "Open source treasury infrastructure for the modern economy. Measure. Value. Settle."
   author = "Meridian Hub"
+
+  # Favicon
+  favicon = "/favicon.svg"
 
   # Branding colours
   # Primary: Deep Blue (#1a365d) - Enterprise/Trust
@@ -105,13 +108,11 @@ enableEmoji = false
 
   # Home page
   [params.homeInfoParams]
-    Title = "The Open Banking Ledger"
+    Title = "Trust Your Numbers"
     Content = """
-BIAN-compliant, production-grade core banking engine.
+Open source treasury infrastructure for the modern economy.
 
 **Measure. Value. Settle.**
-
-Built with Go, Protocol Buffers, Kafka, and distributed SQL.
 """
 
   [[params.socialIcons]]

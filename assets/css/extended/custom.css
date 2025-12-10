@@ -112,3 +112,273 @@ a:hover {
   background: #fed7d7;
   color: #9b2c2c;
 }
+
+/* ==============================================
+   Landing Page Styles
+   ============================================== */
+
+.landing-page {
+  max-width: 100%;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 1.5rem 5rem;
+  background: linear-gradient(135deg, var(--theme) 0%, var(--entry) 100%);
+}
+
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtagline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+
+.dark .hero-subtagline {
+  color: #68d391;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  border-radius: 6px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2f855a;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.dark .btn-secondary {
+  color: #90cdf4;
+  border-color: #90cdf4;
+}
+
+.dark .btn-secondary:hover {
+  background: #90cdf4;
+  color: #1a202c;
+}
+
+/* Sections */
+.section {
+  padding: 4rem 1.5rem;
+}
+
+.section-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.section h2 {
+  font-size: 2rem;
+  color: var(--primary);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Problem Section */
+.problem-section {
+  background: var(--entry);
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.problem-item {
+  padding: 1.5rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border-left: 4px solid #e53e3e;
+  text-align: center;
+}
+
+.problem-item p {
+  margin: 0;
+  color: var(--content);
+}
+
+/* Solution Section */
+.solution-section {
+  background: var(--theme);
+}
+
+.solution-intro {
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--content);
+  margin-bottom: 2rem;
+}
+
+.solution-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.solution-item {
+  padding: 2rem;
+  background: var(--entry);
+  border-radius: 8px;
+  border-top: 4px solid var(--accent);
+}
+
+.solution-item h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.solution-item p {
+  color: var(--secondary);
+  margin: 0;
+}
+
+/* Open Source Section */
+.opensource-section {
+  background: var(--entry);
+}
+
+.opensource-intro {
+  text-align: center;
+  font-size: 1.25rem;
+  color: var(--content);
+  margin-bottom: 2rem;
+}
+
+.opensource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.opensource-item {
+  padding: 1.5rem;
+  background: var(--theme);
+  border-radius: 8px;
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
+}
+
+.opensource-item p {
+  margin: 0;
+  color: var(--content);
+}
+
+/* Contact Section */
+.contact-section {
+  background: var(--theme);
+  text-align: center;
+}
+
+.contact-section p {
+  color: var(--content);
+  margin-bottom: 1rem;
+}
+
+.contact-email {
+  margin-top: 1.5rem;
+}
+
+.contact-email a {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.contact-email a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+  }
+
+  .solution-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 3rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem 4rem;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.125rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
