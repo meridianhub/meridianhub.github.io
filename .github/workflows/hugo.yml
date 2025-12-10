@@ -54,6 +54,7 @@ jobs:
         run: |
           cd meridian
           buf generate
+          mkdir -p ../static/swagger
           cp api/openapi/meridian.swagger.json ../static/swagger/openapi.json
       - name: Setup Pages
         id: pages
