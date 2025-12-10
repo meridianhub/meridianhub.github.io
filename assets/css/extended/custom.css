@@ -20,8 +20,8 @@ body {
   --border: #e2e8f0;
 }
 
-/* Dark mode - PaperMod uses .dark class */
-.dark {
+/* Dark mode - PaperMod uses [data-theme="dark"] on :root */
+:root[data-theme="dark"] {
   --theme: #1a202c;
   --entry: #2d3748;
   --primary: #90cdf4;
@@ -32,15 +32,15 @@ body {
   --border: #4a5568;
 }
 
-.dark a {
+[data-theme="dark"] a {
   color: #68d391;
 }
 
-.dark a:hover {
+[data-theme="dark"] a:hover {
   color: #9ae6b4;
 }
 
-.dark .nav a {
+[data-theme="dark"] .nav a {
   color: #90cdf4;
 }
 
@@ -55,6 +55,11 @@ a:hover {
 
 /* Navigation styling */
 .nav a {
+  color: var(--primary);
+}
+
+/* Logo inherits header text color */
+.logo img {
   color: var(--primary);
 }
 
@@ -155,7 +160,7 @@ a:hover {
   letter-spacing: 0.05em;
 }
 
-.dark .hero-subtagline {
+[data-theme="dark"] .hero-subtagline {
   color: #68d391;
 }
 
@@ -196,12 +201,12 @@ a:hover {
   color: #fff;
 }
 
-.dark .btn-secondary {
+[data-theme="dark"] .btn-secondary {
   color: #90cdf4;
   border-color: #90cdf4;
 }
 
-.dark .btn-secondary:hover {
+[data-theme="dark"] .btn-secondary:hover {
   background: #90cdf4;
   color: #1a202c;
 }
