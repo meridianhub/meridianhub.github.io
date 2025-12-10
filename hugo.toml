@@ -84,6 +84,12 @@ enableEmoji = false
   # Favicon
   favicon = "/favicon.svg"
 
+  # Logo in header
+  [params.label]
+    text = "Meridian"
+    icon = "/images/logo.svg"
+    iconHeight = 35
+
   # Branding colours
   # Primary: Deep Blue (#1a365d) - Enterprise/Trust
   # Accent: Green (#38a169) - Success/Financial
