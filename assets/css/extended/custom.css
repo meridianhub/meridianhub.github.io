@@ -1,0 +1,90 @@
+/* Meridian Hub Branding
+ * Primary: Deep Blue (#1a365d) - Enterprise/Trust
+ * Accent: Green (#38a169) - Success/Financial
+ */
+
+:root {
+  --primary: #1a365d;
+  --accent: #38a169;
+}
+
+/* Override PaperMod theme colours for light mode */
+body {
+  --theme: #fff;
+  --entry: #f8fafc;
+  --primary: #1a365d;
+  --secondary: #4a5568;
+  --tertiary: #e2e8f0;
+  --content: #2d3748;
+  --code-bg: #f1f5f9;
+  --border: #e2e8f0;
+}
+
+/* Links use accent green */
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: #2f855a;
+}
+
+/* Navigation styling */
+.nav a {
+  color: var(--primary);
+}
+
+/* Hero section */
+.first-entry .entry-content {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* Code blocks */
+.post-content pre {
+  border-left: 3px solid var(--accent);
+}
+
+/* Feature grid (for future use) */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--entry);
+}
+
+.feature-card h3 {
+  color: var(--primary);
+  margin-top: 0;
+}
+
+/* Status badges for ADRs */
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-accepted {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.status-proposed {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-deprecated {
+  background: #fed7d7;
+  color: #9b2c2c;
+}
