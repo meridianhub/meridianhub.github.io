@@ -1,1 +1,5 @@
 .hugo_build.lock
+public/
+
+# Generated during CI from meridian repo
+static/swagger/openapi.json
