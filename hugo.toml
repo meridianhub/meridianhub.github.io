@@ -33,11 +33,6 @@ enableEmoji = false
     url = "/compliance/"
     weight = 20
   [[menu.main]]
-    identifier = "api"
-    name = "API"
-    url = "/api/"
-    weight = 30
-  [[menu.main]]
     identifier = "who-its-for"
     name = "Who It's For"
     url = "/who-its-for/"
