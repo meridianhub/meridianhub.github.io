@@ -85,6 +85,11 @@
       noteBorderColor: '#38a169'
     };
 
+    // Store original mermaid source BEFORE rendering (critical for theme toggle)
+    document.querySelectorAll('.mermaid').forEach(el => {
+      el.setAttribute('data-original', el.textContent);
+    });
+
     const renderMermaid = () => {
       mermaid.initialize({
         startOnLoad: false,
@@ -106,10 +111,13 @@
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.attributeName === 'data-theme') {
-          // Clear existing diagrams and re-render
-          document.querySelectorAll('.mermaid[data-processed="true"]').forEach(el => {
-            el.removeAttribute('data-processed');
-            el.innerHTML = el.getAttribute('data-original') || el.textContent;
+          // Restore original source and re-render
+          document.querySelectorAll('.mermaid').forEach(el => {
+            const original = el.getAttribute('data-original');
+            if (original) {
+              el.removeAttribute('data-processed');
+              el.innerHTML = original;
+            }
           });
           renderMermaid();
         }
@@ -117,10 +125,5 @@
     });
 
     observer.observe(document.documentElement, { attributes: true });
-
-    // Store original content for re-rendering
-    document.querySelectorAll('.mermaid').forEach(el => {
-      el.setAttribute('data-original', el.textContent);
-    });
   }
 </script>
