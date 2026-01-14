@@ -6,6 +6,10 @@ on:
   push:
     branches: ["main"]
 
+  # Rebuild on Jan 1st to update copyright year
+  schedule:
+    - cron: '5 0 1 1 *'
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -56,6 +60,14 @@ jobs:
           hugo \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+      - name: Validate copyright year
+        run: |
+          CURRENT_YEAR=$(date +%Y)
+          if ! grep -q "© ${CURRENT_YEAR}" ./public/index.html; then
+            echo "::error::Copyright year is not ${CURRENT_YEAR}"
+            exit 1
+          fi
+          echo "Copyright year validated: ${CURRENT_YEAR}"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
