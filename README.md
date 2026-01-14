@@ -1,6 +1,6 @@
 # Meridian Hub Website
 
-Marketing and documentation site for [Meridian](https://github.com/meridianhub/meridian), the BIAN-compliant open banking ledger.
+Marketing and documentation site for [Meridian](https://github.com/meridianhub/meridian), the BIAN-compliant source-available treasury infrastructure.
 
 **Live site**: [www.meridianhub.org](https://www.meridianhub.org)
 
@@ -66,4 +66,6 @@ Feature pages, API reference, and architecture documentation are auto-generated 
 
 ## License
 
-Apache License 2.0
+Business Source License 1.1 - See [LICENSE](LICENSE) file for details.
+
+Same licensing as the [Meridian](https://github.com/meridianhub/meridian) project. Converts to Apache 2.0 on January 14, 2030.
