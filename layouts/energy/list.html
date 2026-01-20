@@ -112,6 +112,110 @@ sequenceDiagram
     </div>
   </section>
 
+  <!-- Double Entry: Two Valuations -->
+  <section id="double-entry" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">One Read, Two Valuations</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Your customer pays a fixed rate. You pay wholesale. Same kWh, different values.
+        </p>
+        <p class="proof">
+          Double-entry bookkeeping. Every meter read creates two positions: revenue at the customer's tariff,
+          cost at the GSP wholesale price. The difference is your margin&mdash;visible in real time.
+        </p>
+      </div>
+
+      <div class="double-entry-diagram">
+        <div class="de-row de-header">
+          <span>Meter Read</span>
+          <span></span>
+          <span>Position</span>
+        </div>
+        <div class="de-row">
+          <span class="de-input">100 kWh</span>
+          <span class="de-arrow">&rarr;</span>
+          <span class="de-output">
+            <span class="de-revenue">Revenue: 100 kWh &times; 24p = &pound;24.00</span>
+            <span class="de-cost">Cost: 100 kWh &times; 28p = &pound;28.00</span>
+            <span class="de-margin de-negative">Margin: -&pound;4.00</span>
+          </span>
+        </div>
+      </div>
+
+      <p class="de-insight">
+        This customer is underwater. You know it now, not at month-end.
+      </p>
+    </div>
+  </section>
+
+  <!-- Dashboard Wireframe -->
+  <section id="dashboard" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">What Your Dashboard Could Show</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          You have dashboards. But can they answer "which GSP is hurting us?" in one click?
+        </p>
+        <p class="proof">
+          With positions, this is a table, not a project.
+        </p>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>GSP</th>
+              <th>Consumption</th>
+              <th>Revenue</th>
+              <th>Cost</th>
+              <th>Margin</th>
+              <th>Open Exceptions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_A (East Midlands)</td>
+              <td>1.2M kWh</td>
+              <td>&pound;288,000</td>
+              <td>&pound;264,000</td>
+              <td class="positive">&pound;24,000</td>
+              <td>12</td>
+            </tr>
+            <tr>
+              <td>_B (South Wales)</td>
+              <td>890K kWh</td>
+              <td>&pound;213,600</td>
+              <td>&pound;231,400</td>
+              <td class="negative">-&pound;17,800</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td>_C (South East)</td>
+              <td>2.1M kWh</td>
+              <td>&pound;504,000</td>
+              <td>&pound;483,000</td>
+              <td class="positive">&pound;21,000</td>
+              <td>23</td>
+            </tr>
+            <tr class="total-row">
+              <td>Total</td>
+              <td>4.19M kWh</td>
+              <td>&pound;1,005,600</td>
+              <td>&pound;978,400</td>
+              <td class="positive">&pound;27,200</td>
+              <td>43</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          GSP _B is underwater. 8 open exceptions need resolution before billing.
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- What You Can Query -->
   <section id="queries" class="section pillar-section">
     <div class="section-content">
