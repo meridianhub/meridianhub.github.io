@@ -29,8 +29,8 @@
 
       <div class="problem-cards">
         <div class="problem-card">
-          <h3>Exceptions Are Invisible</h3>
-          <p>A failed meter read is a log entry. An engineer spots it. Maybe. Days later.</p>
+          <h3>Data Quality Is Invisible</h3>
+          <p>Which reads are estimates? Which are validated? A spreadsheet somewhere knows. You don't.</p>
         </div>
         <div class="problem-card">
           <h3>Intelligence Is Siloed</h3>
@@ -99,15 +99,16 @@ sequenceDiagram
     participant Ledger as Ledger
 
     Meter->>Meridian: 1. Consumption (kWh)
-    Meridian->>Meridian: 2. Value at GSP price
-    Meridian->>Ledger: 3. Record position
-    Note over Ledger: kWh in, GBP owed
+    Meridian->>Meridian: 2a. Value at customer tariff
+    Meridian->>Meridian: 2b. Value at GSP wholesale
+    Meridian->>Ledger: 3. Record both positions
+    Note over Ledger: Revenue + Cost = Margin
 
     Note over Meter,Ledger: No data? Position stays open.
         </pre>
       </div>
       <p class="arch-stats">
-        Event-driven &bull; GSP-level valuation &bull; Position-based exceptions
+        Event-driven &bull; Dual valuation &bull; Full audit trail
       </p>
     </div>
   </section>
@@ -166,51 +167,45 @@ sequenceDiagram
         <table class="wireframe-table">
           <thead>
             <tr>
-              <th>GSP</th>
+              <th>Customer</th>
+              <th>Fuel</th>
               <th>Consumption</th>
               <th>Revenue</th>
               <th>Cost</th>
               <th>Margin</th>
-              <th>Open Exceptions</th>
+              <th>Data Quality</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>_A (East Midlands)</td>
-              <td>1.2M kWh</td>
-              <td>&pound;288,000</td>
-              <td>&pound;264,000</td>
-              <td class="positive">&pound;24,000</td>
-              <td>12</td>
+              <td rowspan="3">Acme Ltd</td>
+              <td>Electric</td>
+              <td>12,400 kWh</td>
+              <td>&pound;2,976</td>
+              <td>&pound;2,728</td>
+              <td class="positive">&pound;248</td>
+              <td class="quality-high">Validated</td>
             </tr>
             <tr>
-              <td>_B (South Wales)</td>
-              <td>890K kWh</td>
-              <td>&pound;213,600</td>
-              <td>&pound;231,400</td>
-              <td class="negative">-&pound;17,800</td>
-              <td>8</td>
+              <td>Gas</td>
+              <td>8,200 kWh</td>
+              <td>&pound;574</td>
+              <td>&pound;697</td>
+              <td class="negative">-&pound;123</td>
+              <td class="quality-mid">Estimated</td>
             </tr>
-            <tr>
-              <td>_C (South East)</td>
-              <td>2.1M kWh</td>
-              <td>&pound;504,000</td>
-              <td>&pound;483,000</td>
-              <td class="positive">&pound;21,000</td>
-              <td>23</td>
-            </tr>
-            <tr class="total-row">
-              <td>Total</td>
-              <td>4.19M kWh</td>
-              <td>&pound;1,005,600</td>
-              <td>&pound;978,400</td>
-              <td class="positive">&pound;27,200</td>
-              <td>43</td>
+            <tr class="subtotal-row">
+              <td>Combined</td>
+              <td>20,600 kWh</td>
+              <td>&pound;3,550</td>
+              <td>&pound;3,425</td>
+              <td class="positive">&pound;125</td>
+              <td>&mdash;</td>
             </tr>
           </tbody>
         </table>
         <p class="wireframe-note">
-          GSP _B is underwater. 8 open exceptions need resolution before billing.
+          One bill, two fuels. Electric profitable, gas underwater. Gas position estimated&mdash;awaiting actual read.
         </p>
       </div>
     </div>
@@ -241,9 +236,9 @@ sequenceDiagram
           <p class="query-answer">Position-level tracking of wholesale cost vs. contracted rate. Know your exposure before it becomes a loss.</p>
         </div>
         <div class="query-card">
-          <h3>Exception Rate</h3>
+          <h3>Data Quality</h3>
           <p class="query-question">"What percentage of my meters are fit to bill today?"</p>
-          <p class="query-answer">Not a report run overnight. A live query of open positions that need resolution.</p>
+          <p class="query-answer">See which reads are validated, which are estimates. Know your certainty before you invoice.</p>
         </div>
         <div class="query-card">
           <h3>Collection Risk</h3>
@@ -372,16 +367,12 @@ sequenceDiagram
           <p>Stream processing, not batch. Know about problems when they happen, not in tomorrow's report.</p>
         </div>
         <div class="tech-item">
-          <h3>BIAN-Aligned</h3>
-          <p>Industry-standard service domains. Your team speaks the same language as the world's largest banks.</p>
-        </div>
-        <div class="tech-item">
           <h3>Kubernetes-Native</h3>
           <p>Horizontally scalable. Handle MHHS volumes and seasonal peaks without re-architecting.</p>
         </div>
         <div class="tech-item">
-          <h3>Open Source</h3>
-          <p>Apache 2.0 licensed. No vendor lock-in. Inspect every line. Build institutional expertise.</p>
+          <h3>Revaluation with Audit</h3>
+          <p>When estimates become actuals, track what changed and why. Full history, no mystery adjustments.</p>
         </div>
       </div>
     </div>

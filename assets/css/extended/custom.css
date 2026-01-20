@@ -1204,6 +1204,30 @@ a:hover {
   font-weight: 600;
 }
 
+.wireframe-table .subtotal-row {
+  background: var(--entry);
+  font-weight: 500;
+  font-style: italic;
+}
+
+.wireframe-table .quality-high {
+  color: #2f855a;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .wireframe-table .quality-high {
+  color: #4ade80;
+}
+
+.wireframe-table .quality-mid {
+  color: #b7791f;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .wireframe-table .quality-mid {
+  color: #f6e05e;
+}
+
 .wireframe-note {
   text-align: center;
   font-style: italic;
