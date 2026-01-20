@@ -1,0 +1,346 @@
+{{ define "main" }}
+<article class="landing-page energy-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-headline">
+        When wholesale spikes, do you know which customers are underwater?
+      </h1>
+
+      <nav class="hero-nav">
+        <a href="#read" class="hero-word">Read</a>
+        <span class="hero-dot"></span>
+        <a href="#bill" class="hero-word">Bill</a>
+        <span class="hero-dot"></span>
+        <a href="#collect" class="hero-word">Collect</a>
+      </nav>
+
+      <p class="hero-subtext">
+        A ledger engine that tracks quality, values positions, and settles accounts.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section id="problem" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Visibility Gap</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Metering in one system. Billing in another. Collections somewhere else.
+          When something falls off the conveyor belt, you find out weeks later.
+        </p>
+        <p class="proof">
+          Read-Bill-Collect looks simple on a slide. In reality, exceptions cascade
+          through siloed systems until someone notices a spreadsheet doesn't balance.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- READ: Quality-Aware Measurement -->
+  <section id="read" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Read</h2>
+      <p class="pillar-subtitle">Quality-aware measurement</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          In energy, truth comes in degrees. Forecasts, estimates, actuals, validated reads.
+          You bill on the best available - but do you know how exposed that leaves you?
+        </p>
+        <p class="proof">
+          Meridian tracks confidence at the ledger level, not as a bolt-on. Every position
+          carries its quality: Forecast, Estimate, Actual, Verified. When estimates become
+          actuals, the ledger reloads automatically. You always know what you knew when.
+        </p>
+      </div>
+
+      <div class="approach-comparison">
+        <div class="comparison-col comparison-traditional">
+          <h3>Traditional Approach</h3>
+          <ul>
+            <li>Meter read fails &rarr; Log entry</li>
+            <li>Bill on estimate, hope for the best</li>
+            <li>Actual arrives &rarr; Manual reconciliation</li>
+            <li>Can't prove what you knew then</li>
+          </ul>
+        </div>
+        <div class="comparison-col comparison-meridian">
+          <h3>Meridian Approach</h3>
+          <ul>
+            <li>Missing read &rarr; Open position</li>
+            <li>Bill with visible certainty level</li>
+            <li>Actual arrives &rarr; Automatic reload</li>
+            <li>Full bi-temporal audit trail</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Meter Quality by Customer</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Meters</th>
+              <th>Actual</th>
+              <th>Estimate</th>
+              <th>Missing</th>
+              <th>Fit to Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acme Ltd</td>
+              <td>3</td>
+              <td class="quality-high">2</td>
+              <td class="quality-mid">1</td>
+              <td>0</td>
+              <td class="quality-high">Yes</td>
+            </tr>
+            <tr>
+              <td>Beta Corp</td>
+              <td>12</td>
+              <td class="quality-high">8</td>
+              <td class="quality-mid">3</td>
+              <td class="quality-low">1</td>
+              <td class="quality-mid">Partial</td>
+            </tr>
+            <tr>
+              <td>Gamma Industries</td>
+              <td>47</td>
+              <td class="quality-high">41</td>
+              <td class="quality-mid">6</td>
+              <td>0</td>
+              <td class="quality-high">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          "What percentage of my meters are fit to bill today?" - one query, not a BI project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BILL: Multi-Valuation -->
+  <section id="bill" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Bill</h2>
+      <p class="pillar-subtitle">One reading, multiple valuations</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          A meter read isn't just consumption. It's revenue at the customer's tariff.
+          It's cost at the GSP wholesale price. It's margin that changes with market conditions.
+        </p>
+        <p class="proof">
+          Meridian's architecture lets one input fan out to multiple financial positions.
+          Double-entry bookkeeping, but for energy: every read creates receivables from customers
+          and payables to the grid. The spread is your margin - visible now, not at month-end.
+        </p>
+      </div>
+
+      <div class="double-entry-diagram">
+        <div class="de-row de-header">
+          <span>Meter Read</span>
+          <span></span>
+          <span>Positions Created</span>
+        </div>
+        <div class="de-row">
+          <span class="de-input">100 kWh @ Actual</span>
+          <span class="de-arrow">&rarr;</span>
+          <span class="de-output">
+            <span class="de-revenue">Customer: 100 kWh &times; 24p = &pound;24.00</span>
+            <span class="de-cost">DNO: 100 kWh &times; 28p = &pound;28.00</span>
+            <span class="de-margin de-negative">Margin: -&pound;4.00</span>
+          </span>
+        </div>
+      </div>
+
+      <p class="de-insight">
+        This customer is underwater. You know it at the moment of consumption.
+      </p>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: GSP Exposure</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>GSP</th>
+              <th>Volume</th>
+              <th>Wholesale Cost</th>
+              <th>Billed Revenue</th>
+              <th>Margin</th>
+              <th>Certainty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_P (South Wales)</td>
+              <td>890K kWh</td>
+              <td>&pound;231,400</td>
+              <td>&pound;213,600</td>
+              <td class="negative">-&pound;17,800</td>
+              <td class="quality-high">Actual</td>
+            </tr>
+            <tr>
+              <td>_N (South Western)</td>
+              <td>1.2M kWh</td>
+              <td>&pound;264,000</td>
+              <td>&pound;288,000</td>
+              <td class="positive">&pound;24,000</td>
+              <td class="quality-high">Actual</td>
+            </tr>
+            <tr>
+              <td>_M (Midlands)</td>
+              <td>2.1M kWh</td>
+              <td>&pound;483,000</td>
+              <td>&pound;504,000</td>
+              <td class="positive">&pound;21,000</td>
+              <td class="quality-mid">Estimate</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td>Total</td>
+              <td>4.19M kWh</td>
+              <td>&pound;978,400</td>
+              <td>&pound;1,005,600</td>
+              <td class="positive">&pound;27,200</td>
+              <td class="quality-mid">Estimate</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          "Which GSP is hurting us?" - internal accounts for each DNO make this a table, not a project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLLECT: Position Tracking -->
+  <section id="collect" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Collect</h2>
+      <p class="pillar-subtitle">Receivables as positions</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          You've billed. But has the money arrived? Which invoices are outstanding?
+          Which customers have meter issues AND payment issues?
+        </p>
+        <p class="proof">
+          The ledger tracks invoices raised vs invoices settled. Payments due vs payments received.
+          Each customer can have multiple accounts - energy, standing charges, debt recovery.
+          Cross-domain queries become simple: meter status, billing history, payment patterns in one view.
+        </p>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Collection Position</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Invoiced</th>
+              <th>Received</th>
+              <th>Outstanding</th>
+              <th>Meter Status</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acme Ltd</td>
+              <td>&pound;12,400</td>
+              <td>&pound;12,400</td>
+              <td>&pound;0</td>
+              <td class="quality-high">All Actual</td>
+              <td class="quality-high">Low</td>
+            </tr>
+            <tr>
+              <td>Beta Corp</td>
+              <td>&pound;34,200</td>
+              <td>&pound;28,500</td>
+              <td class="negative">&pound;5,700</td>
+              <td class="quality-low">1 Missing</td>
+              <td class="quality-low">High</td>
+            </tr>
+            <tr>
+              <td>Gamma Industries</td>
+              <td>&pound;89,100</td>
+              <td>&pound;67,200</td>
+              <td class="negative">&pound;21,900</td>
+              <td class="quality-high">All Actual</td>
+              <td class="quality-mid">Medium</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          Beta Corp: outstanding balance AND missing meter. Collections sees meter status. Metering sees payment history.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Engine -->
+  <section id="engine" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Engine</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          MHHS means 48x the data with tighter deadlines. The architecture has to scale.
+        </p>
+        <p class="proof">
+          Meridian is a backend ledger engine - fast, auditable, quality-aware.
+          The dashboards above are queries you build on top. The engine makes them possible.
+        </p>
+      </div>
+      <div class="arch-diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    participant Meter as Meter Read
+    participant Meridian as Meridian
+    participant Customer as Customer Position
+    participant Wholesale as Wholesale Position
+
+    Meter->>Meridian: kWh + Quality
+    Meridian->>Customer: Revenue @ tariff
+    Meridian->>Wholesale: Cost @ GSP price
+    Note over Customer,Wholesale: Margin visible immediately
+        </pre>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h3>Event-Driven</h3>
+          <p>Stream processing, not batch. Exceptions surface as they happen.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Bi-Temporal</h3>
+          <p>What you knew when. Full audit trail for regulatory and dispute resolution.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Wash and Reload</h3>
+          <p>Actuals arrive, positions reload. Full audit trail preserved.</p>
+        </div>
+      </div>
+      <p class="tech-stats">
+        Queries &lt; 50ms &bull; 1,000+ concurrent ops &bull; 1,000+ TPS
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="section-content">
+      <h2>Get Started</h2>
+      <div class="hero-cta">
+        <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
+          Read the Docs
+        </a>
+        <a href="mailto:ben@meridianhub.org" class="btn btn-secondary">
+          Contact Engineering
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+{{ end }}

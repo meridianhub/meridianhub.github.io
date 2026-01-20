@@ -1,0 +1,275 @@
+{{ define "main" }}
+<article class="landing-page edge-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-headline">
+        What if the meter could compute the bill?
+      </h1>
+
+      <nav class="hero-nav">
+        <a href="#local" class="hero-word">Local</a>
+        <span class="hero-dot"></span>
+        <a href="#instant" class="hero-word">Instant</a>
+        <span class="hero-dot"></span>
+        <a href="#offline" class="hero-word">Offline</a>
+      </nav>
+
+      <p class="hero-subtext">
+        The Meridian ledger engine, collapsed to run on a Pi Zero.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section id="problem" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Connectivity Wall</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Traditional In-Home Displays are dumb terminals. They wait for the cloud
+          to tell them what the price is.
+        </p>
+        <p class="proof">
+          When the Wi-Fi drops, visibility stops. When the cloud is slow, "real-time"
+          data is already minutes old. Customers see abstract kWh because the device
+          can't compute currency.
+        </p>
+      </div>
+
+      <div class="problem-cards">
+        <div class="problem-card">
+          <h3>Cloud Round-Trip Latency</h3>
+          <p>You can't show the cost of a boiling kettle in real-time if the maths has to travel 500 miles to a data centre and back.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Data Egress Costs</h3>
+          <p>Sending 1-second pulses to the cloud for millions of homes is a bandwidth nightmare. Most of that data is noise that should never leave the home.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCAL: The Edge Approach -->
+  <section id="local" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Local</h2>
+      <p class="pillar-subtitle">A ledger in the meter</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          Meridian Edge isn't a client. It's a full instance of the Meridian engine.
+        </p>
+        <p class="proof">
+          The same BIAN-compliant architecture that runs in the cloud, ported to run
+          on low-power hardware. The device doesn't just record pulses - it runs
+          the valuation logic locally.
+        </p>
+      </div>
+
+      <div class="approach-comparison">
+        <div class="comparison-col comparison-traditional">
+          <h3>Standard IoT Device</h3>
+          <ul>
+            <li>Record pulse &rarr; Send to cloud</li>
+            <li>Cloud computes &rarr; Send to app</li>
+            <li>Offline = No data, no price</li>
+            <li>High cloud storage costs</li>
+          </ul>
+        </div>
+        <div class="comparison-col comparison-meridian">
+          <h3>Meridian Edge</h3>
+          <ul>
+            <li>Compute value locally, instantly</li>
+            <li>13 months of history on-device</li>
+            <li>Offline = Full visibility continues</li>
+            <li>Only aggregates leave the home</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTANT: Instant Valuation -->
+  <section id="instant" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Instant</h2>
+      <p class="pillar-subtitle">Sub-second financial updates</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          "How much am I spending right now?" shouldn't require a round-trip to AWS.
+        </p>
+        <p class="proof">
+          Push the tariff to the edge. The device applies the valuation logic to local
+          pulses. Same business logic in the meter as in the cloud. Total consistency.
+        </p>
+      </div>
+
+      <div class="arch-diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    participant Cloud as Meridian Cloud
+    participant Edge as Meridian Edge
+    participant Meter as Meter
+
+    Cloud->>Edge: Tariff (daily)
+    loop Every second
+        Meter->>Edge: Pulse
+        Edge->>Edge: Value locally
+    end
+    Note over Edge: Customer sees £ instantly
+    Edge->>Cloud: Settlement packet (every 30 min)
+        </pre>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What the customer sees: In-Home Display</h3>
+        <div class="ihd-display">
+          <div class="ihd-main">
+            <span class="ihd-label">Right now</span>
+            <span class="ihd-value ihd-earning">+&pound;0.03<span class="ihd-unit">/min</span></span>
+          </div>
+          <div class="ihd-graph">
+            <div class="ihd-graph-row">
+              <span class="ihd-graph-time">12:00</span>
+              <div class="ihd-graph-bar-container">
+                <div class="ihd-graph-bar ihd-import" style="width: 60%;"></div>
+              </div>
+            </div>
+            <div class="ihd-graph-row">
+              <span class="ihd-graph-time">13:00</span>
+              <div class="ihd-graph-bar-container">
+                <div class="ihd-graph-bar ihd-export" style="width: 25%;"></div>
+              </div>
+            </div>
+            <div class="ihd-graph-row">
+              <span class="ihd-graph-time">14:00</span>
+              <div class="ihd-graph-bar-container">
+                <div class="ihd-graph-bar ihd-export" style="width: 45%;"></div>
+              </div>
+            </div>
+            <div class="ihd-graph-row">
+              <span class="ihd-graph-time">15:00</span>
+              <div class="ihd-graph-bar-container">
+                <div class="ihd-graph-bar ihd-export" style="width: 30%;"></div>
+              </div>
+            </div>
+            <div class="ihd-graph-row">
+              <span class="ihd-graph-time">16:00</span>
+              <div class="ihd-graph-bar-container">
+                <div class="ihd-graph-bar ihd-import" style="width: 20%;"></div>
+              </div>
+            </div>
+            <div class="ihd-graph-legend">
+              <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-import"></span> Import</span>
+              <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-export"></span> Export</span>
+            </div>
+          </div>
+          <div class="ihd-row">
+            <div class="ihd-stat">
+              <span class="ihd-stat-label">Today</span>
+              <span class="ihd-stat-value ihd-earning">+&pound;1.24</span>
+            </div>
+            <div class="ihd-stat">
+              <span class="ihd-stat-label">This week</span>
+              <span class="ihd-stat-value">&pound;8.40</span>
+            </div>
+            <div class="ihd-stat">
+              <span class="ihd-stat-label">This month</span>
+              <span class="ihd-stat-value">&pound;42.15</span>
+            </div>
+          </div>
+        </div>
+        <p class="wireframe-note">
+          Solar customer earning right now. Money, not kWh. No internet required.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFLINE: Offline Capability -->
+  <section id="offline" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Offline</h2>
+      <p class="pillar-subtitle">Works when the cloud doesn't</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          Connectivity is not guaranteed. Rural areas, network outages, overloaded infrastructure.
+        </p>
+        <p class="proof">
+          Meridian Edge runs the same code as Meridian Cloud. Same valuation logic,
+          same quality tracking, same audit guarantees. When the connection is flaky,
+          idempotency ensures no double-counting. Reconciliation by design.
+        </p>
+      </div>
+
+      <div class="query-grid">
+        <div class="query-card">
+          <h3>Offline Vault</h3>
+          <p class="query-answer">Full audit trail preserved locally. Nothing lost during outages.</p>
+        </div>
+        <div class="query-card">
+          <h3>Smart Sync</h3>
+          <p class="query-answer">Settlement-ready packets, not raw pulses. 90% reduction in data egress.</p>
+        </div>
+        <div class="query-card">
+          <h3>Privacy-First</h3>
+          <p class="query-answer">Granular data stays in the home. Only aggregates leave.</p>
+        </div>
+        <div class="query-card">
+          <h3>Asset Agnostic</h3>
+          <p class="query-answer">Same logic for electricity, gas, water, EV charging.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hardware -->
+  <section id="hardware" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Hardware Ready</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Built for the next generation of Consumer Access Devices.
+        </p>
+        <p class="proof">
+          Runs on Pi Zero class hardware. CAD, mobile app, or standalone unit -
+          the ledger engine remains the same.
+        </p>
+      </div>
+
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h3>Low-Cost</h3>
+          <p>Pi Zero class hardware. Go application with SQLite. Mass rollout economics.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Multi-Tenant</h3>
+          <p>Multiple energy providers on a single physical device.</p>
+        </div>
+        <div class="tech-item">
+          <h3>White-Label</h3>
+          <p>Your brand, your hardware, Meridian inside.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="section-content">
+      <h2>Get Started</h2>
+      <p class="contact-lead">
+        Discussing hardware specs or pilot trials?
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
+          Contact Ben
+        </a>
+        <a href="https://github.com/meridianhub/meridian" class="btn btn-secondary" target="_blank" rel="noopener">
+          View Source
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+{{ end }}
