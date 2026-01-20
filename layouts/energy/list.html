@@ -46,7 +46,7 @@
       <h2 class="pillar-title">Ledger-First Architecture</h2>
       <div class="pillar-content">
         <p class="stakes">
-          What if a failed meter read wasn't a log entry&mdash;but an open liability in your books?
+          What if a failed meter read wasn't a log entry -but an open liability in your books?
         </p>
         <p class="proof">
           Consumption isn't just data. It's an asset in kWh and a liability in currency.
@@ -82,13 +82,13 @@
   <!-- Architecture Diagram -->
   <section id="architecture" class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">Read. Value. Post.</h2>
+      <h2 class="pillar-title">Read. Value. Ledger.</h2>
       <div class="pillar-content">
         <p class="stakes">
           Meter data into one database, prices into another, reconciled in a spreadsheet at month-end.
         </p>
         <p class="proof">
-          Meridian reads consumption, values it at multiple prices, and posts to the ledger&mdash;all in one flow.
+          Meridian reads consumption, values it at multiple prices, and posts to the ledger - all in one flow.
         </p>
       </div>
       <div class="arch-diagram">
@@ -100,7 +100,7 @@ sequenceDiagram
     box rgb(26, 54, 93, 0.1) Meridian
         participant Read as Read
         participant Value as Value
-        participant Ledger as Post
+        participant Ledger as Ledger
     end
 
     Sources->>Read: kWh (DCC, MHHS, reads, forecasts)
@@ -127,7 +127,7 @@ sequenceDiagram
         </p>
         <p class="proof">
           Double-entry bookkeeping. Every meter read creates two positions: revenue at the customer's tariff,
-          cost at the GSP wholesale price. The difference is your margin&mdash;visible in real time.
+          cost at the GSP wholesale price. The difference is your margin -visible in real time.
         </p>
       </div>
 
@@ -254,7 +254,7 @@ sequenceDiagram
         <div class="query-card">
           <h3>Collection Risk</h3>
           <p class="query-question">"Which accounts have meter issues AND payment issues?"</p>
-          <p class="query-answer">Cross-domain intelligence. Meter status, billing history, payment patterns&mdash;one query.</p>
+          <p class="query-answer">Cross-domain intelligence. Meter status, billing history, payment patterns -one query.</p>
         </div>
       </div>
     </div>
@@ -351,7 +351,7 @@ sequenceDiagram
 
       <blockquote class="meridian-promise">
         <p>
-          A failed metre read isn't a log entry&mdash;it's an open liability.
+          A failed metre read isn't a log entry -it's an open liability.
         </p>
         <p>
           The books don't balance until someone resolves it.
