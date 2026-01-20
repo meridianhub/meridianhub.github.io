@@ -98,9 +98,9 @@ sequenceDiagram
         participant Sources as Consumption
     end
     box rgb(26, 54, 93, 0.1) Meridian
-        participant Measure as Measure<br/>(Position Keeping)
-        participant Value as Value<br/>(Valuation Service)
-        participant Ledger as Ledger<br/>(Financial Accounting)
+        participant Measure as Measure (Position Keeping)
+        participant Value as Value (Valuation Service)
+        participant Ledger as Ledger (Financial Accounting)
     end
 
     Sources->>Measure: kWh (DCC, MHHS, reads, forecasts)
