@@ -1147,6 +1147,19 @@ a:hover {
   overflow-x: auto;
 }
 
+.wireframe-customer {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid var(--accent);
+}
+
+[data-theme="dark"] .wireframe-customer {
+  color: #7dd3fc;
+}
+
 .wireframe-table {
   width: 100%;
   border-collapse: collapse;
