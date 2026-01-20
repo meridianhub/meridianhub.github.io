@@ -82,13 +82,13 @@
   <!-- Architecture Diagram -->
   <section id="architecture" class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">Read. Value. Ledger.</h2>
+      <h2 class="pillar-title">Measure. Value. Ledger.</h2>
       <div class="pillar-content">
         <p class="stakes">
           Meter data into one database, prices into another, reconciled in a spreadsheet at month-end.
         </p>
         <p class="proof">
-          Meridian reads consumption, values it at multiple prices, and posts to the ledger - all in one flow.
+          Meridian measures consumption, values it at multiple prices, and posts to the ledger - all in one flow.
         </p>
       </div>
       <div class="arch-diagram">
@@ -98,13 +98,13 @@ sequenceDiagram
         participant Sources as Consumption
     end
     box rgb(26, 54, 93, 0.1) Meridian
-        participant Read as Read
+        participant Measure as Measure
         participant Value as Value
         participant Ledger as Ledger
     end
 
-    Sources->>Read: kWh (DCC, MHHS, reads, forecasts)
-    Read->>Value: Position recorded
+    Sources->>Measure: kWh (DCC, MHHS, reads, forecasts)
+    Measure->>Value: Position recorded
     Value->>Value: Customer tariff
     Value->>Value: GSP wholesale
     Value->>Ledger: Double-entry
