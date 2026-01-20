@@ -5,10 +5,10 @@
     <div class="hero-content">
       <p class="hero-eyebrow">For Energy Retailers</p>
       <h1 class="hero-headline">
-        Which GSP is costing you money right now?
+        What is your actual financial position right now?
       </h1>
       <p class="hero-subtext">
-        If you can't answer that question with a query, you have a data architecture problem.
+        Not yesterday's reconciliation. Not next week's report. Right now.
       </p>
     </div>
   </section>
@@ -19,28 +19,22 @@
       <h2 class="pillar-title">The Problem</h2>
       <div class="pillar-content">
         <p class="stakes">
-          Your data lives in silos. Metering in one system. Billing in another. Settlements somewhere else.
-          When a fixed-rate customer goes underwater because wholesale spiked in their GSP,
-          you find out weeks later in a reconciliation spreadsheet.
+          Metering in one system. Billing in another. Settlements somewhere else.
+          When wholesale spikes in a GSP, you find out weeks later in a spreadsheet.
         </p>
         <p class="proof">
-          The industry calls this "data integration." You call it "we'll build a BI dashboard."
-          But dashboards show you what happened. They don't prevent it from happening again.
+          Dashboards show you what happened. They don't prevent it happening again.
         </p>
       </div>
 
       <div class="problem-cards">
         <div class="problem-card">
-          <h3>Exception Blindness</h3>
-          <p>A failed meter read is a log entry in Grafana. An engineer spots it. Maybe. Days later.</p>
+          <h3>Exceptions Are Invisible</h3>
+          <p>A failed meter read is a log entry. An engineer spots it. Maybe. Days later.</p>
         </div>
         <div class="problem-card">
-          <h3>Batch Processing</h3>
-          <p>You discover problems in overnight runs. By then, you've already billed wrong or missed the settlement window.</p>
-        </div>
-        <div class="problem-card">
-          <h3>Siloed Intelligence</h3>
-          <p>Your collections team can't see meter status. Your meter team can't see payment history. Nobody sees the full picture.</p>
+          <h3>Intelligence Is Siloed</h3>
+          <p>Collections can't see meter status. Metering can't see payment history. Nobody sees the whole picture.</p>
         </div>
       </div>
     </div>
@@ -53,12 +47,10 @@
       <div class="pillar-content">
         <p class="stakes">
           What if a failed meter read wasn't a log entry&mdash;but an open liability in your books?
-          The kind that won't let you close the period until someone resolves it.
         </p>
         <p class="proof">
-          Meridian treats every energy transaction as a financial position. Consumption isn't just data&mdash;it's
-          an asset with a value in kWh and a corresponding liability in currency. When the meter read fails,
-          the position stays open. The books don't balance. Someone has to act.
+          Consumption isn't just data. It's an asset in kWh and a liability in currency.
+          When the read fails, the position stays open. The books don't balance until someone acts.
         </p>
       </div>
 
@@ -93,44 +85,29 @@
       <h2 class="pillar-title">How Consumption Becomes a Position</h2>
       <div class="pillar-content">
         <p class="stakes">
-          In traditional systems, meter data flows into one database, prices into another,
-          and someone reconciles them in a spreadsheet at month-end. By then, the damage is done.
+          Meter data into one database, prices into another, reconciled in a spreadsheet at month-end.
         </p>
         <p class="proof">
-          Meridian creates a financial position the moment consumption data arrives.
-          That position has a quantity in kWh and a liability in currency, valued at the GSP wholesale rate.
-          If the data doesn't arrive, the position stays open. No reconciliation surprises.
+          Meridian creates a position the moment data arrives. If the data doesn't arrive, the position stays open.
         </p>
       </div>
       <div class="arch-diagram">
         <pre class="mermaid">
 sequenceDiagram
-    participant DCC as DCC / Meter
+    participant Meter as DCC
     participant Meridian as Meridian
-    participant Market as Market Data
-    participant Ledger as Position Ledger
+    participant Ledger as Ledger
 
-    DCC->>Meridian: 1. Half-hourly consumption
-    Note over Meridian: Validate & enrich with GSP
-    Meridian->>Market: 2. Get wholesale price
-    Market-->>Meridian: Price for GSP + settlement period
-    Meridian->>Meridian: 3. Calculate cost position
-    Meridian->>Ledger: 4. Record: kWh asset, GBP liability
-    Note over Ledger: Position open until settled
+    Meter->>Meridian: 1. Consumption (kWh)
+    Meridian->>Meridian: 2. Value at GSP price
+    Meridian->>Ledger: 3. Record position
+    Note over Ledger: kWh in, GBP owed
 
-    alt Meter read fails
-        DCC--xMeridian: No data received
-        Note over Meridian,Ledger: Position stays OPEN
-        Note over Ledger: Books don't balance
-        Note over Ledger: Exception visible immediately
-    end
-
-    Meridian->>Ledger: 5. Settlement period closes
-    Ledger-->>Meridian: Positions reconciled
+    Note over Meter,Ledger: No data? Position stays open.
         </pre>
       </div>
       <p class="arch-stats">
-        Event-driven ingestion &bull; GSP-level valuation &bull; Position-based exceptions &bull; Full audit trail
+        Event-driven &bull; GSP-level valuation &bull; Position-based exceptions
       </p>
     </div>
   </section>
@@ -141,12 +118,10 @@ sequenceDiagram
       <h2 class="pillar-title">The Questions You Can Answer</h2>
       <div class="pillar-content">
         <p class="stakes">
-          "Which GSP is causing me the greatest heartache?" Today, that question triggers a BI project.
-          Someone pulls data from three systems, joins it in Excel, and delivers an answer next week.
+          "Which GSP is hurting us?" triggers a BI project. Answer next week.
         </p>
         <p class="proof">
-          When your data model is unified around positions, these become queries.
-          Real-time. Filterable. Drillable. The answer is a SQL statement, not a project.
+          With positions, it's a query. Answer now.
         </p>
       </div>
 
@@ -181,13 +156,10 @@ sequenceDiagram
       <h2 class="pillar-title">Beyond Currency</h2>
       <div class="pillar-content">
         <p class="stakes">
-          Your business already trades in multiple assets: kilowatt-hours, gas therms, carbon credits,
-          flexibility services. Your accounting system probably doesn't.
+          You trade kWh, gas, carbon, flexibility. Your accounting system doesn't.
         </p>
         <p class="proof">
-          Meridian tracks positions in any asset class with dimensional typing. A kWh position can't accidentally
-          be added to a currency position. Export credits are tracked separately from import consumption.
-          The system enforces physical reality.
+          Meridian tracks any asset class. Dimensional typing prevents nonsense calculations.
         </p>
       </div>
 
@@ -226,13 +198,10 @@ sequenceDiagram
       <h2 class="pillar-title">The Foundation for What's Next</h2>
       <div class="pillar-content">
         <p class="stakes">
-          You want AI agents. Predictive tools. Agentic customer service. Autonomous optimization.
-          But AI built on fragmented data hallucinates. AI built on consistent positions reasons.
+          AI on fragmented data hallucinates. AI on consistent positions reasons.
         </p>
         <p class="proof">
-          The unified data model isn't a nice-to-have&mdash;it's the prerequisite. When every transaction
-          has a clear position, a clear counterparty, and a clear audit trail, your AI has ground truth
-          to reason from. Context wins, and positions provide context.
+          The unified data model is the prerequisite. Positions provide the ground truth AI needs.
         </p>
       </div>
 
@@ -263,21 +232,16 @@ sequenceDiagram
       <h2 class="pillar-title">You Don't Need to Be a Bank</h2>
       <div class="pillar-content">
         <p class="stakes">
-          "Treasury infrastructure" sounds like overkill. You're an energy retailer, not Goldman Sachs.
-          But consider: you hold customer balances, you have credit exposure, you trade in volatile commodities,
-          and you settle millions of positions daily.
+          You hold balances, have credit exposure, trade volatile commodities, settle millions of positions.
         </p>
         <p class="proof">
-          The same principles that let banks track positions across asset classes, enforce settlement integrity,
-          and audit every transaction&mdash;those principles solve your problems too. You don't need the complexity
-          of a trading floor. You need the rigour of knowing where your money is.
+          You don't need trading floor complexity. You need the rigour of knowing where your money is.
         </p>
       </div>
 
       <blockquote class="meridian-promise">
         <p>
-          A failed metre read isn't a log entry for engineers to spot in Grafana&mdash;<br>
-          it's an open liability in the ledger.
+          A failed metre read isn't a log entry&mdash;it's an open liability.
         </p>
         <p>
           The books don't balance until someone resolves it.
@@ -292,13 +256,10 @@ sequenceDiagram
       <h2 class="pillar-title">Built for Scale</h2>
       <div class="pillar-content">
         <p class="stakes">
-          MHHS is coming. Half-hourly settlement for every meter. Your current architecture
-          handles daily volumes. What happens when it's 48x the data, with tighter deadlines?
+          MHHS means 48x the data with tighter deadlines.
         </p>
         <p class="proof">
-          Meridian is built for exactly this. Event-driven ingestion handles volume spikes.
-          Kubernetes-native deployment scales horizontally. And because it's open source,
-          you build institutional expertise instead of vendor dependency.
+          Event-driven. Kubernetes-native. Horizontally scalable. Open source.
         </p>
       </div>
       <div class="tech-grid">
@@ -327,18 +288,14 @@ sequenceDiagram
     <div class="section-content">
       <h2>Let's Talk Architecture</h2>
       <p class="contact-lead">
-        I've been inside the machine&mdash;investment banking, treasury systems, real-time trading infrastructure.
-        I understand the rigour you need and the constraints you're working with.
-      </p>
-      <p class="contact-lead">
-        Happy to walk through how Meridian maps to your specific challenges.
+        Happy to walk through how this maps to your specific challenges.
       </p>
       <div class="hero-cta">
         <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
           Contact Ben
         </a>
         <a href="/" class="btn btn-secondary">
-          Read the Technical Vision
+          Technical Vision
         </a>
       </div>
     </div>
