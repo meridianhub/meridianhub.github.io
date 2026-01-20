@@ -343,27 +343,71 @@ sequenceDiagram
     </div>
   </section>
 
-  <!-- Not a Treasury -->
-  <section id="not-treasury" class="section pillar-section pillar-alt">
+  <!-- GSP Position View -->
+  <section id="gsp-view" class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">You Don't Need to Be a Bank</h2>
+      <h2 class="pillar-title">GSP Position View</h2>
       <div class="pillar-content">
         <p class="stakes">
-          You hold balances, have credit exposure, trade volatile commodities, settle millions of positions.
+          "Which GSP is hurting us?" shouldn't require a BI project.
         </p>
         <p class="proof">
-          You don't need trading floor complexity. You need the rigour of knowing where your money is.
+          Internal accounts for each DNO and GSP. Your wholesale exposure, visible in real time.
         </p>
       </div>
 
-      <blockquote class="meridian-promise">
-        <p>
-          A failed metre read isn't a log entry -it's an open liability.
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-customer">Western Power Distribution</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>GSP</th>
+              <th>Consumption</th>
+              <th>Wholesale Cost</th>
+              <th>Billed Revenue</th>
+              <th>Margin</th>
+              <th>Certainty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>_P (South Wales)</td>
+              <td>890K kWh</td>
+              <td>&pound;231,400</td>
+              <td>&pound;213,600</td>
+              <td class="negative">-&pound;17,800</td>
+              <td class="quality-high">Actual</td>
+            </tr>
+            <tr>
+              <td>_N (South Western)</td>
+              <td>1.2M kWh</td>
+              <td>&pound;264,000</td>
+              <td>&pound;288,000</td>
+              <td class="positive">&pound;24,000</td>
+              <td class="quality-high">Actual</td>
+            </tr>
+            <tr>
+              <td>_M (Midlands)</td>
+              <td>2.1M kWh</td>
+              <td>&pound;483,000</td>
+              <td>&pound;504,000</td>
+              <td class="positive">&pound;21,000</td>
+              <td class="quality-mid">Estimate</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td>DNO Total</td>
+              <td>4.19M kWh</td>
+              <td>&pound;978,400</td>
+              <td>&pound;1,005,600</td>
+              <td class="positive">&pound;27,200</td>
+              <td class="quality-mid">Estimate</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          GSP _P is underwater. Wholesale cost exceeds billed revenue by &pound;17,800.
         </p>
-        <p>
-          The books don't balance until someone resolves it.
-        </p>
-      </blockquote>
+      </div>
     </div>
   </section>
 
