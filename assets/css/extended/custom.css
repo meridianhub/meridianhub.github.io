@@ -458,6 +458,13 @@ a:hover {
   font-style: italic;
 }
 
+.hero-subtext-large {
+  font-size: 1.35rem;
+  font-weight: 500;
+  font-style: normal;
+  color: var(--content);
+}
+
 /* Pillar Sections (Measure, Value, Settle) */
 .pillar-section {
   background: var(--theme);
