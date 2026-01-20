@@ -1312,3 +1312,142 @@ a:hover {
     padding: 0.5rem;
   }
 }
+
+/* In-Home Display Wireframe */
+.ihd-display {
+  background: #1a1f2e;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 1.5rem auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ihd-main {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #334155;
+}
+
+.ihd-label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.ihd-value {
+  display: block;
+  color: #4ade80;
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.ihd-unit {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #94a3b8;
+}
+
+.ihd-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.ihd-stat {
+  text-align: center;
+  flex: 1;
+}
+
+.ihd-stat-label {
+  display: block;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.ihd-stat-value {
+  display: block;
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ihd-earning {
+  color: #4ade80;
+}
+
+/* IHD Graph */
+.ihd-graph {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #334155;
+}
+
+.ihd-graph-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.ihd-graph-time {
+  width: 50px;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+.ihd-graph-bar-container {
+  flex: 1;
+  height: 12px;
+  background: #334155;
+  border-radius: 2px;
+}
+
+.ihd-graph-bar {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.ihd-graph-bar.ihd-import {
+  background: #f87171;
+}
+
+.ihd-graph-bar.ihd-export {
+  background: #4ade80;
+}
+
+.ihd-graph-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 0.75rem;
+}
+
+.ihd-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.ihd-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.ihd-legend-dot.ihd-import {
+  background: #f87171;
+}
+
+.ihd-legend-dot.ihd-export {
+  background: #4ade80;
+}
