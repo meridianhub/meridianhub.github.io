@@ -87,6 +87,43 @@
     </div>
   </section>
 
+  <!-- Architecture Diagram -->
+  <section id="architecture" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">How Consumption Becomes a Position</h2>
+      <div class="arch-diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    participant DCC as DCC / Meter
+    participant Meridian as Meridian
+    participant Market as Market Data
+    participant Ledger as Position Ledger
+
+    DCC->>Meridian: 1. Half-hourly consumption
+    Note over Meridian: Validate & enrich with GSP
+    Meridian->>Market: 2. Get wholesale price
+    Market-->>Meridian: Price for GSP + settlement period
+    Meridian->>Meridian: 3. Calculate cost position
+    Meridian->>Ledger: 4. Record: kWh asset, GBP liability
+    Note over Ledger: Position open until settled
+
+    alt Meter read fails
+        DCC--xMeridian: No data received
+        Note over Meridian,Ledger: Position stays OPEN
+        Note over Ledger: Books don't balance
+        Note over Ledger: Exception visible immediately
+    end
+
+    Meridian->>Ledger: 5. Settlement period closes
+    Ledger-->>Meridian: Positions reconciled
+        </pre>
+      </div>
+      <p class="arch-stats">
+        Event-driven ingestion &bull; GSP-level valuation &bull; Position-based exceptions &bull; Full audit trail
+      </p>
+    </div>
+  </section>
+
   <!-- What You Can Query -->
   <section id="queries" class="section pillar-section pillar-alt">
     <div class="section-content">
