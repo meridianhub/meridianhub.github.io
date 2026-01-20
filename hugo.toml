@@ -24,7 +24,7 @@ enableEmoji = false
 [menu]
   [[menu.main]]
     identifier = "energy"
-    name = "Energy Retail"
+    name = "Energy"
     url = "/energy/"
     weight = 10
   [[menu.main]]
