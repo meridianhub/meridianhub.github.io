@@ -1019,6 +1019,14 @@ a:hover {
   line-height: 1.5;
 }
 
+.tech-stats {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  margin-top: 1.5rem;
+  font-family: monospace;
+}
+
 /* Responsive: Energy Page */
 @media (max-width: 768px) {
   .approach-comparison {
