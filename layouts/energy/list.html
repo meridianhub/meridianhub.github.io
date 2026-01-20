@@ -8,57 +8,50 @@
       </h1>
 
       <nav class="hero-nav">
-        <span class="hero-word">Measure</span>
+        <a href="#read" class="hero-word">Read</a>
         <span class="hero-dot"></span>
-        <span class="hero-word">Value</span>
+        <a href="#bill" class="hero-word">Bill</a>
         <span class="hero-dot"></span>
-        <span class="hero-word">Ledger</span>
+        <a href="#collect" class="hero-word">Collect</a>
       </nav>
 
       <p class="hero-subtext">
-        Energy isn't just data. It's an asset in kWh and a liability in currency.
+        A ledger engine that tracks quality, values positions, and settles accounts.
       </p>
     </div>
   </section>
 
-  <!-- The Current State -->
+  <!-- The Problem -->
   <section id="problem" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">The Visibility Gap</h2>
       <div class="pillar-content">
         <p class="stakes">
-          Metering in one system. Billing in another. Settlements somewhere else.
-          When wholesale spikes in a GSP, you find out weeks later in a spreadsheet.
+          Metering in one system. Billing in another. Collections somewhere else.
+          When something falls off the conveyor belt, you find out weeks later.
         </p>
         <p class="proof">
-          Dashboards show you what happened. They don't protect your margins in the present.
+          Read-Bill-Collect looks simple on a slide. In reality, exceptions cascade
+          through siloed systems until someone notices a spreadsheet doesn't balance.
         </p>
-      </div>
-
-      <div class="problem-cards">
-        <div class="problem-card">
-          <h3>Profit Leakage from Data Drift</h3>
-          <p>Bills based on estimates, grid settles on actuals. That gap is where your margin disappears into unreconciled spreadsheets.</p>
-        </div>
-        <div class="problem-card">
-          <h3>Intelligence Is Siloed</h3>
-          <p>Collections can't see meter status. Metering can't see payment history. Nobody sees the whole picture.</p>
-        </div>
       </div>
     </div>
   </section>
 
-  <!-- The Meridian Approach -->
-  <section id="approach" class="section pillar-section">
+  <!-- READ: Quality-Aware Measurement -->
+  <section id="read" class="section pillar-section">
     <div class="section-content">
-      <h2 class="pillar-title">Ledger-First Architecture</h2>
+      <h2 class="pillar-title">Read</h2>
+      <p class="pillar-subtitle">Quality-aware measurement</p>
       <div class="pillar-content">
         <p class="stakes">
-          What if a failed meter read wasn't a log entry -but an open liability in your books?
+          In energy, truth comes in degrees. Forecasts, estimates, actuals, validated reads.
+          You bill on the best available - but do you know how exposed that leaves you?
         </p>
         <p class="proof">
-          Consumption isn't just data. It's an asset in kWh and a liability in currency.
-          When the read fails, the position stays open. The books don't balance until someone acts.
+          Meridian tracks confidence at the ledger level, not as a bolt-on. Every position
+          carries its quality: Forecast, Estimate, Actual, Verified. When estimates become
+          actuals, the ledger reloads automatically. You always know what you knew when.
         </p>
       </div>
 
@@ -67,74 +60,83 @@
           <h3>Traditional Approach</h3>
           <ul>
             <li>Meter read fails &rarr; Log entry</li>
-            <li>Bill on estimate, no visibility</li>
-            <li>Actual arrives &rarr; Reconcile manually</li>
+            <li>Bill on estimate, hope for the best</li>
+            <li>Actual arrives &rarr; Manual reconciliation</li>
             <li>Can't prove what you knew then</li>
           </ul>
         </div>
         <div class="comparison-col comparison-meridian">
           <h3>Meridian Approach</h3>
           <ul>
-            <li>Every reading tagged with quality</li>
-            <li>Bill with certainty visibility</li>
+            <li>Missing read &rarr; Open position</li>
+            <li>Bill with visible certainty level</li>
             <li>Actual arrives &rarr; Automatic reload</li>
-            <li>Point-in-time replay of all data</li>
+            <li>Full bi-temporal audit trail</li>
           </ul>
         </div>
       </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Meter Quality by Customer</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Meters</th>
+              <th>Actual</th>
+              <th>Estimate</th>
+              <th>Missing</th>
+              <th>Fit to Bill</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acme Ltd</td>
+              <td>3</td>
+              <td class="quality-high">2</td>
+              <td class="quality-mid">1</td>
+              <td>0</td>
+              <td class="quality-high">Yes</td>
+            </tr>
+            <tr>
+              <td>Beta Corp</td>
+              <td>12</td>
+              <td class="quality-high">8</td>
+              <td class="quality-mid">3</td>
+              <td class="quality-low">1</td>
+              <td class="quality-mid">Partial</td>
+            </tr>
+            <tr>
+              <td>Gamma Industries</td>
+              <td>47</td>
+              <td class="quality-high">41</td>
+              <td class="quality-mid">6</td>
+              <td>0</td>
+              <td class="quality-high">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          "What percentage of my meters are fit to bill today?" - one query, not a BI project.
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- Architecture Diagram -->
-  <section id="architecture" class="section pillar-section pillar-alt">
+  <!-- BILL: Multi-Valuation -->
+  <section id="bill" class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">Measure. Value. Ledger.</h2>
+      <h2 class="pillar-title">Bill</h2>
+      <p class="pillar-subtitle">One reading, multiple valuations</p>
       <div class="pillar-content">
         <p class="stakes">
-          Meter data into one database, prices into another, reconciled in a spreadsheet at month-end.
+          A meter read isn't just consumption. It's revenue at the customer's tariff.
+          It's cost at the GSP wholesale price. It's margin that changes with market conditions.
         </p>
         <p class="proof">
-          Meridian measures consumption, values it at multiple prices, and posts to the ledger - all in one flow.
-        </p>
-      </div>
-      <div class="arch-diagram">
-        <pre class="mermaid">
-sequenceDiagram
-    box External
-        participant Sources as Consumption
-    end
-    box rgb(26, 54, 93, 0.1) Meridian
-        participant Measure as Measure
-        participant Value as Value
-        participant Ledger as Ledger
-    end
-
-    Sources->>Measure: kWh (DCC, MHHS, reads, forecasts)
-    Measure->>Value: Position recorded
-    Value->>Value: Customer tariff
-    Value->>Value: GSP wholesale
-    Value->>Ledger: Double-entry
-    Note over Ledger: Revenue &bull; Cost &bull; Margin
-        </pre>
-      </div>
-      <p class="arch-stats">
-        Certainty flows through &bull; Forecast in = Forecast out &bull; Actual in = Actual out
-      </p>
-    </div>
-  </section>
-
-  <!-- Double Entry: Two Valuations -->
-  <section id="double-entry" class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">One Read, Two Valuations</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          Your customer pays a fixed rate. You pay wholesale. Same kWh, different values.
-        </p>
-        <p class="proof">
-          Double-entry bookkeeping. Every meter read creates two positions: revenue at the customer's tariff,
-          cost at the GSP wholesale price. The spread between contract and wholesale is your margin -
-          visible at the moment of consumption, not month-end.
+          Meridian's architecture lets one input fan out to multiple financial positions.
+          Double-entry bookkeeping, but for energy: every read creates receivables from customers
+          and payables to the grid. The spread is your margin - visible now, not at month-end.
         </p>
       </div>
 
@@ -142,227 +144,30 @@ sequenceDiagram
         <div class="de-row de-header">
           <span>Meter Read</span>
           <span></span>
-          <span>Position</span>
+          <span>Positions Created</span>
         </div>
         <div class="de-row">
-          <span class="de-input">100 kWh</span>
+          <span class="de-input">100 kWh @ Actual</span>
           <span class="de-arrow">&rarr;</span>
           <span class="de-output">
-            <span class="de-revenue">Revenue: 100 kWh &times; 24p = &pound;24.00</span>
-            <span class="de-cost">Cost: 100 kWh &times; 28p = &pound;28.00</span>
+            <span class="de-revenue">Customer: 100 kWh &times; 24p = &pound;24.00</span>
+            <span class="de-cost">DNO: 100 kWh &times; 28p = &pound;28.00</span>
             <span class="de-margin de-negative">Margin: -&pound;4.00</span>
           </span>
         </div>
       </div>
 
       <p class="de-insight">
-        This customer is underwater. You know it now, not at month-end.
+        This customer is underwater. You know it at the moment of consumption.
       </p>
-    </div>
-  </section>
-
-  <!-- Dashboard Wireframe -->
-  <section id="dashboard" class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">What Your Dashboard Could Show</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          You have dashboards. But can they answer "which GSP is hurting us?" in one click?
-        </p>
-        <p class="proof">
-          With positions, this is a table, not a project.
-        </p>
-      </div>
 
       <div class="dashboard-wireframe">
-        <h3 class="wireframe-customer">Acme Ltd</h3>
-        <table class="wireframe-table">
-          <thead>
-            <tr>
-              <th>Meter</th>
-              <th>Consumption</th>
-              <th>Revenue</th>
-              <th>Cost</th>
-              <th>Margin</th>
-              <th>Certainty</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Electric Import</td>
-              <td>12,400 kWh</td>
-              <td>&pound;2,976</td>
-              <td>&pound;2,728</td>
-              <td class="positive">&pound;248</td>
-              <td class="quality-high">Actual</td>
-            </tr>
-            <tr>
-              <td>Electric Export</td>
-              <td>-1,200 kWh</td>
-              <td>-&pound;60</td>
-              <td>-&pound;72</td>
-              <td class="negative">-&pound;12</td>
-              <td class="quality-high">Actual</td>
-            </tr>
-            <tr>
-              <td>Gas</td>
-              <td>8,200 kWh</td>
-              <td>&pound;574</td>
-              <td>&pound;697</td>
-              <td class="negative">-&pound;123</td>
-              <td class="quality-mid">Estimate</td>
-            </tr>
-            <tr class="subtotal-row">
-              <td>Total</td>
-              <td>19,400 kWh</td>
-              <td>&pound;3,490</td>
-              <td>&pound;3,353</td>
-              <td class="positive">&pound;113</td>
-              <td class="quality-mid">Estimate</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="wireframe-note">
-          Three meters, one view. Electric actuals in, gas still estimated. Combined certainty = lowest input.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- What You Can Query -->
-  <section id="queries" class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">The Questions You Can Answer</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          "Which GSP is hurting us?" triggers a BI project. Answer next week.
-        </p>
-        <p class="proof">
-          With positions, it's a query. Answer now.
-        </p>
-      </div>
-
-      <div class="query-grid">
-        <div class="query-card">
-          <h3>GSP Profitability</h3>
-          <p class="query-question">"Which GSP is causing me the greatest heartache?"</p>
-          <p class="query-answer">Real-time P&amp;L by grid supply point. See margin erosion as it happens, not in month-end reconciliation.</p>
-        </div>
-        <div class="query-card">
-          <h3>Fixed-Rate Exposure</h3>
-          <p class="query-question">"Which customers are underwater right now?"</p>
-          <p class="query-answer">Position-level tracking of wholesale cost vs. contracted rate. Know your exposure before it becomes a loss.</p>
-        </div>
-        <div class="query-card">
-          <h3>Data Quality</h3>
-          <p class="query-question">"What percentage of my meters are fit to bill today?"</p>
-          <p class="query-answer">See which reads are validated, which are estimates. Know your certainty before you invoice.</p>
-        </div>
-        <div class="query-card">
-          <h3>Collection Risk</h3>
-          <p class="query-question">"Which accounts have meter issues AND payment issues?"</p>
-          <p class="query-answer">Cross-domain intelligence. Meter status, billing history, payment patterns -one query.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Multi-Asset Positions -->
-  <section id="assets" class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">Beyond Currency</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          You trade kWh, gas, carbon, flexibility. Your accounting system doesn't.
-        </p>
-        <p class="proof">
-          Meridian tracks any asset class. Dimensional typing prevents nonsense calculations.
-        </p>
-      </div>
-
-      <div class="asset-examples">
-        <div class="asset-example">
-          <span class="asset-type">Electricity Import</span>
-          <span class="asset-unit">kWh</span>
-        </div>
-        <div class="asset-example">
-          <span class="asset-type">Electricity Export</span>
-          <span class="asset-unit">kWh</span>
-        </div>
-        <div class="asset-example">
-          <span class="asset-type">Gas Consumption</span>
-          <span class="asset-unit">kWh (thermal)</span>
-        </div>
-        <div class="asset-example">
-          <span class="asset-type">Flexibility Response</span>
-          <span class="asset-unit">kW &times; duration</span>
-        </div>
-        <div class="asset-example">
-          <span class="asset-type">Carbon Offset</span>
-          <span class="asset-unit">tCO<sub>2</sub>e</span>
-        </div>
-        <div class="asset-example">
-          <span class="asset-type">Customer Balance</span>
-          <span class="asset-unit">GBP / EUR</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Foundation for AI -->
-  <section id="foundation" class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">The Foundation for What's Next</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          AI on fragmented data hallucinates. AI on consistent positions reasons.
-        </p>
-        <p class="proof">
-          The unified data model is the prerequisite. Positions provide the ground truth AI needs.
-        </p>
-      </div>
-
-      <div class="foundation-capabilities">
-        <div class="capability">
-          <h3>Tariff Scenario Planning</h3>
-          <p>Load draft tariffs, see projected exposure, iterate. Find the right price point before you commit.</p>
-        </div>
-        <div class="capability">
-          <h3>Forecasting</h3>
-          <p>Predict consumption and cost by GSP with actual position history, not estimated aggregates.</p>
-        </div>
-        <div class="capability">
-          <h3>Anomaly Detection</h3>
-          <p>Spot unusual patterns against a baseline of verified positions, not noisy meter data.</p>
-        </div>
-        <div class="capability">
-          <h3>Flexibility Optimization</h3>
-          <p>Orchestrate demand response with real-time position visibility across your portfolio.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GSP Position View -->
-  <section id="gsp-view" class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">GSP Position View</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          "Which GSP is hurting us?" shouldn't require a BI project.
-        </p>
-        <p class="proof">
-          Internal accounts for each DNO and GSP. Your wholesale exposure, visible in real time.
-        </p>
-      </div>
-
-      <div class="dashboard-wireframe">
-        <h3 class="wireframe-customer">Western Power Distribution</h3>
+        <h3 class="wireframe-title">What you could query: GSP Exposure</h3>
         <table class="wireframe-table">
           <thead>
             <tr>
               <th>GSP</th>
-              <th>Consumption</th>
+              <th>Volume</th>
               <th>Wholesale Cost</th>
               <th>Billed Revenue</th>
               <th>Margin</th>
@@ -395,7 +200,7 @@ sequenceDiagram
               <td class="quality-mid">Estimate</td>
             </tr>
             <tr class="subtotal-row">
-              <td>DNO Total</td>
+              <td>Total</td>
               <td>4.19M kWh</td>
               <td>&pound;978,400</td>
               <td>&pound;1,005,600</td>
@@ -405,36 +210,116 @@ sequenceDiagram
           </tbody>
         </table>
         <p class="wireframe-note">
-          GSP _P is underwater. Wholesale cost exceeds billed revenue by &pound;17,800.
+          "Which GSP is hurting us?" - internal accounts for each DNO make this a table, not a project.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Technical Foundation -->
-  <section id="technical" class="section pillar-section">
+  <!-- COLLECT: Position Tracking -->
+  <section id="collect" class="section pillar-section">
     <div class="section-content">
-      <h2 class="pillar-title">Built for Scale</h2>
+      <h2 class="pillar-title">Collect</h2>
+      <p class="pillar-subtitle">Receivables as positions</p>
       <div class="pillar-content">
         <p class="stakes">
-          MHHS means 48x the data with tighter deadlines.
+          You've billed. But has the money arrived? Which invoices are outstanding?
+          Which customers have meter issues AND payment issues?
         </p>
         <p class="proof">
-          Event-driven. Kubernetes-native. Horizontally scalable.
+          The ledger tracks invoices raised vs invoices settled. Payments due vs payments received.
+          Each customer can have multiple accounts - energy, standing charges, debt recovery.
+          Cross-domain queries become simple: meter status, billing history, payment patterns in one view.
         </p>
       </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Collection Position</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Invoiced</th>
+              <th>Received</th>
+              <th>Outstanding</th>
+              <th>Meter Status</th>
+              <th>Risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Acme Ltd</td>
+              <td>&pound;12,400</td>
+              <td>&pound;12,400</td>
+              <td>&pound;0</td>
+              <td class="quality-high">All Actual</td>
+              <td class="quality-high">Low</td>
+            </tr>
+            <tr>
+              <td>Beta Corp</td>
+              <td>&pound;34,200</td>
+              <td>&pound;28,500</td>
+              <td class="negative">&pound;5,700</td>
+              <td class="quality-low">1 Missing</td>
+              <td class="quality-low">High</td>
+            </tr>
+            <tr>
+              <td>Gamma Industries</td>
+              <td>&pound;89,100</td>
+              <td>&pound;67,200</td>
+              <td class="negative">&pound;21,900</td>
+              <td class="quality-high">All Actual</td>
+              <td class="quality-mid">Medium</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          Beta Corp: outstanding balance AND missing meter. Collections sees meter status. Metering sees payment history.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Engine -->
+  <section id="engine" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Engine</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          MHHS means 48x the data with tighter deadlines. The architecture has to scale.
+        </p>
+        <p class="proof">
+          Meridian is a backend ledger engine - fast, auditable, quality-aware.
+          The dashboards above are queries you build on top. The engine makes them possible.
+        </p>
+      </div>
+      <div class="arch-diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    participant Meter as Meter Read
+    participant Meridian as Meridian
+    participant Customer as Customer Position
+    participant Wholesale as Wholesale Position
+
+    Meter->>Meridian: kWh + Quality
+    Meridian->>Customer: Revenue @ tariff
+    Meridian->>Wholesale: Cost @ GSP price
+    Note over Customer,Wholesale: Margin visible immediately
+        </pre>
+      </div>
+
       <div class="tech-grid">
         <div class="tech-item">
           <h3>Event-Driven</h3>
-          <p>Stream processing, not batch. Problems surface as they happen.</p>
+          <p>Stream processing, not batch. Exceptions surface as they happen.</p>
         </div>
         <div class="tech-item">
-          <h3>Kubernetes-Native</h3>
-          <p>Horizontally scalable. Handle MHHS volumes without re-architecting.</p>
+          <h3>Bi-Temporal</h3>
+          <p>What you knew when. Full audit trail for regulatory and dispute resolution.</p>
         </div>
         <div class="tech-item">
           <h3>Wash and Reload</h3>
-          <p>Estimates become actuals, positions reconcile. Full audit trail preserved.</p>
+          <p>Actuals arrive, positions reload. Full audit trail preserved.</p>
         </div>
       </div>
       <p class="tech-stats">
@@ -446,16 +331,13 @@ sequenceDiagram
   <!-- Contact Section -->
   <section class="section contact-section">
     <div class="section-content">
-      <h2>Let's Talk Architecture</h2>
-      <p class="contact-lead">
-        Happy to walk through how this maps to your specific challenges.
-      </p>
+      <h2>Get Started</h2>
       <div class="hero-cta">
-        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
-          Contact Ben
+        <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
+          Read the Docs
         </a>
-        <a href="/" class="btn btn-secondary">
-          Technical Vision
+        <a href="mailto:ben@meridianhub.org" class="btn btn-secondary">
+          Contact Engineering
         </a>
       </div>
     </div>

@@ -1,6 +1,6 @@
 baseURL = 'https://www.meridianhub.org/'
 languageCode = 'en-gb'
-title = 'Meridian - Open Banking Ledger'
+title = 'Meridian'
 theme = 'PaperMod'
 
 # Build settings
@@ -20,23 +20,13 @@ enableEmoji = false
   category = "categories"
   service = "services"
 
-# Menu - Question-based navigation anchors
+# Menu
 [menu]
   [[menu.main]]
     identifier = "energy"
     name = "Energy Retail"
     url = "/energy/"
-    weight = 5
-  [[menu.main]]
-    identifier = "how-it-works"
-    name = "How it works"
-    url = "/#measure"
     weight = 10
-  [[menu.main]]
-    identifier = "trust"
-    name = "Why trust it"
-    url = "/#trust"
-    weight = 20
   [[menu.main]]
     identifier = "github"
     name = "GitHub"
@@ -73,7 +63,7 @@ enableEmoji = false
 # PaperMod theme parameters
 [params]
   env = "production"
-  description = "Open source treasury infrastructure for the modern economy. Measure. Value. Settle."
+  description = "Measure. Value. Settle."
   author = "Meridian"
 
   # Favicon
@@ -110,8 +100,6 @@ enableEmoji = false
   [params.homeInfoParams]
     Title = "Trust Your Numbers"
     Content = """
-Open source treasury infrastructure for the modern economy.
-
 **Measure. Value. Settle.**
 """
 

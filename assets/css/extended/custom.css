@@ -1256,6 +1256,30 @@ a:hover {
   color: #f6e05e;
 }
 
+.wireframe-table .quality-low {
+  color: #c53030;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .wireframe-table .quality-low {
+  color: #fc8181;
+}
+
+.wireframe-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--secondary);
+  margin-bottom: 0.75rem;
+}
+
+.pillar-subtitle {
+  font-size: 1.1rem;
+  color: var(--secondary);
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
 .wireframe-note {
   text-align: center;
   font-style: italic;

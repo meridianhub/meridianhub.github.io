@@ -1,5 +1,5 @@
 ---
 title: "Trust Your Numbers"
-description: "Open source treasury infrastructure for the modern economy"
+description: "Measure. Value. Settle."
 layout: "home"
 ---
