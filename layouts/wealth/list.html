@@ -109,15 +109,21 @@
       <div class="arch-diagram">
         <pre class="mermaid">
 sequenceDiagram
-    participant Event as Corporate Action
-    participant Meridian as Meridian
-    participant Market as Market Value
-    participant Cost as Cost Basis
+    participant Corp as Corporate Action
+    box Meridian
+        participant Ledger as Ledger
+        participant Data as Market Data
+        participant Market as Market Value
+        participant Cost as Cost Basis
+    end
 
-    Event->>Meridian: Accumulating dividend
-    Meridian->>Market: No change (still £10,000)
-    Meridian->>Cost: Adjusted (now £8,200)
-    Note over Market,Cost: Same position, different views
+    Corp->>Ledger: Accumulating dividend
+    Ledger->>Cost: Adjusted (now £8,200)
+    Note over Market: No change
+
+    Data->>Ledger: Price change
+    Ledger->>Market: Revalued (now £10,400)
+    Note over Cost: No change
         </pre>
       </div>
 
