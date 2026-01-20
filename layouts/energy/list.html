@@ -63,6 +63,7 @@
             <li>Ops team reviews spreadsheet</li>
             <li>Maybe someone follows up</li>
             <li>Customer billed on estimate</li>
+            <li>Hard to prove assumptions used 3 months ago</li>
           </ul>
         </div>
         <div class="comparison-col comparison-meridian">
@@ -73,6 +74,7 @@
             <li>Exception visible immediately</li>
             <li>Cannot proceed until resolved</li>
             <li>Accurate bill or explicit decision to estimate</li>
+            <li>Point-in-time replay of market state and knowledge</li>
           </ul>
         </div>
       </div>
@@ -127,7 +129,8 @@ sequenceDiagram
         </p>
         <p class="proof">
           Double-entry bookkeeping. Every meter read creates two positions: revenue at the customer's tariff,
-          cost at the GSP wholesale price. The difference is your margin -visible in real time.
+          cost at the GSP wholesale price. The spread between contract and wholesale is your margin -
+          visible at the moment of consumption, not month-end.
         </p>
       </div>
 
@@ -382,8 +385,8 @@ sequenceDiagram
           <p>Horizontally scalable. Handle MHHS volumes and seasonal peaks without re-architecting.</p>
         </div>
         <div class="tech-item">
-          <h3>Revaluation with Audit</h3>
-          <p>When estimates become actuals, track what changed and why. Full history, no mystery adjustments.</p>
+          <h3>Wash and Reload</h3>
+          <p>When estimates become actuals, Meridian reconciles automatically. The old estimate is washed, the actual reloaded - with full audit trail.</p>
         </div>
       </div>
     </div>
