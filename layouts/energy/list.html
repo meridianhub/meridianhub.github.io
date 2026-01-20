@@ -91,6 +91,17 @@
   <section id="architecture" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">How Consumption Becomes a Position</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          In traditional systems, meter data flows into one database, prices into another,
+          and someone reconciles them in a spreadsheet at month-end. By then, the damage is done.
+        </p>
+        <p class="proof">
+          Meridian creates a financial position the moment consumption data arrives.
+          That position has a quantity in kWh and a liability in currency, valued at the GSP wholesale rate.
+          If the data doesn't arrive, the position stays open. No reconciliation surprises.
+        </p>
+      </div>
       <div class="arch-diagram">
         <pre class="mermaid">
 sequenceDiagram
@@ -125,12 +136,17 @@ sequenceDiagram
   </section>
 
   <!-- What You Can Query -->
-  <section id="queries" class="section pillar-section pillar-alt">
+  <section id="queries" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">The Questions You Can Answer</h2>
       <div class="pillar-content">
-        <p class="query-intro">
-          When your data model is unified around positions, these become queries&mdash;not BI projects.
+        <p class="stakes">
+          "Which GSP is causing me the greatest heartache?" Today, that question triggers a BI project.
+          Someone pulls data from three systems, joins it in Excel, and delivers an answer next week.
+        </p>
+        <p class="proof">
+          When your data model is unified around positions, these become queries.
+          Real-time. Filterable. Drillable. The answer is a SQL statement, not a project.
         </p>
       </div>
 
@@ -160,7 +176,7 @@ sequenceDiagram
   </section>
 
   <!-- Multi-Asset Positions -->
-  <section id="assets" class="section pillar-section">
+  <section id="assets" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">Beyond Currency</h2>
       <div class="pillar-content">
@@ -205,7 +221,7 @@ sequenceDiagram
   </section>
 
   <!-- Foundation for AI -->
-  <section id="foundation" class="section pillar-section pillar-alt">
+  <section id="foundation" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">The Foundation for What's Next</h2>
       <div class="pillar-content">
@@ -242,7 +258,7 @@ sequenceDiagram
   </section>
 
   <!-- Not a Treasury -->
-  <section id="not-treasury" class="section pillar-section">
+  <section id="not-treasury" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">You Don't Need to Be a Bank</h2>
       <div class="pillar-content">
@@ -271,9 +287,20 @@ sequenceDiagram
   </section>
 
   <!-- Technical Foundation -->
-  <section id="technical" class="section pillar-section pillar-alt">
+  <section id="technical" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">Built for Scale</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          MHHS is coming. Half-hourly settlement for every meter. Your current architecture
+          handles daily volumes. What happens when it's 48x the data, with tighter deadlines?
+        </p>
+        <p class="proof">
+          Meridian is built for exactly this. Event-driven ingestion handles volume spikes.
+          Kubernetes-native deployment scales horizontally. And because it's open source,
+          you build institutional expertise instead of vendor dependency.
+        </p>
+      </div>
       <div class="tech-grid">
         <div class="tech-item">
           <h3>Event-Driven</h3>
