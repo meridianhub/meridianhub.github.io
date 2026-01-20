@@ -23,6 +23,11 @@ enableEmoji = false
 # Menu - Question-based navigation anchors
 [menu]
   [[menu.main]]
+    identifier = "energy"
+    name = "Energy Retail"
+    url = "/energy/"
+    weight = 5
+  [[menu.main]]
     identifier = "how-it-works"
     name = "How it works"
     url = "/#measure"

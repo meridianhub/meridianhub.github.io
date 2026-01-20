@@ -1,0 +1,283 @@
+{{ define "main" }}
+<article class="landing-page energy-page">
+  <!-- Hero Section: The Pain -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">For Energy Retailers</p>
+      <h1 class="hero-headline">
+        Which GSP is costing you money right now?
+      </h1>
+      <p class="hero-subtext">
+        If you can't answer that question with a query, you have a data architecture problem.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Current State -->
+  <section id="problem" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Problem</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Your data lives in silos. Metering in one system. Billing in another. Settlements somewhere else.
+          When a fixed-rate customer goes underwater because wholesale spiked in their GSP,
+          you find out weeks later in a reconciliation spreadsheet.
+        </p>
+        <p class="proof">
+          The industry calls this "data integration." You call it "we'll build a BI dashboard."
+          But dashboards show you what happened. They don't prevent it from happening again.
+        </p>
+      </div>
+
+      <div class="problem-cards">
+        <div class="problem-card">
+          <h3>Exception Blindness</h3>
+          <p>A failed meter read is a log entry in Grafana. An engineer spots it. Maybe. Days later.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Batch Processing</h3>
+          <p>You discover problems in overnight runs. By then, you've already billed wrong or missed the settlement window.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Siloed Intelligence</h3>
+          <p>Your collections team can't see meter status. Your meter team can't see payment history. Nobody sees the full picture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Meridian Approach -->
+  <section id="approach" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Ledger-First Architecture</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          What if a failed meter read wasn't a log entry&mdash;but an open liability in your books?
+          The kind that won't let you close the period until someone resolves it.
+        </p>
+        <p class="proof">
+          Meridian treats every energy transaction as a financial position. Consumption isn't just data&mdash;it's
+          an asset with a value in kWh and a corresponding liability in currency. When the meter read fails,
+          the position stays open. The books don't balance. Someone has to act.
+        </p>
+      </div>
+
+      <div class="approach-comparison">
+        <div class="comparison-col comparison-traditional">
+          <h3>Traditional Approach</h3>
+          <ul>
+            <li>Meter read fails &rarr; Log entry created</li>
+            <li>Exception report generated overnight</li>
+            <li>Ops team reviews spreadsheet</li>
+            <li>Maybe someone follows up</li>
+            <li>Customer billed on estimate</li>
+          </ul>
+        </div>
+        <div class="comparison-col comparison-meridian">
+          <h3>Meridian Approach</h3>
+          <ul>
+            <li>Meter read fails &rarr; Position stays open</li>
+            <li>Books don't balance for that meter</li>
+            <li>Exception visible immediately</li>
+            <li>Cannot proceed until resolved</li>
+            <li>Accurate bill or explicit decision to estimate</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Can Query -->
+  <section id="queries" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Questions You Can Answer</h2>
+      <div class="pillar-content">
+        <p class="query-intro">
+          When your data model is unified around positions, these become queries&mdash;not BI projects.
+        </p>
+      </div>
+
+      <div class="query-grid">
+        <div class="query-card">
+          <h3>GSP Profitability</h3>
+          <p class="query-question">"Which GSP is causing me the greatest heartache?"</p>
+          <p class="query-answer">Real-time P&amp;L by grid supply point. See margin erosion as it happens, not in month-end reconciliation.</p>
+        </div>
+        <div class="query-card">
+          <h3>Fixed-Rate Exposure</h3>
+          <p class="query-question">"Which customers are underwater right now?"</p>
+          <p class="query-answer">Position-level tracking of wholesale cost vs. contracted rate. Know your exposure before it becomes a loss.</p>
+        </div>
+        <div class="query-card">
+          <h3>Exception Rate</h3>
+          <p class="query-question">"What percentage of my meters are fit to bill today?"</p>
+          <p class="query-answer">Not a report run overnight. A live query of open positions that need resolution.</p>
+        </div>
+        <div class="query-card">
+          <h3>Collection Risk</h3>
+          <p class="query-question">"Which accounts have meter issues AND payment issues?"</p>
+          <p class="query-answer">Cross-domain intelligence. Meter status, billing history, payment patterns&mdash;one query.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multi-Asset Positions -->
+  <section id="assets" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Beyond Currency</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Your business already trades in multiple assets: kilowatt-hours, gas therms, carbon credits,
+          flexibility services. Your accounting system probably doesn't.
+        </p>
+        <p class="proof">
+          Meridian tracks positions in any asset class with dimensional typing. A kWh position can't accidentally
+          be added to a currency position. Export credits are tracked separately from import consumption.
+          The system enforces physical reality.
+        </p>
+      </div>
+
+      <div class="asset-examples">
+        <div class="asset-example">
+          <span class="asset-type">Electricity Import</span>
+          <span class="asset-unit">kWh</span>
+        </div>
+        <div class="asset-example">
+          <span class="asset-type">Electricity Export</span>
+          <span class="asset-unit">kWh</span>
+        </div>
+        <div class="asset-example">
+          <span class="asset-type">Gas Consumption</span>
+          <span class="asset-unit">kWh (thermal)</span>
+        </div>
+        <div class="asset-example">
+          <span class="asset-type">Flexibility Response</span>
+          <span class="asset-unit">kW &times; duration</span>
+        </div>
+        <div class="asset-example">
+          <span class="asset-type">Carbon Offset</span>
+          <span class="asset-unit">tCO<sub>2</sub>e</span>
+        </div>
+        <div class="asset-example">
+          <span class="asset-type">Customer Balance</span>
+          <span class="asset-unit">GBP / EUR</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Foundation for AI -->
+  <section id="foundation" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Foundation for What's Next</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          You want AI agents. Predictive tools. Agentic customer service. Autonomous optimization.
+          But AI built on fragmented data hallucinates. AI built on consistent positions reasons.
+        </p>
+        <p class="proof">
+          The unified data model isn't a nice-to-have&mdash;it's the prerequisite. When every transaction
+          has a clear position, a clear counterparty, and a clear audit trail, your AI has ground truth
+          to reason from. Context wins, and positions provide context.
+        </p>
+      </div>
+
+      <div class="foundation-capabilities">
+        <div class="capability">
+          <h3>Forecasting</h3>
+          <p>Predict consumption and cost by GSP with actual position history, not estimated aggregates.</p>
+        </div>
+        <div class="capability">
+          <h3>Anomaly Detection</h3>
+          <p>Spot unusual patterns against a baseline of verified positions, not noisy meter data.</p>
+        </div>
+        <div class="capability">
+          <h3>Customer Intelligence</h3>
+          <p>Build profiles from actual financial behaviour, not inferred from disconnected systems.</p>
+        </div>
+        <div class="capability">
+          <h3>Flexibility Optimization</h3>
+          <p>Orchestrate demand response with real-time position visibility across your portfolio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Not a Treasury -->
+  <section id="not-treasury" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">You Don't Need to Be a Bank</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          "Treasury infrastructure" sounds like overkill. You're an energy retailer, not Goldman Sachs.
+          But consider: you hold customer balances, you have credit exposure, you trade in volatile commodities,
+          and you settle millions of positions daily.
+        </p>
+        <p class="proof">
+          The same principles that let banks track positions across asset classes, enforce settlement integrity,
+          and audit every transaction&mdash;those principles solve your problems too. You don't need the complexity
+          of a trading floor. You need the rigour of knowing where your money is.
+        </p>
+      </div>
+
+      <blockquote class="meridian-promise">
+        <p>
+          A failed metre read isn't a log entry for engineers to spot in Grafana&mdash;<br>
+          it's an open liability in the ledger.
+        </p>
+        <p>
+          The books don't balance until someone resolves it.
+        </p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Technical Foundation -->
+  <section id="technical" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Built for Scale</h2>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h3>Event-Driven</h3>
+          <p>Stream processing, not batch. Know about problems when they happen, not in tomorrow's report.</p>
+        </div>
+        <div class="tech-item">
+          <h3>BIAN-Aligned</h3>
+          <p>Industry-standard service domains. Your team speaks the same language as the world's largest banks.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Kubernetes-Native</h3>
+          <p>Horizontally scalable. Handle MHHS volumes and seasonal peaks without re-architecting.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Open Source</h3>
+          <p>Apache 2.0 licensed. No vendor lock-in. Inspect every line. Build institutional expertise.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="section-content">
+      <h2>Let's Talk Architecture</h2>
+      <p class="contact-lead">
+        I've been inside the machine&mdash;investment banking, treasury systems, real-time trading infrastructure.
+        I understand the rigour you need and the constraints you're working with.
+      </p>
+      <p class="contact-lead">
+        Happy to walk through how Meridian maps to your specific challenges.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
+          Contact Ben
+        </a>
+        <a href="/" class="btn btn-secondary">
+          Read the Technical Vision
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+{{ end }}

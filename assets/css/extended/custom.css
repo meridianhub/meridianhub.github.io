@@ -713,3 +713,332 @@ a:hover {
     padding-left: 0.75rem;
   }
 }
+
+/* ==============================================
+   Energy Retail Page Styles
+   ============================================== */
+
+.energy-page .hero-eyebrow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+[data-theme="dark"] .energy-page .hero-eyebrow {
+  color: #4ade80;
+}
+
+/* Problem Cards */
+.problem-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.problem-card {
+  padding: 1.5rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border-left: 4px solid #e53e3e;
+}
+
+.problem-card h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+}
+
+[data-theme="dark"] .problem-card h3 {
+  color: #7dd3fc;
+}
+
+.problem-card p {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Approach Comparison */
+.approach-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comparison-col {
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.comparison-col h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.comparison-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.comparison-col li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-col li:last-child {
+  border-bottom: none;
+}
+
+.comparison-traditional {
+  background: rgba(229, 62, 62, 0.08);
+  border-left: 4px solid #e53e3e;
+}
+
+.comparison-traditional h3 {
+  color: #c53030;
+}
+
+[data-theme="dark"] .comparison-traditional {
+  background: rgba(229, 62, 62, 0.12);
+}
+
+[data-theme="dark"] .comparison-traditional h3 {
+  color: #fc8181;
+}
+
+.comparison-meridian {
+  background: rgba(56, 161, 105, 0.08);
+  border-left: 4px solid var(--accent);
+}
+
+.comparison-meridian h3 {
+  color: #2f855a;
+}
+
+[data-theme="dark"] .comparison-meridian {
+  background: rgba(74, 222, 128, 0.12);
+}
+
+[data-theme="dark"] .comparison-meridian h3 {
+  color: #4ade80;
+}
+
+/* Query Section */
+.query-intro {
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--secondary);
+  margin-bottom: 2rem;
+}
+
+.query-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.query-card {
+  padding: 1.5rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border-top: 4px solid var(--accent);
+}
+
+.query-card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+[data-theme="dark"] .query-card h3 {
+  color: #7dd3fc;
+}
+
+.query-question {
+  font-size: 1.125rem;
+  font-style: italic;
+  color: var(--content);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.query-answer {
+  font-size: 0.95rem;
+  color: var(--secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Asset Examples */
+.asset-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.asset-example {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: var(--entry);
+  border-radius: 8px;
+  border-bottom: 3px solid var(--accent);
+  min-width: 140px;
+}
+
+.asset-type {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="dark"] .asset-type {
+  color: #7dd3fc;
+}
+
+.asset-unit {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  font-family: monospace;
+}
+
+/* Foundation Capabilities */
+.foundation-capabilities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.capability {
+  padding: 1.25rem;
+  background: var(--theme);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.capability h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+
+[data-theme="dark"] .capability h3 {
+  color: #7dd3fc;
+}
+
+.capability p {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Meridian Promise Quote */
+.meridian-promise {
+  margin: 2.5rem auto 0;
+  padding: 2rem;
+  background: var(--entry);
+  border-radius: 8px;
+  border-left: 4px solid var(--accent);
+  max-width: 700px;
+  text-align: center;
+}
+
+.meridian-promise p {
+  font-size: 1.25rem;
+  color: var(--content);
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.meridian-promise p:last-child {
+  margin-bottom: 0;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+[data-theme="dark"] .meridian-promise p:last-child {
+  color: #7dd3fc;
+}
+
+/* Tech Grid */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.tech-item {
+  padding: 1.25rem;
+  background: var(--theme);
+  border-radius: 8px;
+  text-align: center;
+  border-bottom: 3px solid var(--accent);
+}
+
+.tech-item h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+}
+
+[data-theme="dark"] .tech-item h3 {
+  color: #7dd3fc;
+}
+
+.tech-item p {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Responsive: Energy Page */
+@media (max-width: 768px) {
+  .approach-comparison {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .meridian-promise p {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .asset-examples {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .asset-example {
+    width: 100%;
+    max-width: 200px;
+  }
+}
