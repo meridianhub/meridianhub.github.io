@@ -1451,3 +1451,26 @@ a:hover {
 .ihd-legend-dot.ihd-export {
   background: #4ade80;
 }
+
+/* Hero Quote */
+.hero-quote {
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--content);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+  text-align: left;
+  border-left: 4px solid var(--accent);
+  padding: 1rem 0 1rem 1.5rem;
+  background: transparent;
+}
+
+.hero-quote cite {
+  display: block;
+  font-size: 0.95rem;
+  font-style: normal;
+  margin-top: 0.75rem;
+  color: var(--accent);
+  font-weight: 500;
+}
