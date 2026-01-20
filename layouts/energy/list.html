@@ -88,33 +88,88 @@
           Meter data into one database, prices into another, reconciled in a spreadsheet at month-end.
         </p>
         <p class="proof">
-          Meridian creates a position the moment data arrives. If the data doesn't arrive, the position stays open.
+          Meridian zips consumption with pricing in real time. The quality of both inputs determines position certainty.
         </p>
       </div>
       <div class="arch-diagram">
         <pre class="mermaid">
 sequenceDiagram
-    participant Meter as DCC
+    participant Meters as Consumption Sources
+    participant Market as Market Data
     participant Meridian as Meridian
     participant Ledger as Ledger
 
-    Meter->>Meridian: 1. Consumption (kWh)
-    Meridian->>Meridian: 2a. Value at customer tariff
-    Meridian->>Meridian: 2b. Value at GSP wholesale
-    Meridian->>Ledger: 3. Record both positions
-    Note over Ledger: Revenue + Cost = Margin
-
-    Note over Meter,Ledger: No data? Position stays open.
+    Meters->>Meridian: kWh (DCC, MHHS, customer read, forecast)
+    Market->>Meridian: Prices (Elexon, carbon, tariffs)
+    Meridian->>Meridian: Zip: value at tariff + wholesale
+    Meridian->>Ledger: Record positions
+    Note over Ledger: Certainty = min(consumption, price)
         </pre>
       </div>
       <p class="arch-stats">
-        Event-driven &bull; Dual valuation &bull; Full audit trail
+        Forecast + Actual = Forecast &bull; Actual + Actual = Actual &bull; Full audit trail
+      </p>
+    </div>
+  </section>
+
+  <!-- Services Detail -->
+  <section id="services" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Under the Hood</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          "Show me the architecture" is a reasonable request.
+        </p>
+        <p class="proof">
+          Six services, each with a single responsibility. Open source, inspectable, no black boxes.
+        </p>
+      </div>
+      <div class="arch-diagram">
+        <pre class="mermaid">
+flowchart TB
+    subgraph Consumption
+        DCC[DCC / SMETS]
+        MDC[Meter Data Collector]
+        MHHS[MHHS]
+        CR[Customer Reads]
+        FC[Forecasts]
+    end
+
+    subgraph Market
+        Elexon[Elexon GSP Prices]
+        Carbon[Carbon Intensity]
+    end
+
+    subgraph Meridian
+        MI[Market Information<br/>Quality Ladder]
+        PK[Position Keeping<br/>Balance Authority]
+        FA[Financial Accounting<br/>Double Entry]
+        CA[Current Account]
+        PO[Payment Order]
+    end
+
+    subgraph Customer[Party: Acme Ltd]
+        CA --> M1[Electric Import]
+        CA --> M2[Electric Export]
+        CA --> M3[Gas]
+    end
+
+    DCC & MDC & MHHS & CR & FC --> MI
+    Elexon & Carbon --> MI
+    MI --> PK
+    PK --> FA
+    FA --> CA
+    CA --> PO
+        </pre>
+      </div>
+      <p class="arch-stats">
+        Multiple sources &bull; One quality ladder &bull; One customer view
       </p>
     </div>
   </section>
 
   <!-- Double Entry: Two Valuations -->
-  <section id="double-entry" class="section pillar-section">
+  <section id="double-entry" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">One Read, Two Valuations</h2>
       <div class="pillar-content">
@@ -151,7 +206,7 @@ sequenceDiagram
   </section>
 
   <!-- Dashboard Wireframe -->
-  <section id="dashboard" class="section pillar-section pillar-alt">
+  <section id="dashboard" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">What Your Dashboard Could Show</h2>
       <div class="pillar-content">
@@ -168,23 +223,31 @@ sequenceDiagram
           <thead>
             <tr>
               <th>Customer</th>
-              <th>Fuel</th>
+              <th>Meter</th>
               <th>Consumption</th>
               <th>Revenue</th>
               <th>Cost</th>
               <th>Margin</th>
-              <th>Data Quality</th>
+              <th>Certainty</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td rowspan="3">Acme Ltd</td>
-              <td>Electric</td>
+              <td rowspan="4">Acme Ltd</td>
+              <td>Electric Import</td>
               <td>12,400 kWh</td>
               <td>&pound;2,976</td>
               <td>&pound;2,728</td>
               <td class="positive">&pound;248</td>
-              <td class="quality-high">Validated</td>
+              <td class="quality-high">Actual</td>
+            </tr>
+            <tr>
+              <td>Electric Export</td>
+              <td>-1,200 kWh</td>
+              <td>-&pound;60</td>
+              <td>-&pound;72</td>
+              <td class="negative">-&pound;12</td>
+              <td class="quality-high">Actual</td>
             </tr>
             <tr>
               <td>Gas</td>
@@ -192,27 +255,27 @@ sequenceDiagram
               <td>&pound;574</td>
               <td>&pound;697</td>
               <td class="negative">-&pound;123</td>
-              <td class="quality-mid">Estimated</td>
+              <td class="quality-mid">Estimate</td>
             </tr>
             <tr class="subtotal-row">
               <td>Combined</td>
-              <td>20,600 kWh</td>
-              <td>&pound;3,550</td>
-              <td>&pound;3,425</td>
-              <td class="positive">&pound;125</td>
-              <td>&mdash;</td>
+              <td>19,400 kWh</td>
+              <td>&pound;3,490</td>
+              <td>&pound;3,353</td>
+              <td class="positive">&pound;113</td>
+              <td class="quality-mid">Estimate</td>
             </tr>
           </tbody>
         </table>
         <p class="wireframe-note">
-          One bill, two fuels. Electric profitable, gas underwater. Gas position estimated&mdash;awaiting actual read.
+          One customer, three meters. Electric actuals in, gas still estimated. Combined certainty = lowest input.
         </p>
       </div>
     </div>
   </section>
 
   <!-- What You Can Query -->
-  <section id="queries" class="section pillar-section">
+  <section id="queries" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">The Questions You Can Answer</h2>
       <div class="pillar-content">
@@ -250,7 +313,7 @@ sequenceDiagram
   </section>
 
   <!-- Multi-Asset Positions -->
-  <section id="assets" class="section pillar-section pillar-alt">
+  <section id="assets" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">Beyond Currency</h2>
       <div class="pillar-content">
@@ -292,7 +355,7 @@ sequenceDiagram
   </section>
 
   <!-- Foundation for AI -->
-  <section id="foundation" class="section pillar-section">
+  <section id="foundation" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">The Foundation for What's Next</h2>
       <div class="pillar-content">
@@ -326,7 +389,7 @@ sequenceDiagram
   </section>
 
   <!-- Not a Treasury -->
-  <section id="not-treasury" class="section pillar-section pillar-alt">
+  <section id="not-treasury" class="section pillar-section">
     <div class="section-content">
       <h2 class="pillar-title">You Don't Need to Be a Bank</h2>
       <div class="pillar-content">
@@ -350,7 +413,7 @@ sequenceDiagram
   </section>
 
   <!-- Technical Foundation -->
-  <section id="technical" class="section pillar-section">
+  <section id="technical" class="section pillar-section pillar-alt">
     <div class="section-content">
       <h2 class="pillar-title">Built for Scale</h2>
       <div class="pillar-content">
