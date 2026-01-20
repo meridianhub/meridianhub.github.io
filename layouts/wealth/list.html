@@ -1,0 +1,336 @@
+{{ define "main" }}
+<article class="landing-page wealth-page">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <blockquote class="hero-quote">
+        "The test of a first-rate intelligence is the ability to hold two opposed ideas
+        in mind at the same time and still retain the ability to function."
+        <cite>— F. Scott Fitzgerald</cite>
+      </blockquote>
+
+      <nav class="hero-nav">
+        <a href="#record" class="hero-word">Record</a>
+        <span class="hero-dot"></span>
+        <a href="#value" class="hero-word">Value</a>
+        <span class="hero-dot"></span>
+        <a href="#prove" class="hero-word">Prove</a>
+      </nav>
+
+      <p class="hero-subtext">
+        Market value says &pound;10,000. Cost basis says &pound;8,500. Both are true.
+      </p>
+    </div>
+  </section>
+
+  <!-- The Problem -->
+  <section id="problem" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">The Cost Basis Problem</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Your accumulating ETF pays a dividend. No cash moves. But your cost basis just changed,
+          and that affects CGT when you eventually sell.
+        </p>
+        <p class="proof">
+          Most systems track positions. Few track the tax-relevant history of how those positions evolved.
+          When it's time to calculate gains, you're reconstructing from trade confirmations and corporate action notices.
+        </p>
+      </div>
+
+      <div class="problem-cards">
+        <div class="problem-card">
+          <h3>Phantom Events</h3>
+          <p>Stock splits, accumulating dividends, corporate actions. Something happened, nothing moved, but the tax treatment changed.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Two Truths, One Position</h3>
+          <p>Market value says £10,000. Cost basis says £8,500. Both are correct. Most ledgers can only hold one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECORD: Capture Everything -->
+  <section id="record" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Record</h2>
+      <p class="pillar-subtitle">Every event, even when nothing moves</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          A dividend reinvestment on an accumulating ETF isn't a trade. But it's still an event
+          that changes your tax position.
+        </p>
+        <p class="proof">
+          Meridian records the event with full metadata - what happened, when, why. The position
+          may not change, but the audit trail captures the moment your cost basis adjusted.
+        </p>
+      </div>
+
+      <div class="approach-comparison">
+        <div class="comparison-col comparison-traditional">
+          <h3>Traditional Approach</h3>
+          <ul>
+            <li>Trade executes &rarr; Position updates</li>
+            <li>Corporate action &rarr; Manual adjustment</li>
+            <li>No cash = No record</li>
+            <li>CGT calculation = Spreadsheet</li>
+          </ul>
+        </div>
+        <div class="comparison-col comparison-meridian">
+          <h3>Meridian Approach</h3>
+          <ul>
+            <li>Event recorded &rarr; All views update</li>
+            <li>Corporate action &rarr; Automatic lineage</li>
+            <li>No cash = Still recorded</li>
+            <li>CGT calculation = Query</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE: Multiple Lenses -->
+  <section id="value" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Value</h2>
+      <p class="pillar-subtitle">Market value and cost basis from one source</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          Your client wants to know their portfolio value. HMRC wants to know their cost basis.
+          Your performance team wants time-weighted returns. Same positions, different numbers.
+        </p>
+        <p class="proof">
+          One event creates multiple accounting views. Market valuation, cost basis, performance attribution -
+          all derived from the same underlying positions, all consistent, all auditable.
+        </p>
+      </div>
+
+      <div class="arch-diagram">
+        <pre class="mermaid">
+sequenceDiagram
+    participant Event as Corporate Action
+    participant Meridian as Meridian
+    participant Market as Market Value
+    participant Cost as Cost Basis
+
+    Event->>Meridian: Accumulating dividend
+    Meridian->>Market: No change (still £10,000)
+    Meridian->>Cost: Adjusted (now £8,200)
+    Note over Market,Cost: Same position, different views
+        </pre>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Position with Tax View</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Holding</th>
+              <th>Units</th>
+              <th>Market Value</th>
+              <th>Cost Basis</th>
+              <th>Unrealised Gain</th>
+              <th>Events</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Vanguard FTSE Global</td>
+              <td>450</td>
+              <td>&pound;12,400</td>
+              <td>&pound;9,800</td>
+              <td class="positive">&pound;2,600</td>
+              <td>3 adjustments</td>
+            </tr>
+            <tr>
+              <td>iShares Core MSCI World</td>
+              <td>280</td>
+              <td>&pound;8,900</td>
+              <td>&pound;8,900</td>
+              <td>&pound;0</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>L&amp;G UK Index</td>
+              <td>1,200</td>
+              <td>&pound;15,600</td>
+              <td>&pound;18,200</td>
+              <td class="negative">-&pound;2,600</td>
+              <td>1 adjustment</td>
+            </tr>
+            <tr class="subtotal-row">
+              <td>Total</td>
+              <td></td>
+              <td>&pound;36,900</td>
+              <td>&pound;36,900</td>
+              <td>&pound;0</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          Click "3 adjustments" to see the dividend reinvestments that changed cost basis without cash movement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVE: Audit Trail -->
+  <section id="prove" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Prove</h2>
+      <p class="pillar-subtitle">What you knew, when you knew it</p>
+      <div class="pillar-content">
+        <p class="stakes">
+          HMRC queries your client's 2022 disposal. What was the cost basis on that date?
+          Which corporate actions affected it? Can you prove it?
+        </p>
+        <p class="proof">
+          Bi-temporal audit trail. Every position, every valuation, every adjustment - queryable
+          as it was at any point in time. Not reconstructed. Retrieved.
+        </p>
+      </div>
+
+      <div class="dashboard-wireframe">
+        <h3 class="wireframe-title">What you could query: Cost Basis History</h3>
+        <table class="wireframe-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Event</th>
+              <th>Units</th>
+              <th>Cost Basis</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2023-01-15</td>
+              <td>Purchase</td>
+              <td>400</td>
+              <td>&pound;8,000</td>
+              <td>+&pound;8,000</td>
+            </tr>
+            <tr>
+              <td>2023-04-01</td>
+              <td>Accumulating dividend</td>
+              <td>400</td>
+              <td>&pound;8,320</td>
+              <td class="positive">+&pound;320</td>
+            </tr>
+            <tr>
+              <td>2023-07-01</td>
+              <td>Accumulating dividend</td>
+              <td>400</td>
+              <td>&pound;8,660</td>
+              <td class="positive">+&pound;340</td>
+            </tr>
+            <tr>
+              <td>2023-09-20</td>
+              <td>Purchase</td>
+              <td>450</td>
+              <td>&pound;9,800</td>
+              <td>+&pound;1,140</td>
+            </tr>
+            <tr>
+              <td>2023-10-01</td>
+              <td>Accumulating dividend</td>
+              <td>450</td>
+              <td>&pound;10,150</td>
+              <td class="positive">+&pound;350</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="wireframe-note">
+          "What was the cost basis on 2023-08-15?" - £8,660. One query, full audit trail.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Performance -->
+  <section id="performance" class="section pillar-section pillar-alt">
+    <div class="section-content">
+      <h2 class="pillar-title">Performance That Adds Up</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Time-weighted returns. Money-weighted returns. Attribution analysis.
+          They all need the same clean position history.
+        </p>
+        <p class="proof">
+          When every cash flow and corporate action is recorded with precise timing,
+          performance calculations become deterministic. Same inputs, same outputs, every time.
+        </p>
+      </div>
+
+      <div class="query-grid">
+        <div class="query-card">
+          <h3>Time-Weighted Return</h3>
+          <p class="query-answer">Daily positions, daily valuations. Geometric linking without manual intervention.</p>
+        </div>
+        <div class="query-card">
+          <h3>Money-Weighted Return</h3>
+          <p class="query-answer">Every cash flow timestamped. IRR calculations from position history, not spreadsheets.</p>
+        </div>
+        <div class="query-card">
+          <h3>Attribution</h3>
+          <p class="query-answer">Sector, asset class, manager. Slice performance by any dimension in the position metadata.</p>
+        </div>
+        <div class="query-card">
+          <h3>Benchmarking</h3>
+          <p class="query-answer">Same valuation engine for portfolio and benchmark. Apples to apples.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Engine -->
+  <section id="engine" class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">The Engine</h2>
+      <div class="pillar-content">
+        <p class="stakes">
+          Settlement, corporate actions, valuations, reporting. Different systems, different truths.
+        </p>
+        <p class="proof">
+          Meridian is a backend ledger engine. One source of truth for positions.
+          Your trading system writes. Your reporting system reads. The numbers match.
+        </p>
+      </div>
+      <div class="tech-grid">
+        <div class="tech-item">
+          <h3>Event-Driven</h3>
+          <p>Trades, corporate actions, valuations. All events, all recorded.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Bi-Temporal</h3>
+          <p>What you knew when. Full audit trail for regulators.</p>
+        </div>
+        <div class="tech-item">
+          <h3>Multi-View</h3>
+          <p>Market value, cost basis, performance. Same position, different lenses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact-section">
+    <div class="section-content">
+      <h2>Get Started</h2>
+      <p class="contact-lead">
+        Building a wealth platform? Let's talk about position keeping.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
+          Contact Ben
+        </a>
+        <a href="https://github.com/meridianhub/meridian" class="btn btn-secondary" target="_blank" rel="noopener">
+          View Source
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
+{{ end }}

@@ -33,6 +33,11 @@ enableEmoji = false
     url = "/edge/"
     weight = 20
   [[menu.main]]
+    identifier = "wealth"
+    name = "Wealth"
+    url = "/wealth/"
+    weight = 30
+  [[menu.main]]
     identifier = "github"
     name = "GitHub"
     url = "https://github.com/meridianhub/meridian"
