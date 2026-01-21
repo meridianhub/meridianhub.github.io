@@ -112,12 +112,13 @@ sequenceDiagram
     participant Edge as Meridian Edge
     participant Meter as Meter
 
-    Cloud->>Edge: Tariff (daily)
+    Cloud->>Edge: TOU tariff (daily)
+    Cloud->>Edge: CO₂ intensity (every 30 min)
     loop Every second
         Meter->>Edge: Pulse
         Edge->>Edge: Value locally
     end
-    Note over Edge: Customer sees £ instantly
+    Note over Edge: Customer sees £ and CO₂ instantly
     Edge->>Cloud: Settlement packet (every 30 min)
         </pre>
       </div>
@@ -129,41 +130,61 @@ sequenceDiagram
             <span class="ihd-label">Right now</span>
             <span class="ihd-value ihd-earning">+&pound;0.03<span class="ihd-unit">/min</span></span>
           </div>
-          <div class="ihd-graph">
-            <div class="ihd-graph-row">
-              <span class="ihd-graph-time">12:00</span>
-              <div class="ihd-graph-bar-container">
-                <div class="ihd-graph-bar ihd-import" style="width: 60%;"></div>
-              </div>
-            </div>
-            <div class="ihd-graph-row">
-              <span class="ihd-graph-time">13:00</span>
-              <div class="ihd-graph-bar-container">
-                <div class="ihd-graph-bar ihd-export" style="width: 25%;"></div>
-              </div>
-            </div>
-            <div class="ihd-graph-row">
-              <span class="ihd-graph-time">14:00</span>
-              <div class="ihd-graph-bar-container">
-                <div class="ihd-graph-bar ihd-export" style="width: 45%;"></div>
-              </div>
-            </div>
-            <div class="ihd-graph-row">
-              <span class="ihd-graph-time">15:00</span>
-              <div class="ihd-graph-bar-container">
-                <div class="ihd-graph-bar ihd-export" style="width: 30%;"></div>
-              </div>
-            </div>
-            <div class="ihd-graph-row">
-              <span class="ihd-graph-time">16:00</span>
-              <div class="ihd-graph-bar-container">
-                <div class="ihd-graph-bar ihd-import" style="width: 20%;"></div>
-              </div>
-            </div>
-            <div class="ihd-graph-legend">
-              <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-import"></span> Import</span>
-              <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-export"></span> Export</span>
-            </div>
+          <svg class="ihd-chart-svg" viewBox="0 0 320 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <!-- Y-axis labels -->
+            <text x="28" y="18" class="ihd-svg-label" text-anchor="end">£0.30</text>
+            <text x="28" y="43" class="ihd-svg-label" text-anchor="end">£0.15</text>
+            <text x="28" y="73" class="ihd-svg-label ihd-svg-zero" text-anchor="end">£0</text>
+            <text x="28" y="103" class="ihd-svg-label" text-anchor="end">-£0.15</text>
+            <text x="28" y="128" class="ihd-svg-label" text-anchor="end">-£0.30</text>
+
+            <!-- Chart area background -->
+            <rect x="35" y="10" width="270" height="120" fill="#242b3d" rx="4"/>
+
+            <!-- Zero line -->
+            <line x1="35" y1="70" x2="305" y2="70" stroke="#475569" stroke-width="1"/>
+
+            <!-- Import bars (red, grow UP from zero) - Morning -->
+            <rect x="42" y="32" width="20" height="38" fill="#f87171" rx="2"/>
+            <rect x="69" y="42" width="20" height="28" fill="#f87171" rx="2"/>
+            <rect x="96" y="58" width="20" height="12" fill="#f87171" rx="2"/>
+
+            <!-- Export bars (green, grow DOWN from zero) - Midday solar -->
+            <rect x="123" y="70" width="20" height="18" fill="#4ade80" rx="2"/>
+            <rect x="150" y="70" width="20" height="35" fill="#4ade80" rx="2"/>
+            <rect x="177" y="70" width="20" height="42" fill="#4ade80" rx="2"/>
+            <rect x="204" y="70" width="20" height="28" fill="#4ade80" rx="2"/>
+            <rect x="231" y="70" width="20" height="10" fill="#4ade80" rx="2"/>
+
+            <!-- Import bars - Evening -->
+            <rect x="258" y="48" width="20" height="22" fill="#f87171" rx="2"/>
+            <rect x="285" y="38" width="20" height="32" fill="#f87171" rx="2"/>
+
+            <!-- CO2 line (yellow) - high morning/evening, low midday -->
+            <polyline
+              points="52,25 79,30 106,45 133,62 160,75 187,78 214,68 241,55 268,35 295,22"
+              fill="none"
+              stroke="#fbbf24"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+
+            <!-- X-axis labels -->
+            <text x="52" y="138" class="ihd-svg-label" text-anchor="middle">08</text>
+            <text x="79" y="138" class="ihd-svg-label" text-anchor="middle">09</text>
+            <text x="106" y="138" class="ihd-svg-label" text-anchor="middle">10</text>
+            <text x="133" y="138" class="ihd-svg-label" text-anchor="middle">11</text>
+            <text x="160" y="138" class="ihd-svg-label" text-anchor="middle">12</text>
+            <text x="187" y="138" class="ihd-svg-label" text-anchor="middle">13</text>
+            <text x="214" y="138" class="ihd-svg-label" text-anchor="middle">14</text>
+            <text x="241" y="138" class="ihd-svg-label" text-anchor="middle">15</text>
+            <text x="268" y="138" class="ihd-svg-label" text-anchor="middle">16</text>
+            <text x="295" y="138" class="ihd-svg-label" text-anchor="middle">17</text>
+          </svg>
+          <div class="ihd-chart-legend">
+            <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-import"></span> Import</span>
+            <span class="ihd-legend-item"><span class="ihd-legend-dot ihd-export"></span> Export</span>
+            <span class="ihd-legend-item"><span class="ihd-legend-line"></span> CO₂</span>
           </div>
           <div class="ihd-row">
             <div class="ihd-stat">

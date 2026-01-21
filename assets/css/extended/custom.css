@@ -16,6 +16,19 @@
   --accent: #38a169;
 }
 
+/* Accessibility utility */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Dark mode - softer dark background */
 :root[data-theme="dark"] {
   --theme: #1a1f2e;
@@ -1384,57 +1397,41 @@ a:hover {
   color: #4ade80;
 }
 
-/* IHD Graph */
-.ihd-graph {
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #334155;
+/* IHD Chart - SVG based */
+.ihd-chart-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
 }
 
-.ihd-graph-row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.4rem;
+.ihd-svg-label {
+  font-size: 9px;
+  fill: #64748b;
+  font-family: inherit;
 }
 
-.ihd-graph-time {
-  width: 50px;
-  font-size: 0.7rem;
-  color: #64748b;
+.ihd-svg-zero {
+  fill: #94a3b8;
+  font-weight: 600;
 }
 
-.ihd-graph-bar-container {
-  flex: 1;
-  height: 12px;
-  background: #334155;
-  border-radius: 2px;
-}
-
-.ihd-graph-bar {
-  height: 100%;
-  border-radius: 2px;
-}
-
-.ihd-graph-bar.ihd-import {
-  background: #f87171;
-}
-
-.ihd-graph-bar.ihd-export {
-  background: #4ade80;
-}
-
-.ihd-graph-legend {
+/* Chart legend */
+.ihd-chart-legend {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 0.75rem;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #334155;
+  margin-bottom: 1rem;
 }
 
 .ihd-legend-item {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: #94a3b8;
 }
 
@@ -1450,6 +1447,13 @@ a:hover {
 
 .ihd-legend-dot.ihd-export {
   background: #4ade80;
+}
+
+.ihd-legend-line {
+  width: 16px;
+  height: 2px;
+  background: #fbbf24;
+  border-radius: 1px;
 }
 
 /* Hero Quote */
