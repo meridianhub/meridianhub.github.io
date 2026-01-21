@@ -112,12 +112,13 @@ sequenceDiagram
     participant Edge as Meridian Edge
     participant Meter as Meter
 
-    Cloud->>Edge: Tariff (daily)
+    Cloud->>Edge: TOU tariff (daily)
+    Cloud->>Edge: CO₂ intensity (every 30 min)
     loop Every second
         Meter->>Edge: Pulse
         Edge->>Edge: Value locally
     end
-    Note over Edge: Customer sees £ instantly
+    Note over Edge: Customer sees £ and CO₂ instantly
     Edge->>Cloud: Settlement packet (every 30 min)
         </pre>
       </div>
