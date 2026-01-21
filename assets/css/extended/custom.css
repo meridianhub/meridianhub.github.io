@@ -1384,109 +1384,24 @@ a:hover {
   color: #4ade80;
 }
 
-/* IHD Chart - Vertical bar chart with zero line */
-.ihd-chart {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+/* IHD Chart - SVG based */
+.ihd-chart-svg {
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 1rem;
+  display: block;
 }
 
-.ihd-chart-yaxis {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 0.65rem;
-  color: #64748b;
-  text-align: right;
-  padding: 0 0.25rem;
-  height: 120px;
+.ihd-svg-label {
+  font-size: 9px;
+  fill: #64748b;
+  font-family: inherit;
 }
 
-.ihd-zero-label {
-  color: #94a3b8;
+.ihd-svg-zero {
+  fill: #94a3b8;
   font-weight: 600;
-}
-
-.ihd-chart-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.ihd-chart-area {
-  position: relative;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 0 4px;
-}
-
-.ihd-chart-zero {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: #475569;
-}
-
-.ihd-bar-wrapper {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-}
-
-.ihd-bar {
-  width: 100%;
-  border-radius: 2px;
-  position: absolute;
-  left: 0;
-  right: 0;
-}
-
-.ihd-bar.ihd-import {
-  background: #f87171;
-  height: calc(var(--h) * 0.5);
-  bottom: 50%;
-}
-
-.ihd-bar.ihd-export {
-  background: #4ade80;
-  height: calc(var(--h) * 0.5);
-  top: 50%;
-}
-
-.ihd-chart-xaxis {
-  display: flex;
-  justify-content: space-around;
-  font-size: 0.6rem;
-  color: #64748b;
-  padding-top: 0.25rem;
-  border-top: 1px solid #334155;
-  margin-top: 0.25rem;
-}
-
-/* CO2 line overlay */
-.ihd-co2-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-}
-
-.ihd-co2-line polyline {
-  fill: none;
-  stroke: #fbbf24;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
 }
 
 /* Chart legend */
