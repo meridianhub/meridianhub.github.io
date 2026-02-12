@@ -1,7 +1,7 @@
 baseURL = 'https://www.meridianhub.org/'
 languageCode = 'en-gb'
 title = 'Meridian'
-copyright = '© 2025-2026 [Meridian Hub Ltd](https://find-and-update.company-information.service.gov.uk/company/17024653)'
+copyright = '© 2025-2026 Meridian Hub Ltd'
 theme = 'PaperMod'
 
 # Build settings
