@@ -63,7 +63,7 @@ jobs:
       - name: Validate copyright year
         run: |
           CURRENT_YEAR=$(date +%Y)
-          if ! grep -qE "(©|&copy;).*${CURRENT_YEAR}" ./public/index.html; then
+          if ! grep -qE "(©|&copy;) ?([0-9]{4}[- ]+)?${CURRENT_YEAR}" ./public/index.html; then
             echo "::error::Copyright year is not ${CURRENT_YEAR}"
             exit 1
           fi
