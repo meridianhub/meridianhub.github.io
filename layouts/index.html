@@ -80,7 +80,8 @@
           every script is guaranteed to terminate and produce the same result every time.
         </p>
       </div>
-      <pre><code class="language-python">deposit_saga = saga(name="current_account_deposit")
+      <div class="code-example">
+        <pre><code class="language-python">deposit_saga = saga(name="current_account_deposit")
 
 def execute_deposit():
     amount = Decimal(input_data["amount"])
@@ -105,6 +106,7 @@ def execute_deposit():
     )
 
 execute_deposit()</code></pre>
+      </div>
 
       <div class="arch-diagram">
         <pre class="mermaid">
