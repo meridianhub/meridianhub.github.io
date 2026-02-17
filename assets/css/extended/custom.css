@@ -242,6 +242,12 @@ a:hover {
   margin: 0 auto;
 }
 
+.section-content pre {
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: 0.875rem;
+}
+
 .section h2 {
   font-size: 2rem;
   color: var(--primary);
