@@ -1,5 +1,5 @@
 ---
-title: "Trust Your Numbers"
-description: "Measure. Value. Settle."
+title: "Meridian"
+description: "Open-source billing engine with a double-entry ledger."
 layout: "home"
 ---

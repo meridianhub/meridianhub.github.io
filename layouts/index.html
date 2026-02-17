@@ -1,107 +1,100 @@
 {{ define "main" }}
 <article class="landing-page">
-  <!-- Hero Section: Stakes-First -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="visually-hidden">Meridian — Treasury Infrastructure That Proves Itself</h1>
-      <blockquote class="hero-quote">
-        "Annual income twenty pounds, annual expenditure nineteen nineteen and six, result happiness.<br><br>
-        Annual income twenty pounds, annual expenditure twenty pounds ought and six, result misery."
-        <cite>— Charles Dickens, <em>David Copperfield</em></cite>
-      </blockquote>
-
-      <nav class="hero-nav">
-        <a href="#measure" class="hero-word">Measure</a>
-        <span class="hero-dot"></span>
-        <a href="#value" class="hero-word">Value</a>
-        <span class="hero-dot"></span>
-        <a href="#settle" class="hero-word">Settle</a>
-      </nav>
-
+      <h1>Define how you charge.<br>The engine handles the rest.</h1>
       <p class="hero-subtext">
-        One ledger. Complete certainty: every transaction recorded, every balance proven.
+        Open-source billing engine with a double-entry ledger.
+        Write your pricing and settlement logic in code &mdash;
+        Meridian handles the bookkeeping, audit trails, and payment collection.
       </p>
+      <div class="hero-cta">
+        <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
+          View on GitHub
+        </a>
+        <a href="mailto:ben@meridianhub.org" class="btn btn-secondary">
+          Become a Design Partner
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- Measure Section -->
-  <section id="measure" class="section pillar-section">
+  <!-- The Problem -->
+  <section class="section pillar-section">
     <div class="section-content">
-      <h2 class="pillar-title">Measure</h2>
+      <h2 class="pillar-title">The Problem</h2>
       <div class="pillar-content">
         <p class="stakes">
-          Phantom shortfalls destroy lives. A duplicate transaction, a race condition,
-          a network retry counted twice &mdash; and someone faces an accusation they cannot disprove.
+          Billing starts as a Stripe checkout and a cron job.
+          Then you need usage metering. Then revenue splits.
+          Then your auditor asks for a transaction trail.
+          Then estimates need to reconcile with actuals.
         </p>
         <p class="proof">
-          Every position recorded with atomic audit trails. Parent-child transaction lineage preserved.
-          Idempotent operations mean the same request twice produces the same result once.
-          The accused can demand proof &mdash; and get it.
+          Now you're maintaining a financial system &mdash; and you're not a financial company.
+          Meridian is the billing engine you'd build if you had a team of financial engineers.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Value Section -->
-  <section id="value" class="section pillar-section pillar-alt">
+  <!-- What You Get -->
+  <section class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">Value</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          Value doesn't always look like currency anymore. Energy credits, carbon offsets,
-          compute resources, agricultural commodities &mdash; the economy runs on assets that traditional ledgers can't handle.
-        </p>
-        <p class="proof">
-          Multi-asset architecture handles kilowatt-hours, tonnes of CO<sub>2</sub>, and commodity units
-          with the same rigour as pounds and euros. Proper dimensional typing prevents
-          nonsense calculations. One system, any asset class.
-        </p>
+      <h2 class="pillar-title">What You Get</h2>
+      <div class="solution-grid">
+        <div class="solution-item">
+          <h3>Bill</h3>
+          <p>
+            Define pricing rules, usage metering, and revenue splits in code.
+            Saga orchestration means settlement completes or reverts &mdash; no orphaned charges.
+          </p>
+        </div>
+        <div class="solution-item">
+          <h3>Know</h3>
+          <p>
+            Every transaction recorded in a double-entry ledger with an immutable audit trail.
+            When your auditor asks where the money went, you show them.
+          </p>
+        </div>
+        <div class="solution-item">
+          <h3>Collect</h3>
+          <p>
+            Stripe Connect integration handles multi-tenant payment collection.
+            Reconciliation detects variances between expected and actual.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Settle Section -->
-  <section id="settle" class="section pillar-section">
+  <!-- How It Works -->
+  <section id="how-it-works" class="section pillar-section">
     <div class="section-content">
-      <h2 class="pillar-title">Settle</h2>
+      <h2 class="pillar-title">How It Works</h2>
       <div class="pillar-content">
         <p class="stakes">
-          When settlement fails, it cascades. Livelihoods depend on money arriving when promised,
-          not stuck in a partial state that requires manual intervention.
-        </p>
-        <p class="proof">
-          Lien-based fund reservation guarantees availability before commitment.
-          Saga orchestration with automatic compensation &mdash; if anything fails,
-          the system unwinds cleanly. Settlement completes or reverts. No orphaned debits.
+          You write business logic in <a href="https://github.com/google/starlark-go" target="_blank" rel="noopener">Starlark</a>,
+          a deterministic Python subset. No imports, no filesystem, no network &mdash;
+          every script is guaranteed to terminate and produce the same result every time.
         </p>
       </div>
-    </div>
-  </section>
+      <pre><code class="language-python">def charge_subscription(ctx):
+    account = resolve_account(
+        party_id=ctx.customer_id,
+        org_id=ctx.org_id,
+        currency="GBP",
+    )
+    post(account, ctx.amount, "DEBIT")
+    record_receivable(account, ctx.amount, due_date=ctx.billing_date)
 
-  <!-- Trust Section -->
-  <section id="trust" class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">Why Trust It</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          When funders ask "where did the money go?" &mdash; show them. When regulators examine your systems &mdash;
-          invite them into the code. When your board asks how capital flows &mdash; give them the transaction path.
-          Transparency becomes your competitive advantage.
-        </p>
-        <p class="proof">
-          Meridian is infrastructure you actually own. BIAN-compliant architecture means your team speaks
-          the same technical language as the world's largest banks. Kubernetes-native, horizontally scalable,
-          built for growth. Every deployment builds institutional expertise that stays with you.
-          Full sovereignty. Open access. Verify everything.
-        </p>
-      </div>
-    </div>
-  </section>
+def distribute_revenue(ctx):
+    for p in party.list_participants(ctx.org_id):
+        share = party.get_structuring_data(p.id, ctx.org_id)["allocation_share"]
+        account = resolve_account(party_id=p.id, org_id=ctx.org_id, currency="GBP")
+        post(account, ctx.amount * Decimal(share), "CREDIT")</code></pre>
 
-  <!-- Architecture Section -->
-  <section id="architecture" class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">How a Payment Flows</h2>
       <div class="arch-diagram">
         <pre class="mermaid">
 sequenceDiagram
@@ -115,79 +108,74 @@ sequenceDiagram
     Meridian->>Bank: 3. Execute Payment
     Bank-->>Meridian: Confirmation
     Meridian->>Meridian: 4. Post to Ledger
-    Meridian-->>Client: 5. Complete ✓
+    Meridian-->>Client: 5. Complete
 
     Note over Client,Bank: If anything fails, automatic rollback
         </pre>
       </div>
-      <p class="arch-stats">
-        7 BIAN service domains &bull; Event-driven &bull; Saga orchestration &bull; Full audit trail
-      </p>
     </div>
   </section>
 
-  <!-- Why I Built This Section -->
-  <section id="story" class="section pillar-section pillar-alt">
+  <!-- Built For Complex Billing -->
+  <section class="section pillar-section pillar-alt">
     <div class="section-content">
-      <h2 class="pillar-title">Why I Built This</h2>
+      <h2 class="pillar-title">Built For Complex Billing</h2>
+      <div class="solution-grid">
+        <div class="solution-item">
+          <h3>Usage Metering</h3>
+          <p>Ingest events, apply pricing rules, produce invoices. Handle time-of-use rates and tiered pricing.</p>
+        </div>
+        <div class="solution-item">
+          <h3>Revenue Splits</h3>
+          <p>Multi-party settlement with automatic distribution. Each participant gets their share, every time.</p>
+        </div>
+        <div class="solution-item">
+          <h3>Estimates &rarr; Actuals</h3>
+          <p>Bi-temporal data tracks what you knew and when. Reconcile forecasts against meter reads without re-running history.</p>
+        </div>
+        <div class="solution-item">
+          <h3>Multi-Asset</h3>
+          <p>Currency, kilowatt-hours, carbon credits, compute hours. Same ledger, same rigour, any unit of value.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Source Available -->
+  <section class="section pillar-section">
+    <div class="section-content">
+      <h2 class="pillar-title">Source Available</h2>
       <div class="pillar-content">
         <p class="stakes">
-          I've been inside the machine. Technical architect roles in investment banking and treasury,
-          where I saw hedge fund accounting run on dozens of tables crammed into a single schema.
-          Where eight-figure budgets and multi-year timelines delivered single features.
+          Business Source License 1.1. Use, modify, and deploy for any internal purpose.
+          Converts to Apache 2.0 on February 12, 2030.
         </p>
         <p class="proof">
-          I've seen what enterprise banking infrastructure looks like when it's done right.
-          Real-time. Programmable. Auditable. Beautiful. But it was built for institutions
-          with seven-figure budgets. So I'm building the open version.
+          Go &bull; Protocol Buffers + gRPC &bull; CockroachDB &bull; Apache Kafka &bull; Kubernetes &bull; Stripe Connect
         </p>
       </div>
-    </div>
-  </section>
-
-  <!-- Manifesto Section -->
-  <section class="section manifesto-section">
-    <div class="section-content">
-      <h2 class="manifesto-headline">We believe in Physics, not Probabilities.</h2>
-      <div class="manifesto-comparison">
-        <div class="manifesto-col manifesto-ai">
-          <h3>AI is Probabilistic</h3>
-          <p>It hallucinates. It guesses. It is "mostly right."</p>
-        </div>
-        <div class="manifesto-col manifesto-finance">
-          <h3>Finance is Deterministic</h3>
-          <p>It must be exact. It must balance. It is "never wrong."</p>
-        </div>
-      </div>
-      <p class="manifesto-axiom">
-        You cannot audit a probability. You can only audit a constraint.<br>
-        <strong>Meridian is built on Deterministic Constraints.</strong>
-      </p>
-      <blockquote class="manifesto">
-        <p>Trust infrastructure shouldn't be a privilege.</p>
-        <p>
-          The same system that serves a multinational bank<br>
-          should serve a village savings group.
-        </p>
-      </blockquote>
-      <p class="manifesto-cta">
-        <a href="https://github.com/meridianhub/meridian" target="_blank" rel="noopener">
-          Source available. BSL 1.1. Inspect every line.
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section class="section contact-section">
-    <div class="section-content">
-      <h2>Get Started</h2>
       <div class="hero-cta">
         <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
-          Read the Docs
+          Read the Source
         </a>
-        <a href="mailto:ben@meridianhub.org" class="btn btn-secondary">
-          Contact Engineering
+        <a href="https://github.com/meridianhub/meridian/tree/develop/docs/adr" class="btn btn-secondary" target="_blank" rel="noopener">
+          Architecture Decisions
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section contact-section">
+    <div class="section-content">
+      <h2>Looking for Design Partners</h2>
+      <p class="hero-subtext">
+        Meridian is in active development. Core ledger, saga orchestration, and Stripe Connect are implemented.
+        We're looking for companies with complex billing to build with.
+      </p>
+      <div class="hero-cta">
+        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
+          Get in Touch
         </a>
       </div>
     </div>

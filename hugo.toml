@@ -29,16 +29,6 @@ enableEmoji = false
     url = "/energy/"
     weight = 10
   [[menu.main]]
-    identifier = "edge"
-    name = "Edge"
-    url = "/edge/"
-    weight = 20
-  [[menu.main]]
-    identifier = "wealth"
-    name = "Wealth"
-    url = "/wealth/"
-    weight = 30
-  [[menu.main]]
     identifier = "github"
     name = "GitHub"
     url = "https://github.com/meridianhub/meridian"
@@ -74,7 +64,7 @@ enableEmoji = false
 # PaperMod theme parameters
 [params]
   env = "production"
-  description = "Measure. Value. Settle."
+  description = "Open-source billing engine with a double-entry ledger."
   author = "Meridian"
 
   # Favicon
@@ -109,9 +99,9 @@ enableEmoji = false
 
   # Home page
   [params.homeInfoParams]
-    Title = "Trust Your Numbers"
+    Title = "Meridian"
     Content = """
-**Measure. Value. Settle.**
+**Open-source billing engine with a double-entry ledger.**
 """
 
   [[params.socialIcons]]
