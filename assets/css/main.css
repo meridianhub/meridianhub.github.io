@@ -398,7 +398,9 @@ code, pre { font-family: var(--font-mono); }
 .terminal {
   background: #0e1420; border: 1px solid var(--engine-edge); border-radius: 14px;
   padding: 1.4rem 1.6rem; font-family: var(--font-mono); font-size: 0.92rem; line-height: 2;
+  overflow-x: auto;
 }
+.terminal > div { white-space: nowrap; }
 .terminal .t-prompt { color: var(--engine-green); user-select: none; }
 .terminal .t-cmd { color: #fff; }
 .terminal .t-out { color: var(--engine-dim); }
@@ -526,7 +528,7 @@ code, pre { font-family: var(--font-mono); }
   .escalation-step { border-top: 1px solid var(--rule); }
   .pillars { grid-template-columns: 1fr 1fr; }
   .pattern-grid { grid-template-columns: 1fr 1fr; }
-  .manifest-grid, .quickstart-grid { grid-template-columns: 1fr; gap: 2.2rem; }
+  .manifest-grid, .quickstart-grid { grid-template-columns: minmax(0, 1fr); gap: 2.2rem; }
   .code-card { position: static; }
   .site-footer-inner { grid-template-columns: 1fr 1fr; }
 }
@@ -534,7 +536,8 @@ code, pre { font-family: var(--font-mono); }
 @media (max-width: 720px) {
   .section { padding: 4rem 1.25rem; }
   .hero { padding: 3.5rem 1.25rem 4rem; }
-  .hero-demo { grid-template-columns: 1fr; }
+  .hero-demo { grid-template-columns: minmax(0, 1fr); }
+  .folio-label { white-space: normal; text-align: right; }
   .hero-demo-arrow { flex-direction: row; transform: rotate(90deg); margin: -0.4rem auto; }
   .hero-demo-arrow svg { transform: rotate(0deg); }
   .escalation { grid-template-columns: 1fr; }
