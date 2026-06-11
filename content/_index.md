@@ -1,5 +1,4 @@
 ---
 title: "Meridian"
-description: "Open-source billing engine with a double-entry ledger."
-layout: "home"
+description: "Declare your economy in a manifest. Meridian runs it: durable sagas on a double-entry ledger, for money, megawatts, and anything else of value."
 ---

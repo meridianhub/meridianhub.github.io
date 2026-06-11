@@ -1,0 +1,58 @@
+{{ define "main" }}
+
+<section class="page-hero">
+  <div class="section-inner">
+    <p class="hero-eyebrow">The economy cookbook</p>
+    <h1>{{ len .Site.Data.cookbook.patterns }} working economies, ready to apply.</h1>
+    <p class="hero-sub">
+      Every pattern is a self-contained bundle of manifest primitives &mdash; instruments,
+      account types, valuation rules and Starlark sagas &mdash; that solves a whole business
+      problem. Copying a pattern into your tenant <em>is</em> the deployment.
+      They're also browsable inside the <a href="{{ .Site.Params.demoURL }}" target="_blank" rel="noopener">live demo</a>,
+      where you can see each one's account graph before you run it.
+    </p>
+
+    <div class="chip-row" id="pattern-filters" role="group" aria-label="Filter patterns by category">
+      <button class="chip active" data-filter="">All</button>
+      {{ $cats := slice }}
+      {{ range .Site.Data.cookbook.patterns }}
+        {{ range .categories }}
+          {{ $cats = $cats | append . }}
+        {{ end }}
+      {{ end }}
+      {{ range $cat := sort (uniq $cats) }}
+        {{ $n := 0 }}
+        {{ range $cats }}{{ if eq . $cat }}{{ $n = add $n 1 }}{{ end }}{{ end }}
+        {{ if ge $n 2 }}
+      <button class="chip" data-filter="{{ $cat }}">{{ $cat }}</button>
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 1rem;">
+  <div class="section-inner">
+    <div class="pattern-grid" id="pattern-grid">
+      {{ range sort .Site.Data.cookbook.patterns "complexity" "desc" }}
+        {{ partial "pattern-card.html" (dict "pattern" . "repoURL" $.Site.Params.repoURL) }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="cta-final section-deep">
+  <div>
+    <h2>Don't see your economy?</h2>
+    <p class="lede">
+      Patterns compose &mdash; and the manifest format is constrained enough that an AI assistant
+      can draft a new one in conversation. Or we'll help you write it.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:{{ .Site.Params.contactEmail }}">Talk to us</a>
+      <a class="btn btn-ghost" href="{{ .Site.Params.repoURL }}/tree/develop/cookbook" target="_blank" rel="noopener">Read the cookbook docs</a>
+    </div>
+  </div>
+</section>
+
+{{ end }}

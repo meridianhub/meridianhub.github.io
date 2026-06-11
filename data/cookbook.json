@@ -1,0 +1,700 @@
+{
+  "patterns": [
+    {
+      "name": "base-fiat-gbp",
+      "title": "Base Fiat Currency (GBP)",
+      "description": "Foundation instrument for British Pound Sterling. Provides GBP instrument with standard 2-decimal precision.",
+      "categories": [
+        "foundation",
+        "fiat",
+        "currency"
+      ],
+      "complexity": 1,
+      "industries": [],
+      "design_pattern": "foundation-denomination",
+      "instruments": [
+        "GBP"
+      ],
+      "account_types": [],
+      "sagas": [],
+      "composes_with": [
+        "saas-billing",
+        "carbon-offset",
+        "precious-metals"
+      ],
+      "extends": [],
+      "files": 1
+    },
+    {
+      "name": "base-fiat-usd",
+      "title": "Base Fiat Currency (USD)",
+      "description": "Foundation instrument for United States Dollar. Provides USD instrument with standard 2-decimal precision.",
+      "categories": [
+        "foundation",
+        "fiat",
+        "currency"
+      ],
+      "complexity": 1,
+      "industries": [],
+      "design_pattern": "foundation-denomination",
+      "instruments": [
+        "USD"
+      ],
+      "account_types": [],
+      "sagas": [],
+      "composes_with": [
+        "saas-billing",
+        "carbon-offset",
+        "precious-metals"
+      ],
+      "extends": [],
+      "files": 1
+    },
+    {
+      "name": "carbon-offset",
+      "title": "Carbon Credit Registry",
+      "description": "Carbon credit trading and retirement with verified emission reductions (VERs) and certified emission reductions (CERs). Tracks credit provenance by vintage year and project, with a permanent retirement account for irrevocable credit retirement.",
+      "categories": [
+        "carbon",
+        "sustainability",
+        "trading"
+      ],
+      "complexity": 5,
+      "industries": [
+        "energy",
+        "sustainability"
+      ],
+      "design_pattern": "credit-retirement-lifecycle",
+      "instruments": [
+        "TONNE_CO2E",
+        "VER",
+        "CER"
+      ],
+      "account_types": [
+        "CARBON_INVENTORY",
+        "RETIREMENT"
+      ],
+      "sagas": [
+        "purchase_carbon_credits",
+        "retire_carbon_credits"
+      ],
+      "composes_with": [
+        "saas-billing",
+        "precious-metals"
+      ],
+      "extends": [
+        "base-fiat-usd"
+      ],
+      "files": 1
+    },
+    {
+      "name": "default-deposit",
+      "title": "Current Account Deposit",
+      "description": "Multi-step saga for depositing funds into a current account with double-entry ledger posting. Logs a CREDIT position in position keeping, initiates a booking log, posts DEBIT to clearing and CREDIT to customer account, then finalizes the booking to POSTED state.",
+      "categories": [
+        "banking",
+        "ledger",
+        "double-entry"
+      ],
+      "complexity": 3,
+      "industries": [
+        "banking",
+        "fintech"
+      ],
+      "design_pattern": "current-account-operation",
+      "instruments": [],
+      "account_types": [
+        "CURRENT",
+        "CLEARING"
+      ],
+      "sagas": [
+        "current_account_deposit"
+      ],
+      "composes_with": [
+        "default-withdrawal"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-dividend-distribution",
+      "title": "Dividend Distribution",
+      "description": "Org-scoped syndicate dividend distribution saga. Lists all active participants, retrieves each participant's allocation share via structuring data, resolves their org-scoped account via composite account references, and credits each participant's position proportionally.",
+      "categories": [
+        "distribution",
+        "syndicate",
+        "org-scoped"
+      ],
+      "complexity": 5,
+      "industries": [
+        "banking",
+        "fintech",
+        "betting"
+      ],
+      "design_pattern": "org-scoped-distribution",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "dividend_distribution"
+      ],
+      "composes_with": [
+        "entity-distribution"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-dunning-escalation",
+      "title": "Dunning Escalation",
+      "description": "Progressive dunning escalation saga for handling payment failures. Escalates through three levels: first notice (level 1), second notice with retry scheduling (level 2), and final warning with account freeze and freeze notification (level 3). Each level sends a templated email via correspondence service.",
+      "categories": [
+        "dunning",
+        "billing",
+        "correspondence"
+      ],
+      "complexity": 5,
+      "industries": [
+        "billing",
+        "fintech",
+        "saas"
+      ],
+      "design_pattern": "escalation-state-machine",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "dunning_escalation"
+      ],
+      "composes_with": [
+        "default-dunning-unfreeze"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-dunning-unfreeze",
+      "title": "Dunning Unfreeze",
+      "description": "Account unfreeze and payment retry saga triggered when a party updates their payment method on a frozen account. Unfreezes the account, resolves the updated payment method, reserves funds with a new lien, retries the gateway payment, and sends a resolution confirmation. Compensation re-freezes the account if the retry fails.",
+      "categories": [
+        "dunning",
+        "recovery",
+        "payments"
+      ],
+      "complexity": 5,
+      "industries": [
+        "billing",
+        "fintech",
+        "saas"
+      ],
+      "design_pattern": "compensating-recovery",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "dunning_unfreeze"
+      ],
+      "composes_with": [
+        "default-dunning-escalation"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-payment-execution",
+      "title": "Payment Order Execution",
+      "description": "Orchestrates the complete payment order flow: reserves funds via a bucket-aware lien, sends the payment to an external gateway, posts double-entry ledger entries on webhook confirmation, and executes the lien to finalize the debit. Steps 3 and 4 are conditionally invoked via webhook callbacks.",
+      "categories": [
+        "payments",
+        "gateway",
+        "ledger"
+      ],
+      "complexity": 5,
+      "industries": [
+        "payments",
+        "fintech",
+        "banking"
+      ],
+      "design_pattern": "reserve-send-confirm",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "payment_execution"
+      ],
+      "composes_with": [
+        "default-stripe-payment",
+        "payment-gateway-stripe"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-reconciliation-adjustment",
+      "title": "Reconciliation Adjustment",
+      "description": "Ledger correction saga triggered when a reconciliation variance is resolved. Initiates a booking log for the adjustment, posts DEBIT and CREDIT entries to correct the ledger imbalance, and finalizes the booking to POSTED. Follows the immutable ledger pattern - compensation creates reversal entries rather than rolling back state.",
+      "categories": [
+        "reconciliation",
+        "adjustment",
+        "ledger"
+      ],
+      "complexity": 3,
+      "industries": [
+        "banking",
+        "fintech",
+        "energy"
+      ],
+      "design_pattern": "immutable-ledger-correction",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "reconciliation_adjustment"
+      ],
+      "composes_with": [
+        "energy-settlement"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-stripe-payment",
+      "title": "Stripe Payment via Financial Gateway",
+      "description": "End-to-end Stripe payment saga via the Financial Gateway. Resolves the party's default payment method, reserves funds with a lien, dispatches to Stripe through the typed financial_gateway.dispatch_payment API, posts double-entry ledger entries on webhook confirmation, and executes the lien to finalize the debit.",
+      "categories": [
+        "payments",
+        "stripe",
+        "financial-gateway"
+      ],
+      "complexity": 8,
+      "industries": [
+        "payments",
+        "fintech",
+        "saas"
+      ],
+      "design_pattern": "financial-gateway",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "stripe_payment",
+        "stripe_payment_ledger_post"
+      ],
+      "composes_with": [
+        "payment-gateway-stripe",
+        "default-dunning-escalation"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "default-withdrawal",
+      "title": "Current Account Withdrawal",
+      "description": "Multi-step saga for withdrawing funds from a current account with double-entry ledger posting. Logs a DEBIT position in position keeping, initiates a booking log, posts DEBIT to customer account and CREDIT to clearing account, then finalizes the booking to POSTED state.",
+      "categories": [
+        "banking",
+        "ledger",
+        "double-entry"
+      ],
+      "complexity": 3,
+      "industries": [
+        "banking",
+        "fintech"
+      ],
+      "design_pattern": "current-account-operation",
+      "instruments": [],
+      "account_types": [
+        "CURRENT",
+        "CLEARING"
+      ],
+      "sagas": [
+        "current_account_withdrawal"
+      ],
+      "composes_with": [
+        "default-deposit"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "dynamic-capacity-pricing",
+      "title": "Dynamic Capacity Pricing",
+      "description": "Self-referential feedback loop pricing for compute tokens. Bills token consumption at rates derived from the platform's own utilisation forecasts per data centre region. Usage patterns drive pricing, and pricing shapes usage patterns.",
+      "categories": [
+        "compute",
+        "pricing",
+        "dynamic"
+      ],
+      "complexity": 5,
+      "industries": [
+        "cloud",
+        "infrastructure"
+      ],
+      "design_pattern": "feedback-loop-pricing",
+      "instruments": [
+        "TOKEN"
+      ],
+      "account_types": [],
+      "sagas": [
+        "dynamic_capacity_billing"
+      ],
+      "composes_with": [
+        "saas-billing"
+      ],
+      "extends": [
+        "base-fiat-usd"
+      ],
+      "files": 2
+    },
+    {
+      "name": "energy-settlement",
+      "title": "Energy Usage-to-Value Settlement",
+      "description": "Converts metered kWh into monetary value using market rates. Creates retail and wholesale GBP positions from energy consumption.",
+      "categories": [
+        "energy",
+        "utilities",
+        "cross-instrument"
+      ],
+      "complexity": 3,
+      "industries": [
+        "energy",
+        "utilities"
+      ],
+      "design_pattern": "cross-instrument-valuation",
+      "instruments": [
+        "KWH"
+      ],
+      "account_types": [
+        "ENERGY_INVENTORY",
+        "SETTLEMENT",
+        "REVENUE"
+      ],
+      "sagas": [
+        "usage_to_value"
+      ],
+      "composes_with": [
+        "carbon-offset",
+        "time-of-use-pricing"
+      ],
+      "extends": [],
+      "files": 2
+    },
+    {
+      "name": "entity-distribution",
+      "title": "Entity Hierarchy Distribution",
+      "description": "Distributes value across a party hierarchy based on structuring data (allocation shares). Triggered by market data events, traverses the party organization graph to find participants and their payout ratios, then books proportional position logs for each participant.",
+      "categories": [
+        "distribution",
+        "party-hierarchy"
+      ],
+      "complexity": 5,
+      "industries": [
+        "gaming",
+        "syndication"
+      ],
+      "design_pattern": "party-hierarchy-distribution",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "race_result_distribution"
+      ],
+      "composes_with": [
+        "kyc-compliance"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "kyc-compliance",
+      "title": "KYC Compliance Workflow",
+      "description": "Initiates KYC verification when an individual party is created. Uses the compliance marker pattern: books a zero-amount position log to track outstanding KYC obligations per jurisdiction. Compliance accounts are resolved via entity graph traversal.",
+      "categories": [
+        "compliance",
+        "kyc"
+      ],
+      "complexity": 3,
+      "industries": [
+        "banking"
+      ],
+      "design_pattern": "compliance-marker",
+      "instruments": [],
+      "account_types": [
+        "KYC_COMPLIANCE"
+      ],
+      "sagas": [
+        "kyc_on_party"
+      ],
+      "composes_with": [
+        "precious-metals",
+        "payment-gateway-stripe"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "payg-energy",
+      "title": "Prepayment Energy Billing (PAYG)",
+      "description": "Complete prepayment energy billing model with no-standing-charge block tariff, emergency credit, debt recovery waterfall, DCC smart meter integration, and MHHS-ready half-hourly settlement. Two-tier pricing (First Rate / Saver Rate) with VAT at top-up (HMRC Reg 86).",
+      "categories": [
+        "energy",
+        "utilities",
+        "prepayment",
+        "billing"
+      ],
+      "complexity": 5,
+      "industries": [
+        "energy",
+        "utilities"
+      ],
+      "design_pattern": "allocation-waterfall",
+      "instruments": [
+        "KWH_ELEC",
+        "KWH_GAS"
+      ],
+      "account_types": [
+        "PREPAYMENT_LIABILITY",
+        "EMERGENCY_CREDIT",
+        "POWER_UP_RECEIVABLE",
+        "DEBT_RECOVERY",
+        "REVENUE_ENERGY",
+        "VAT_OUTPUT",
+        "CONSUMPTION_METERED",
+        "ENERGY_SUPPLY_POOL",
+        "WHOLESALE_COST",
+        "WHD_OBLIGATION"
+      ],
+      "sagas": [
+        "topup_waterfall",
+        "consumption_block_tariff",
+        "emergency_credit_activate",
+        "whd_credit_apply"
+      ],
+      "composes_with": [
+        "payment-gateway-stripe",
+        "kyc-compliance"
+      ],
+      "extends": [
+        "energy-settlement"
+      ],
+      "files": 5
+    },
+    {
+      "name": "payment-gateway-stripe",
+      "title": "Stripe Payment Gateway",
+      "description": "Stripe payment integration via the Financial Gateway. Includes payment rail configuration, Financial Gateway dispatch for typed payment APIs, and a multi-step saga with gateway dispatch and double-entry ledger posting.",
+      "categories": [
+        "payments",
+        "gateway",
+        "integration"
+      ],
+      "complexity": 8,
+      "industries": [
+        "payments",
+        "fintech"
+      ],
+      "design_pattern": "financial-gateway",
+      "instruments": [],
+      "account_types": [
+        "CUSTOMER_CURRENT",
+        "PAYMENT_CLEARING"
+      ],
+      "sagas": [
+        "stripe_payment_via_gateway",
+        "stripe_payment_received"
+      ],
+      "composes_with": [
+        "kyc-compliance",
+        "saas-billing"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 3
+    },
+    {
+      "name": "phantom-cost-basis",
+      "title": "Phantom Cost Basis Adjustment",
+      "description": "Adjusts cost basis for all holdings of an instrument when a corporate action occurs. Handles phantom events where no cash or units move but the tax position changes, such as accumulating ETF dividends. The cost basis account position log serves as the HMRC audit trail.",
+      "categories": [
+        "corporate-actions",
+        "cost-basis"
+      ],
+      "complexity": 5,
+      "industries": [
+        "trading"
+      ],
+      "design_pattern": "phantom-transaction-event",
+      "instruments": [],
+      "account_types": [],
+      "sagas": [
+        "corporate_action_cost_adjustment"
+      ],
+      "composes_with": [
+        "precious-metals"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "precious-metals",
+      "title": "Precious Metals Trading",
+      "description": "Precious metals trading platform with event-triggered valuation. When gold, silver, or platinum positions are captured, an event-driven saga automatically books the GBP settlement value at the current spot rate from LBMA/LPPM price fixes.",
+      "categories": [
+        "trading"
+      ],
+      "complexity": 5,
+      "industries": [
+        "commodities",
+        "trading"
+      ],
+      "design_pattern": "valuation-on-capture",
+      "instruments": [
+        "GOLD",
+        "SILVER",
+        "PLATINUM"
+      ],
+      "account_types": [
+        "TRADING",
+        "SETTLEMENT"
+      ],
+      "sagas": [
+        "valuation_on_capture"
+      ],
+      "composes_with": [
+        "kyc-compliance",
+        "carbon-offset"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "saas-billing",
+      "title": "SaaS Compute Billing",
+      "description": "Usage-based billing for cloud compute resources. Meters GPU hours, API calls, and storage consumption, then converts to USD charges via valuation rules. Includes platform credits as a voucher instrument.",
+      "categories": [
+        "billing",
+        "compute",
+        "usage-metering"
+      ],
+      "complexity": 5,
+      "industries": [
+        "saas",
+        "cloud",
+        "ai"
+      ],
+      "design_pattern": "compute-metering",
+      "instruments": [
+        "GPU_HOUR",
+        "API_CALL",
+        "STORAGE_GB",
+        "CREDIT"
+      ],
+      "account_types": [
+        "BILLING",
+        "USAGE",
+        "CREDIT_BALANCE",
+        "REVENUE"
+      ],
+      "sagas": [
+        "record_gpu_usage",
+        "compute_billing",
+        "generate_monthly_invoice"
+      ],
+      "composes_with": [
+        "dynamic-capacity-pricing",
+        "payment-gateway-stripe"
+      ],
+      "extends": [
+        "base-fiat-usd"
+      ],
+      "files": 4
+    },
+    {
+      "name": "time-of-use-pricing",
+      "title": "Time-of-Use Energy Pricing",
+      "description": "Extends energy settlement with temporal pricing awareness. Values kWh consumption at dynamic rates that vary by settlement period (half-hour), using forecast-derived price curves from Market Data. Peak, off-peak, and overnight rates are resolved from the event timestamp.",
+      "categories": [
+        "energy",
+        "pricing",
+        "temporal"
+      ],
+      "complexity": 5,
+      "industries": [
+        "energy",
+        "utilities"
+      ],
+      "design_pattern": "time-based-pricing",
+      "instruments": [
+        "KWH"
+      ],
+      "account_types": [],
+      "sagas": [
+        "tou_energy_valuation"
+      ],
+      "composes_with": [
+        "carbon-offset",
+        "saas-billing"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 2
+    },
+    {
+      "name": "tote-betting",
+      "title": "Tote (Parimutuel) Betting Platform",
+      "description": "Syndicate-based parimutuel betting with pooled stakes, equal-entry bets tracked as voucher instruments, market-data-driven settlement, 15% platform commission, and Stripe Connect payouts via the Financial Gateway.",
+      "categories": [
+        "betting",
+        "gaming",
+        "payments"
+      ],
+      "complexity": 8,
+      "industries": [
+        "betting",
+        "gaming"
+      ],
+      "design_pattern": "voucher-position-tracking",
+      "instruments": [
+        "BET_UNIT"
+      ],
+      "account_types": [
+        "STRIPE_NOSTRO",
+        "SYNDICATE_POOL",
+        "BET_POSITION",
+        "PLATFORM_COMMISSION"
+      ],
+      "sagas": [
+        "create_syndicate",
+        "join_syndicate",
+        "settle_syndicate",
+        "refund_syndicate"
+      ],
+      "composes_with": [
+        "kyc-compliance"
+      ],
+      "extends": [
+        "base-fiat-gbp"
+      ],
+      "files": 5
+    }
+  ]
+}

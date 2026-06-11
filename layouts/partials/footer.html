@@ -1,0 +1,26 @@
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-col footer-brand">
+      <span class="brand-name">Meridian</span>
+      <p>A source-available transaction integrity engine for the real-world economy.</p>
+      <p class="footer-fine">{{ .Site.Copyright }}</p>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <a href="{{ .Site.Params.demoURL }}" target="_blank" rel="noopener">Live demo</a>
+      <a href="/cookbook/">Economy cookbook</a>
+      <a href="/energy/">Energy retail</a>
+    </div>
+    <div class="footer-col">
+      <h4>Engineering</h4>
+      <a href="{{ .Site.Params.repoURL }}" target="_blank" rel="noopener">Source on GitHub</a>
+      <a href="{{ .Site.Params.repoURL }}/tree/develop/docs/adr" target="_blank" rel="noopener">Architecture decisions</a>
+      <a href="{{ .Site.Params.repoURL }}/blob/develop/LICENSE" target="_blank" rel="noopener">Licence (BSL 1.1)</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="mailto:{{ .Site.Params.contactEmail }}">Design partnerships</a>
+      <a href="mailto:{{ .Site.Params.contactEmail }}">Contact</a>
+    </div>
+  </div>
+</footer>

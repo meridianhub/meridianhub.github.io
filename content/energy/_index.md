@@ -1,4 +1,4 @@
 ---
 title: "Energy Retail"
-description: "Unified data architecture for energy retailers. GSP profitability, exception management, and the foundation for AI."
+description: "Quality-aware metering, GSP margin visibility, and exception management on one ledger. Built for MHHS-scale data."
 ---
