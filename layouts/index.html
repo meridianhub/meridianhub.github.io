@@ -363,7 +363,7 @@
       {{ $patterns := .Site.Data.cookbook.patterns }}
       {{ range $name := slice "tote-betting" "energy-settlement" "saas-billing" "carbon-offset" "dynamic-capacity-pricing" "kyc-compliance" }}
         {{ range where $patterns "name" $name }}
-          {{ partial "pattern-card.html" (dict "pattern" . "repoURL" $.Site.Params.repoURL) }}
+          {{ partial "pattern-card.html" (dict "pattern" .) }}
         {{ end }}
       {{ end }}
     </div>

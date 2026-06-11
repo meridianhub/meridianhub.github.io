@@ -13,10 +13,15 @@
       "industries": [],
       "design_pattern": "foundation-denomination",
       "instruments": [
-        "GBP"
+        {
+          "code": "GBP",
+          "type": "FIAT"
+        }
       ],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [],
+      "triggers": [],
       "composes_with": [
         "saas-billing",
         "carbon-offset",
@@ -38,10 +43,15 @@
       "industries": [],
       "design_pattern": "foundation-denomination",
       "instruments": [
-        "USD"
+        {
+          "code": "USD",
+          "type": "FIAT"
+        }
       ],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [],
+      "triggers": [],
       "composes_with": [
         "saas-billing",
         "carbon-offset",
@@ -66,17 +76,63 @@
       ],
       "design_pattern": "credit-retirement-lifecycle",
       "instruments": [
-        "TONNE_CO2E",
-        "VER",
-        "CER"
+        {
+          "code": "TONNE_CO2E",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "VER",
+          "type": "VOUCHER"
+        },
+        {
+          "code": "CER",
+          "type": "VOUCHER"
+        }
       ],
       "account_types": [
-        "CARBON_INVENTORY",
-        "RETIREMENT"
+        {
+          "code": "CARBON_INVENTORY",
+          "side": "DR",
+          "instruments": [
+            "TONNE_CO2E",
+            "VER",
+            "CER"
+          ]
+        },
+        {
+          "code": "RETIREMENT",
+          "side": "DR",
+          "instruments": [
+            "TONNE_CO2E",
+            "VER",
+            "CER"
+          ]
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "",
+          "from": "VER",
+          "to": "USD"
+        },
+        {
+          "name": "",
+          "from": "CER",
+          "to": "USD"
+        },
+        {
+          "name": "",
+          "from": "TONNE_CO2E",
+          "to": "USD"
+        }
       ],
       "sagas": [
         "purchase_carbon_credits",
         "retire_carbon_credits"
+      ],
+      "triggers": [
+        "api:/v1/carbon/purchases",
+        "api:/v1/carbon/retirements"
       ],
       "composes_with": [
         "saas-billing",
@@ -104,11 +160,27 @@
       "design_pattern": "current-account-operation",
       "instruments": [],
       "account_types": [
-        "CURRENT",
-        "CLEARING"
+        {
+          "code": "CURRENT",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "CLEARING",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        }
       ],
+      "valuation_rules": [],
       "sagas": [
         "current_account_deposit"
+      ],
+      "triggers": [
+        "api:/v1/accounts/{account_id}/deposit"
       ],
       "composes_with": [
         "default-withdrawal"
@@ -136,8 +208,12 @@
       "design_pattern": "org-scoped-distribution",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "dividend_distribution"
+      ],
+      "triggers": [
+        "api:/v1/syndicates/{org_id}/distribute"
       ],
       "composes_with": [
         "entity-distribution"
@@ -165,8 +241,12 @@
       "design_pattern": "escalation-state-machine",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "dunning_escalation"
+      ],
+      "triggers": [
+        "event:payment-order.failed.v1"
       ],
       "composes_with": [
         "default-dunning-unfreeze"
@@ -194,8 +274,12 @@
       "design_pattern": "compensating-recovery",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "dunning_unfreeze"
+      ],
+      "triggers": [
+        "api:/v1/accounts/{account_id}/unfreeze-and-retry"
       ],
       "composes_with": [
         "default-dunning-escalation"
@@ -223,8 +307,12 @@
       "design_pattern": "reserve-send-confirm",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "payment_execution"
+      ],
+      "triggers": [
+        "api:/v1/payment-orders/{payment_order_id}/execute"
       ],
       "composes_with": [
         "default-stripe-payment",
@@ -253,8 +341,12 @@
       "design_pattern": "immutable-ledger-correction",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "reconciliation_adjustment"
+      ],
+      "triggers": [
+        "event:reconciliation.dispute-resolved.v1"
       ],
       "composes_with": [
         "energy-settlement"
@@ -282,9 +374,14 @@
       "design_pattern": "financial-gateway",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "stripe_payment",
         "stripe_payment_ledger_post"
+      ],
+      "triggers": [
+        "api:/v1/payment-orders/{payment_order_id}/stripe",
+        "event:financial-gateway.payment-captured.v1"
       ],
       "composes_with": [
         "payment-gateway-stripe",
@@ -312,11 +409,27 @@
       "design_pattern": "current-account-operation",
       "instruments": [],
       "account_types": [
-        "CURRENT",
-        "CLEARING"
+        {
+          "code": "CURRENT",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "CLEARING",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        }
       ],
+      "valuation_rules": [],
       "sagas": [
         "current_account_withdrawal"
+      ],
+      "triggers": [
+        "api:/v1/accounts/{account_id}/withdraw"
       ],
       "composes_with": [
         "default-deposit"
@@ -342,11 +455,18 @@
       ],
       "design_pattern": "feedback-loop-pricing",
       "instruments": [
-        "TOKEN"
+        {
+          "code": "TOKEN",
+          "type": "COMMODITY"
+        }
       ],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "dynamic_capacity_billing"
+      ],
+      "triggers": [
+        "event:position-keeping.transaction-captured.v1"
       ],
       "composes_with": [
         "saas-billing"
@@ -372,15 +492,45 @@
       ],
       "design_pattern": "cross-instrument-valuation",
       "instruments": [
-        "KWH"
+        {
+          "code": "KWH",
+          "type": "COMMODITY"
+        }
       ],
       "account_types": [
-        "ENERGY_INVENTORY",
-        "SETTLEMENT",
-        "REVENUE"
+        {
+          "code": "ENERGY_INVENTORY",
+          "side": "DR",
+          "instruments": []
+        },
+        {
+          "code": "SETTLEMENT",
+          "side": "DR",
+          "instruments": []
+        },
+        {
+          "code": "REVENUE",
+          "side": "CR",
+          "instruments": []
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "kwh_to_gbp_retail",
+          "from": "KWH",
+          "to": "GBP"
+        },
+        {
+          "name": "kwh_to_gbp_wholesale",
+          "from": "KWH",
+          "to": "GBP"
+        }
       ],
       "sagas": [
         "usage_to_value"
+      ],
+      "triggers": [
+        "event:position-keeping.transaction-captured.v1"
       ],
       "composes_with": [
         "carbon-offset",
@@ -405,8 +555,12 @@
       "design_pattern": "party-hierarchy-distribution",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "race_result_distribution"
+      ],
+      "triggers": [
+        "event:market-information.observation-recorded.v1"
       ],
       "composes_with": [
         "kyc-compliance"
@@ -431,10 +585,20 @@
       "design_pattern": "compliance-marker",
       "instruments": [],
       "account_types": [
-        "KYC_COMPLIANCE"
+        {
+          "code": "KYC_COMPLIANCE",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        }
       ],
+      "valuation_rules": [],
       "sagas": [
         "kyc_on_party"
+      ],
+      "triggers": [
+        "event:party.created.v1"
       ],
       "composes_with": [
         "precious-metals",
@@ -462,26 +626,132 @@
       ],
       "design_pattern": "allocation-waterfall",
       "instruments": [
-        "KWH_ELEC",
-        "KWH_GAS"
+        {
+          "code": "KWH_ELEC",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "KWH_GAS",
+          "type": "COMMODITY"
+        }
       ],
       "account_types": [
-        "PREPAYMENT_LIABILITY",
-        "EMERGENCY_CREDIT",
-        "POWER_UP_RECEIVABLE",
-        "DEBT_RECOVERY",
-        "REVENUE_ENERGY",
-        "VAT_OUTPUT",
-        "CONSUMPTION_METERED",
-        "ENERGY_SUPPLY_POOL",
-        "WHOLESALE_COST",
-        "WHD_OBLIGATION"
+        {
+          "code": "PREPAYMENT_LIABILITY",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "EMERGENCY_CREDIT",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "POWER_UP_RECEIVABLE",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "DEBT_RECOVERY",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "REVENUE_ENERGY",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "VAT_OUTPUT",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "CONSUMPTION_METERED",
+          "side": "DR",
+          "instruments": [
+            "KWH_ELEC",
+            "KWH_GAS"
+          ]
+        },
+        {
+          "code": "ENERGY_SUPPLY_POOL",
+          "side": "CR",
+          "instruments": [
+            "KWH_ELEC",
+            "KWH_GAS"
+          ]
+        },
+        {
+          "code": "WHOLESALE_COST",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "WHD_OBLIGATION",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "",
+          "from": "KWH_ELEC",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "KWH_ELEC",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "KWH_GAS",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "KWH_GAS",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "KWH_ELEC",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "KWH_GAS",
+          "to": "GBP"
+        }
       ],
       "sagas": [
         "topup_waterfall",
         "consumption_block_tariff",
         "emergency_credit_activate",
         "whd_credit_apply"
+      ],
+      "triggers": [
+        "scheduled:payg_topup",
+        "scheduled:payg_emergency_credit",
+        "scheduled:payg_whd_credit",
+        "event:position-keeping.transaction-captured.v1"
       ],
       "composes_with": [
         "payment-gateway-stripe",
@@ -509,12 +779,33 @@
       "design_pattern": "financial-gateway",
       "instruments": [],
       "account_types": [
-        "CUSTOMER_CURRENT",
-        "PAYMENT_CLEARING"
+        {
+          "code": "CUSTOMER_CURRENT",
+          "side": "DR",
+          "instruments": [
+            "GBP",
+            "USD",
+            "EUR"
+          ]
+        },
+        {
+          "code": "PAYMENT_CLEARING",
+          "side": "CR",
+          "instruments": [
+            "GBP",
+            "USD",
+            "EUR"
+          ]
+        }
       ],
+      "valuation_rules": [],
       "sagas": [
         "stripe_payment_via_gateway",
         "stripe_payment_received"
+      ],
+      "triggers": [
+        "api:/v1/payments/stripe",
+        "webhook:stripe.payment_intent.succeeded"
       ],
       "composes_with": [
         "kyc-compliance",
@@ -540,8 +831,12 @@
       "design_pattern": "phantom-transaction-event",
       "instruments": [],
       "account_types": [],
+      "valuation_rules": [],
       "sagas": [
         "corporate_action_cost_adjustment"
+      ],
+      "triggers": [
+        "event:market-information.corporate-action.v1"
       ],
       "composes_with": [
         "precious-metals"
@@ -565,16 +860,59 @@
       ],
       "design_pattern": "valuation-on-capture",
       "instruments": [
-        "GOLD",
-        "SILVER",
-        "PLATINUM"
+        {
+          "code": "GOLD",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "SILVER",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "PLATINUM",
+          "type": "COMMODITY"
+        }
       ],
       "account_types": [
-        "TRADING",
-        "SETTLEMENT"
+        {
+          "code": "TRADING",
+          "side": "DR",
+          "instruments": [
+            "GOLD",
+            "SILVER",
+            "PLATINUM"
+          ]
+        },
+        {
+          "code": "SETTLEMENT",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "",
+          "from": "GOLD",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "SILVER",
+          "to": "GBP"
+        },
+        {
+          "name": "",
+          "from": "PLATINUM",
+          "to": "GBP"
+        }
       ],
       "sagas": [
         "valuation_on_capture"
+      ],
+      "triggers": [
+        "event:position-keeping.transaction-captured.v1"
       ],
       "composes_with": [
         "kyc-compliance",
@@ -602,21 +940,86 @@
       ],
       "design_pattern": "compute-metering",
       "instruments": [
-        "GPU_HOUR",
-        "API_CALL",
-        "STORAGE_GB",
-        "CREDIT"
+        {
+          "code": "GPU_HOUR",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "API_CALL",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "STORAGE_GB",
+          "type": "COMMODITY"
+        },
+        {
+          "code": "CREDIT",
+          "type": "VOUCHER"
+        }
       ],
       "account_types": [
-        "BILLING",
-        "USAGE",
-        "CREDIT_BALANCE",
-        "REVENUE"
+        {
+          "code": "BILLING",
+          "side": "DR",
+          "instruments": [
+            "USD"
+          ]
+        },
+        {
+          "code": "USAGE",
+          "side": "DR",
+          "instruments": [
+            "GPU_HOUR",
+            "API_CALL",
+            "STORAGE_GB"
+          ]
+        },
+        {
+          "code": "CREDIT_BALANCE",
+          "side": "CR",
+          "instruments": [
+            "CREDIT"
+          ]
+        },
+        {
+          "code": "REVENUE",
+          "side": "CR",
+          "instruments": [
+            "USD"
+          ]
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "",
+          "from": "GPU_HOUR",
+          "to": "USD"
+        },
+        {
+          "name": "",
+          "from": "API_CALL",
+          "to": "USD"
+        },
+        {
+          "name": "",
+          "from": "STORAGE_GB",
+          "to": "USD"
+        },
+        {
+          "name": "",
+          "from": "CREDIT",
+          "to": "USD"
+        }
       ],
       "sagas": [
         "record_gpu_usage",
         "compute_billing",
         "generate_monthly_invoice"
+      ],
+      "triggers": [
+        "webhook:gpu_meter_event",
+        "event:position-keeping.transaction-captured.v1",
+        "scheduled:monthly_billing"
       ],
       "composes_with": [
         "dynamic-capacity-pricing",
@@ -643,11 +1046,24 @@
       ],
       "design_pattern": "time-based-pricing",
       "instruments": [
-        "KWH"
+        {
+          "code": "KWH",
+          "type": "COMMODITY"
+        }
       ],
       "account_types": [],
+      "valuation_rules": [
+        {
+          "name": "",
+          "from": "KWH",
+          "to": "GBP"
+        }
+      ],
       "sagas": [
         "tou_energy_valuation"
+      ],
+      "triggers": [
+        "event:position-keeping.transaction-captured.v1"
       ],
       "composes_with": [
         "carbon-offset",
@@ -674,19 +1090,59 @@
       ],
       "design_pattern": "voucher-position-tracking",
       "instruments": [
-        "BET_UNIT"
+        {
+          "code": "BET_UNIT",
+          "type": "VOUCHER"
+        }
       ],
       "account_types": [
-        "STRIPE_NOSTRO",
-        "SYNDICATE_POOL",
-        "BET_POSITION",
-        "PLATFORM_COMMISSION"
+        {
+          "code": "STRIPE_NOSTRO",
+          "side": "DR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "SYNDICATE_POOL",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        },
+        {
+          "code": "BET_POSITION",
+          "side": "DR",
+          "instruments": [
+            "BET_UNIT"
+          ]
+        },
+        {
+          "code": "PLATFORM_COMMISSION",
+          "side": "CR",
+          "instruments": [
+            "GBP"
+          ]
+        }
+      ],
+      "valuation_rules": [
+        {
+          "name": "bet_unit_to_gbp",
+          "from": "BET_UNIT",
+          "to": "GBP"
+        }
       ],
       "sagas": [
         "create_syndicate",
         "join_syndicate",
         "settle_syndicate",
         "refund_syndicate"
+      ],
+      "triggers": [
+        "api:/v1/syndicates",
+        "api:/v1/syndicates/join",
+        "api:/v1/syndicates/refund",
+        "event:market-information.observation-recorded.v1"
       ],
       "composes_with": [
         "kyc-compliance"
