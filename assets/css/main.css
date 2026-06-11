@@ -551,3 +551,43 @@ code, pre { font-family: var(--font-mono); }
   .site-footer-inner { grid-template-columns: 1fr; gap: 2rem; }
   .manifest-pre { min-height: 17rem; font-size: 0.72rem; }
 }
+
+/* ------------------------------------------------------------
+   Pattern economy viewer (cookbook modal)
+   ------------------------------------------------------------ */
+.pattern-modal {
+  border: 1px solid var(--rule-strong); border-radius: 16px; padding: 1.8rem 2rem;
+  background: var(--paper); color: var(--ink); width: min(860px, calc(100vw - 2rem));
+  max-height: calc(100vh - 4rem); font-family: var(--font-body);
+}
+.pattern-modal::backdrop { background: rgba(28, 36, 51, 0.55); backdrop-filter: blur(3px); }
+
+.pm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+.pm-close {
+  background: none; border: none; font-size: 1.6rem; line-height: 1; color: var(--ink-faint);
+  cursor: pointer; padding: 0.2rem 0.5rem; border-radius: 8px;
+}
+.pm-close:hover { color: var(--ink); background: var(--paper-deep); }
+
+.pattern-modal h3 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 550; margin: 0 0 0.6rem; }
+.pm-desc { color: var(--ink-soft); font-size: 0.98rem; margin: 0 0 1.4rem; }
+
+.pm-graph {
+  background: var(--paper-card); border: 1px solid var(--rule); border-radius: 12px;
+  overflow-x: auto; margin-bottom: 1.2rem;
+}
+.pm-graph svg { display: block; margin: 0 auto; }
+
+.pm-triggers { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.5rem; }
+.pm-triggers .trigger-chip {
+  font-family: var(--font-mono); font-size: 0.72rem; padding: 0.3rem 0.8rem;
+  border-radius: 999px; background: var(--paper-deep); border: 1px solid var(--rule);
+  color: var(--ink-soft);
+}
+
+.pm-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; }
+.pm-actions .btn { padding: 0.6rem 1.3rem; font-size: 0.92rem; }
+
+@media (max-width: 600px) {
+  .pattern-modal { padding: 1.3rem 1.2rem; }
+}

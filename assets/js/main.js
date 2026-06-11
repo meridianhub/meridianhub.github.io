@@ -237,3 +237,196 @@
     });
   }
 })();
+
+/* ---------- Cookbook pattern economy viewer ---------- */
+(function () {
+  "use strict";
+  var modal = document.getElementById("pattern-modal");
+  var dataEl = document.getElementById("cookbook-data");
+  if (!modal || !dataEl || typeof modal.showModal !== "function") return;
+
+  var patterns = JSON.parse(dataEl.textContent).patterns;
+  var links = JSON.parse(document.getElementById("cookbook-links").textContent);
+
+  var INK = "#1c2433", FAINT = "#8b93a8", RULE = "#c9bfa9",
+      GREEN = "#1e7a4f", GREEN_BG = "#e3f0e8", AMBER = "#b07c18",
+      ENGINE = "#141b29", ENGINE_GREEN = "#5ddc96", ENGINE_DIM = "#76819c",
+      CARD = "#fffdf9";
+  var MONO = "IBM Plex Mono, monospace";
+
+  function nodeWidth(label) { return Math.max(label.length * 7.4 + 26, 84); }
+
+  function layoutRow(items, widthOf, gap, maxPerLine) {
+    // returns lines: [[{item, x, w}...]], each line centred later
+    var lines = [], line = [];
+    items.forEach(function (it) {
+      if (line.length >= maxPerLine) { lines.push(line); line = []; }
+      line.push(it);
+    });
+    if (line.length) lines.push(line);
+    return lines.map(function (l) {
+      var x = 0;
+      return l.map(function (it) {
+        var w = widthOf(it);
+        var placed = { item: it, x: x, w: w };
+        x += w + gap;
+        return placed;
+      });
+    });
+  }
+
+  function svgEl(tag, attrs, text) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    if (text) el.textContent = text;
+    return el;
+  }
+
+  function renderGraph(p) {
+    var GAP = 18, NODE_H = 44, LINE_GAP = 14, LANE_GAP = 64;
+
+    // instruments: provided first, then external ones referenced by accounts or valuations
+    var provided = p.instruments.map(function (i) { return { code: i.code, type: i.type, external: false }; });
+    var known = {};
+    provided.forEach(function (i) { known[i.code] = true; });
+    var refs = [];
+    p.account_types.forEach(function (a) { refs = refs.concat(a.instruments); });
+    p.valuation_rules.forEach(function (v) { refs.push(v.from, v.to); });
+    refs.forEach(function (code) {
+      if (code && !known[code]) { known[code] = true; provided.push({ code: code, type: "", external: true }); }
+    });
+
+    var lanes = [
+      { key: "instruments", title: "INSTRUMENTS", items: provided, w: function (i) { return nodeWidth(i.code); } },
+      { key: "accounts", title: "ACCOUNT TYPES", items: p.account_types, w: function (a) { return nodeWidth(a.code + " WW"); } },
+      { key: "sagas", title: "SAGAS", items: p.sagas.map(function (s) { return { code: s + "()" }; }), w: function (s) { return nodeWidth(s.code); } }
+    ].filter(function (l) { return l.items.length; });
+
+    // layout each lane, compute extents
+    var totalW = 320;
+    lanes.forEach(function (lane) {
+      lane.lines = layoutRow(lane.items, lane.w, GAP, 5);
+      lane.lineWidths = lane.lines.map(function (l) {
+        var last = l[l.length - 1];
+        return last.x + last.w;
+      });
+      totalW = Math.max(totalW, Math.max.apply(null, lane.lineWidths) + 60);
+    });
+
+    var y = 28, positions = {};
+    lanes.forEach(function (lane) {
+      lane.y = y;
+      y += lane.lines.length * NODE_H + (lane.lines.length - 1) * LINE_GAP + LANE_GAP;
+    });
+    var totalH = y - LANE_GAP + 20;
+
+    var svg = svgEl("svg", { viewBox: "0 0 " + totalW + " " + totalH, width: Math.min(totalW, 800) });
+    var defs = svgEl("defs", {});
+    var marker = svgEl("marker", { id: "pm-arr", viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "5.5", markerHeight: "5.5", orient: "auto-start-reverse" });
+    marker.appendChild(svgEl("path", { d: "M0 0 L10 5 L0 10 z", fill: FAINT }));
+    defs.appendChild(marker);
+    svg.appendChild(defs);
+
+    // place nodes, remember centres
+    lanes.forEach(function (lane) {
+      svg.appendChild(svgEl("text", { x: 16, y: lane.y - 9, "font-family": MONO, "font-size": "8.5", fill: FAINT, "letter-spacing": "2" }, lane.title));
+      lane.lines.forEach(function (line, li) {
+        var lw = lane.lineWidths[li];
+        var offset = (totalW - lw) / 2;
+        line.forEach(function (pn) {
+          var x = offset + pn.x, ny = lane.y + li * (NODE_H + LINE_GAP);
+          var item = pn.item;
+          var cx = x + pn.w / 2;
+          if (lane.key === "instruments") {
+            positions["I:" + item.code] = { x: cx, top: ny, bot: ny + NODE_H };
+            svg.appendChild(svgEl("rect", { x: x, y: ny, width: pn.w, height: NODE_H, rx: 9, fill: CARD, stroke: item.external ? RULE : INK, "stroke-width": 1.3, "stroke-dasharray": item.external ? "4 3" : "none" }));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 19, "text-anchor": "middle", "font-family": MONO, "font-size": "11", "font-weight": "600", fill: item.external ? FAINT : INK }, item.code));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 33, "text-anchor": "middle", "font-family": MONO, "font-size": "8", fill: FAINT }, item.external ? "REQUIRED" : (item.type || "INSTRUMENT")));
+          } else if (lane.key === "accounts") {
+            positions["A:" + item.code] = { x: cx, top: ny, bot: ny + NODE_H };
+            var credit = item.side === "CR";
+            svg.appendChild(svgEl("rect", { x: x, y: ny, width: pn.w, height: NODE_H, rx: 9, fill: credit ? GREEN_BG : CARD, stroke: credit ? GREEN : INK, "stroke-width": 1.3 }));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 19, "text-anchor": "middle", "font-family": MONO, "font-size": "10.5", "font-weight": "600", fill: credit ? GREEN : INK }, item.code));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 33, "text-anchor": "middle", "font-family": MONO, "font-size": "8", fill: credit ? GREEN : FAINT, opacity: "0.8" }, credit ? "ACCOUNT · CR" : "ACCOUNT · DR"));
+          } else {
+            svg.appendChild(svgEl("rect", { x: x, y: ny, width: pn.w, height: NODE_H, rx: NODE_H / 2, fill: ENGINE }));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 19, "text-anchor": "middle", "font-family": MONO, "font-size": "10.5", "font-weight": "600", fill: ENGINE_GREEN }, item.code));
+            svg.appendChild(svgEl("text", { x: cx, y: ny + 33, "text-anchor": "middle", "font-family": MONO, "font-size": "8", fill: ENGINE_DIM }, "SAGA"));
+          }
+        });
+      });
+    });
+
+    // edges: account -> allowed instruments (drawn beneath nodes is fine visually here)
+    p.account_types.forEach(function (a) {
+      var from = positions["A:" + a.code];
+      if (!from) return;
+      a.instruments.forEach(function (code) {
+        var to = positions["I:" + code];
+        if (!to) return;
+        var midY = (to.bot + from.top) / 2;
+        svg.insertBefore(svgEl("path", {
+          d: "M" + from.x + " " + (from.top - 1) + " C" + from.x + " " + midY + ", " + to.x + " " + midY + ", " + to.x + " " + (to.bot + 2),
+          fill: "none", stroke: FAINT, "stroke-width": 1.1, "marker-end": "url(#pm-arr)", opacity: "0.75"
+        }), svg.firstChild.nextSibling);
+      });
+    });
+
+    // valuation edges between instruments (dashed amber arcs above the lane)
+    p.valuation_rules.forEach(function (v) {
+      var a = positions["I:" + v.from], b = positions["I:" + v.to];
+      if (!a || !b || a.x === b.x) return;
+      var lift = Math.min(Math.abs(b.x - a.x) / 4 + 8, 24);
+      svg.appendChild(svgEl("path", {
+        d: "M" + a.x + " " + (a.top - 2) + " C" + a.x + " " + (a.top - lift) + ", " + b.x + " " + (b.top - lift) + ", " + b.x + " " + (b.top - 2),
+        fill: "none", stroke: AMBER, "stroke-width": 1.2, "stroke-dasharray": "4 3"
+      }));
+    });
+
+    return svg;
+  }
+
+  function openPattern(name, push) {
+    var p = patterns.find(function (x) { return x.name === name; });
+    if (!p) return;
+    document.getElementById("pm-name").textContent = p.name;
+    document.getElementById("pm-title").textContent = p.title;
+    document.getElementById("pm-desc").textContent = p.description;
+    var graph = document.getElementById("pm-graph");
+    graph.innerHTML = "";
+    graph.appendChild(renderGraph(p));
+    var trig = document.getElementById("pm-triggers");
+    trig.innerHTML = "";
+    (p.triggers || []).forEach(function (t) {
+      var chip = document.createElement("span");
+      chip.className = "trigger-chip";
+      chip.textContent = t;
+      trig.appendChild(chip);
+    });
+    document.getElementById("pm-demo").href = links.demo + "/cookbook/" + p.name;
+    document.getElementById("pm-src").href = links.repo + "/tree/develop/cookbook/patterns/" + p.name;
+    if (push) history.replaceState(null, "", "?pattern=" + encodeURIComponent(p.name));
+    if (!modal.open) modal.showModal();
+  }
+
+  function closeModal() {
+    if (modal.open) modal.close();
+    history.replaceState(null, "", location.pathname);
+  }
+
+  document.addEventListener("click", function (ev) {
+    var card = ev.target.closest(".pattern-card[data-pattern]");
+    if (card) {
+      ev.preventDefault();
+      openPattern(card.getAttribute("data-pattern"), true);
+    }
+  });
+  document.getElementById("pm-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", function (ev) {
+    if (ev.target === modal) closeModal(); // backdrop
+  });
+  modal.addEventListener("cancel", function () { history.replaceState(null, "", location.pathname); });
+
+  var deepLink = new URLSearchParams(location.search).get("pattern");
+  if (deepLink) openPattern(deepLink, false);
+})();

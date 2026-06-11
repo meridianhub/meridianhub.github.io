@@ -35,7 +35,7 @@
   <div class="section-inner">
     <div class="pattern-grid" id="pattern-grid">
       {{ range sort .Site.Data.cookbook.patterns "complexity" "desc" }}
-        {{ partial "pattern-card.html" (dict "pattern" . "repoURL" $.Site.Params.repoURL) }}
+        {{ partial "pattern-card.html" (dict "pattern" .) }}
       {{ end }}
     </div>
   </div>
@@ -54,5 +54,23 @@
     </div>
   </div>
 </section>
+
+<!-- Pattern economy viewer -->
+<dialog id="pattern-modal" class="pattern-modal" aria-labelledby="pm-title">
+  <div class="pm-head">
+    <span class="pattern-name" id="pm-name"></span>
+    <button type="button" class="pm-close" id="pm-close" aria-label="Close">&times;</button>
+  </div>
+  <h3 id="pm-title"></h3>
+  <p class="pm-desc" id="pm-desc"></p>
+  <div class="pm-graph" id="pm-graph" role="img" aria-label="Diagram of this pattern's economy: instruments, account types, and sagas"></div>
+  <div class="pm-triggers" id="pm-triggers"></div>
+  <div class="pm-actions">
+    <a class="btn btn-primary" id="pm-demo" href="#" target="_blank" rel="noopener">Open in the live demo</a>
+    <a class="btn btn-ghost" id="pm-src" href="#" target="_blank" rel="noopener">Manifest source</a>
+  </div>
+</dialog>
+<script type="application/json" id="cookbook-data">{{ .Site.Data.cookbook | jsonify | safeJS }}</script>
+<script type="application/json" id="cookbook-links">{{ dict "repo" .Site.Params.repoURL "demo" .Site.Params.demoURL | jsonify | safeJS }}</script>
 
 {{ end }}
