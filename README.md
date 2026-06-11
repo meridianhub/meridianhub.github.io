@@ -1,6 +1,6 @@
 # Meridian Hub Website
 
-Marketing and documentation site for [Meridian](https://github.com/meridianhub/meridian), the BIAN-compliant source-available treasury infrastructure.
+Marketing site for [Meridian](https://github.com/meridianhub/meridian), the source-available transaction integrity engine.
 
 **Live site**: [www.meridianhub.org](https://www.meridianhub.org)
 
@@ -14,8 +14,7 @@ Marketing and documentation site for [Meridian](https://github.com/meridianhub/m
 ### Quick Start
 
 ```bash
-# Clone with submodules (theme)
-git clone --recurse-submodules https://github.com/meridianhub/meridianhub.github.io.git
+git clone https://github.com/meridianhub/meridianhub.github.io.git
 cd meridianhub.github.io
 
 # Start local server with drafts
@@ -43,26 +42,34 @@ brew install hugo
 
 ```text
 .
-├── content/          # Markdown content
-│   ├── features/     # BIAN service domain pages
-│   ├── architecture/ # ADR documentation
-│   ├── api/          # API reference
-│   ├── roadmap/      # Development roadmap
-│   └── use-cases/    # Industry applications
-├── layouts/          # Custom templates
-├── assets/           # CSS, JS (processed by Hugo)
+├── content/          # Page front matter (layouts carry the content)
+│   ├── energy/       # Energy retail vertical page
+│   └── cookbook/     # Economy cookbook gallery
+├── layouts/          # Custom theme (no external theme dependency)
+│   ├── index.html    # Homepage
+│   ├── energy/       # Energy page template
+│   ├── cookbook/     # Cookbook gallery template
+│   └── partials/     # Head, header, footer, pattern cards
+├── assets/           # CSS, JS (processed by Hugo pipes)
+├── data/cookbook.json # Pattern registry snapshot (see scripts/)
+├── scripts/          # sync-cookbook.py regenerates data/cookbook.json
 ├── static/           # Static assets (copied as-is)
-├── themes/PaperMod/  # Hugo theme (git submodule)
 └── hugo.toml         # Site configuration
+```
+
+## Cookbook Data
+
+The cookbook gallery is generated at build time from `data/cookbook.json`, a snapshot
+of the pattern metadata in the [Meridian repo](https://github.com/meridianhub/meridian).
+Refresh it after cookbook changes:
+
+```bash
+scripts/sync-cookbook.py /path/to/meridian-checkout
 ```
 
 ## Deployment
 
 Automatic via GitHub Actions on push to `main`. The workflow builds the site and deploys to GitHub Pages.
-
-## Content Generation
-
-Feature pages, API reference, and architecture documentation are auto-generated from the [Meridian codebase](https://github.com/meridianhub/meridian) using `scripts/generate-site-content.go`.
 
 ## License
 

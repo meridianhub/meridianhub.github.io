@@ -1,0 +1,21 @@
+{{ $p := .pattern }}
+<a class="pattern-card" href="{{ .repoURL }}/tree/develop/cookbook/patterns/{{ $p.name }}" target="_blank" rel="noopener" data-categories="{{ delimit $p.categories " " }}">
+  <div class="pattern-top">
+    <span class="pattern-name">{{ $p.name }}</span>
+    {{ $filled := 1 }}
+    {{ if gt $p.complexity 3 }}{{ $filled = 2 }}{{ end }}
+    {{ if gt $p.complexity 5 }}{{ $filled = 3 }}{{ end }}
+    {{ if gt $p.complexity 8 }}{{ $filled = 4 }}{{ end }}
+    <span class="complexity" title="Complexity {{ $p.complexity }} (story points)" aria-label="Complexity level {{ $filled }} of 4">
+
+      {{ range $i := (seq 4) }}<i{{ if le $i $filled }} class="fill"{{ end }}></i>{{ end }}
+    </span>
+  </div>
+  <h3>{{ $p.title }}</h3>
+  <p class="pattern-desc">{{ $p.description }}</p>
+  <div class="pattern-meta">
+    {{ with $p.sagas }}<span>{{ len . }} saga{{ if ne (len .) 1 }}s{{ end }}</span>{{ end }}
+    {{ with $p.account_types }}<span>{{ len . }} account type{{ if ne (len .) 1 }}s{{ end }}</span>{{ end }}
+    {{ with $p.instruments }}<span>{{ delimit . " · " }}</span>{{ end }}
+  </div>
+</a>

@@ -1,197 +1,440 @@
 {{ define "main" }}
-<article class="landing-page">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Define how you charge.<br>The engine handles the rest.</h1>
-      <p class="hero-subtext">
-        Open-source billing engine with a double-entry ledger.
-        Write your pricing and settlement logic in code &mdash;
-        Meridian handles the bookkeeping, audit trails, and payment collection.
-      </p>
-      <div class="hero-cta">
-        <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
-          View on GitHub
-        </a>
-        <a href="mailto:ben@meridianhub.org" class="btn btn-secondary">
-          Become a Design Partner
-        </a>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Source-available transaction integrity engine</p>
+    <h1>Declare your economy.<br><em>Meridian runs it.</em></h1>
+    <p class="hero-sub">
+      A Kubernetes-style manifest declares your instruments, accounts, pricing and
+      settlement. Meridian operates it &mdash; <strong>durable sagas that complete or
+      compensate</strong>, on a <strong>double-entry ledger</strong> that can explain
+      every penny, kilowatt-hour, and carbon credit.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="{{ .Site.Params.demoURL }}" target="_blank" rel="noopener">Explore the live demo</a>
+      <a class="btn btn-ghost btn-mono" href="#quickstart">make dev-up</a>
+    </div>
+
+    <div class="hero-demo">
+      <div class="panel panel-engine">
+        <div class="panel-bar"><span class="panel-dots"><span></span><span></span><span></span></span>economy.yaml</div>
+        <pre class="manifest-pre" id="manifest-type" aria-label="Animated example of a Meridian economy manifest"><span class="type-cursor"></span></pre>
+      </div>
+      <div class="hero-demo-arrow" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none"><path d="M4 12h15m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>apply</span>
+      </div>
+      <div class="panel panel-paper">
+        <div class="panel-bar"><span class="panel-dots"><span></span><span></span><span></span></span>your running economy</div>
+        <svg class="economy-svg" id="economy-graph" viewBox="0 0 560 430" role="img" aria-label="Diagram of the economy Meridian builds from the manifest: instruments, accounts, and a settlement saga connected on a ledger">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="#8b93a8"/>
+            </marker>
+          </defs>
+
+          <!-- instruments -->
+          <g class="econ-node" data-stage="1">
+            <rect x="70" y="28" width="150" height="52" rx="10" fill="#fffdf9" stroke="#1c2433" stroke-width="1.4"/>
+            <text x="145" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#1c2433">GBP</text>
+            <text x="145" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8b93a8">INSTRUMENT · CURRENCY</text>
+          </g>
+          <g class="econ-node" data-stage="1">
+            <rect x="340" y="28" width="150" height="52" rx="10" fill="#fffdf9" stroke="#1c2433" stroke-width="1.4"/>
+            <text x="415" y="50" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="600" fill="#1c2433">BET_UNIT</text>
+            <text x="415" y="68" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#8b93a8">INSTRUMENT · VOUCHER</text>
+          </g>
+
+          <!-- valuation edge between instruments -->
+          <path class="econ-edge" data-stage="3" d="M222 54 H338" fill="none" stroke="#b07c18" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <g class="econ-badge" data-stage="3">
+            <rect x="226" y="40" width="108" height="20" rx="10" fill="#f5ecd6"/>
+            <text x="280" y="54" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#b07c18">bet_unit_to_gbp</text>
+          </g>
+
+          <!-- accounts -->
+          <g class="econ-node" data-stage="2">
+            <rect x="40" y="150" width="170" height="56" rx="10" fill="#e3f0e8" stroke="#1e7a4f" stroke-width="1.4"/>
+            <text x="125" y="174" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1e7a4f">SYNDICATE_POOL</text>
+            <text x="125" y="191" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#1e7a4f" opacity="0.7">ACCOUNT · CREDIT</text>
+          </g>
+          <g class="econ-node" data-stage="2">
+            <rect x="350" y="150" width="170" height="56" rx="10" fill="#f7e6e1" stroke="#bf4630" stroke-width="1.4"/>
+            <text x="435" y="174" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#bf4630">BET_POSITION</text>
+            <text x="435" y="191" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#bf4630" opacity="0.7">ACCOUNT · DEBIT</text>
+          </g>
+          <g class="econ-node" data-stage="2">
+            <rect x="180" y="240" width="200" height="56" rx="10" fill="#e3f0e8" stroke="#1e7a4f" stroke-width="1.4"/>
+            <text x="280" y="264" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#1e7a4f">PLATFORM_COMMISSION</text>
+            <text x="280" y="281" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#1e7a4f" opacity="0.7">ACCOUNT · CREDIT</text>
+          </g>
+
+          <!-- edges instruments -> accounts -->
+          <path class="econ-edge" data-stage="2" d="M125 82 C125 110 125 120 125 148" fill="none" stroke="#8b93a8" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path class="econ-edge" data-stage="2" d="M435 82 C435 110 435 120 435 148" fill="none" stroke="#8b93a8" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path class="econ-edge" data-stage="2" d="M160 208 C200 230 220 235 248 240" fill="none" stroke="#8b93a8" stroke-width="1.3" marker-end="url(#arr)"/>
+          <path class="econ-edge" data-stage="2" d="M400 208 C360 230 340 235 312 240" fill="none" stroke="#8b93a8" stroke-width="1.3" marker-end="url(#arr)"/>
+
+          <!-- saga -->
+          <g class="econ-node" data-stage="4">
+            <rect x="170" y="330" width="220" height="54" rx="27" fill="#141b29" stroke="#141b29"/>
+            <text x="280" y="353" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" font-weight="600" fill="#5ddc96">settle_syndicate()</text>
+            <text x="280" y="370" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#76819c">SAGA · event-driven</text>
+          </g>
+          <path class="econ-edge" data-stage="4" d="M280 298 V328" fill="none" stroke="#8b93a8" stroke-width="1.3" marker-end="url(#arr)"/>
+
+          <!-- transaction pulse -->
+          <circle class="pulse-dot" id="pulse-dot" r="5" fill="#1e7a4f"/>
+
+          <!-- balance badge -->
+          <g class="econ-badge" data-stage="5">
+            <rect x="368" y="338" width="160" height="38" rx="19" fill="#e3f0e8" stroke="#1e7a4f"/>
+            <text x="448" y="356" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" font-weight="600" fill="#1e7a4f">DR 100.00 = CR 100.00</text>
+            <text x="448" y="369" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#1e7a4f" opacity="0.75">ledger balanced ✓</text>
+          </g>
+        </svg>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- The Problem -->
-  <section class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">The Problem</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          Billing starts as a Stripe checkout and a cron job.
-          Then you need usage metering. Then revenue splits.
-          Then your auditor asks for a transaction trail.
-          Then estimates need to reconcile with actuals.
+<!-- ============ 01 · THE PROBLEM ============ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 01</span><span class="folio-rule"></span><span class="folio-label">The drift</span></div>
+    <h2 class="reveal">Every company becomes a financial company. Few mean to.</h2>
+    <p class="lede reveal">It never happens all at once. It happens one reasonable sprint at a time.</p>
+
+    <div class="escalation reveal">
+      <div class="escalation-step">
+        <span class="esc-when">Day one</span>
+        <h3>A checkout and a cron job</h3>
+        <p>Stripe takes the card. A nightly script tots it up. Done, you think.</p>
+      </div>
+      <div class="escalation-step">
+        <span class="esc-when">Month three</span>
+        <h3>Usage metering</h3>
+        <p>Pricing goes per-seat, then per-event. Someone builds a counter table.</p>
+      </div>
+      <div class="escalation-step">
+        <span class="esc-when">Month nine</span>
+        <h3>Revenue splits</h3>
+        <p>Partners want their cut, automatically. The cron job grows branches.</p>
+      </div>
+      <div class="escalation-step">
+        <span class="esc-when">Year one</span>
+        <h3>The audit</h3>
+        <p>"Show us the transaction trail." There isn't one. There are logs.</p>
+      </div>
+      <div class="escalation-step">
+        <span class="esc-when">Today</span>
+        <h3>You run a financial system</h3>
+        <p>Unreconciled, undocumented, load-bearing. And it was never the product.</p>
+      </div>
+    </div>
+
+    <p class="problem-coda reveal">
+      Meridian is the financial system you were always going to end up building &mdash;
+      already built, audit&#8209;grade, and declared rather than accreted.
+    </p>
+  </div>
+</section>
+
+<!-- ============ 02 · THE MANIFEST ============ -->
+<section class="section section-deep">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 02</span><span class="folio-rule"></span><span class="folio-label">Declare, then run</span></div>
+
+    <div class="manifest-grid">
+      <div>
+        <h2 class="reveal">Infrastructure went declarative. Money didn't. Until now.</h2>
+        <p class="lede reveal">
+          Kubernetes taught a generation that you don't script servers into existence &mdash;
+          you declare the state you want and a control plane keeps it true.
+          Meridian applies the same idea to value: <strong>the manifest is the running system.</strong>
         </p>
-        <p class="proof">
-          Now you're maintaining a financial system &mdash; and you're not a financial company.
-          Meridian is the billing engine you'd build if you had a team of financial engineers.
+        <ul class="claim-list reveal">
+          <li>
+            <h3>Declared, not coded</h3>
+            <p>Instruments, account types, valuation rules and settlement sagas in one YAML document. Applying it is the deployment &mdash; no PRs to Meridian core, no migrations.</p>
+          </li>
+          <li>
+            <h3>Operated, not provisioned</h3>
+            <p>Meridian doesn't just create the configuration; it runs it. Scheduled billing fires monthly. Settlement triggers when market data lands. Failed steps reverse themselves.</p>
+          </li>
+          <li>
+            <h3>Writable by AI, safely</h3>
+            <p>Because the format is constrained and schema-checked at compile time, an AI assistant can draft a working economy in conversation &mdash; and the manifest can only call real handlers with real types.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="code-card reveal">
+        <div class="panel panel-engine">
+          <div class="panel-bar"><span class="panel-dots"><span></span><span></span><span></span></span>cookbook/patterns/tote-betting</div>
+          <pre class="code-scroll"><code><span class="yc"># A parimutuel betting platform: pooled stakes, market-data</span>
+<span class="yc"># settlement, 15% commission, Stripe Connect payouts.</span>
+<span class="yk">instruments:</span>
+  - <span class="yk">code:</span> <span class="ys">BET_UNIT</span>
+    <span class="yk">type:</span> <span class="yp">INSTRUMENT_TYPE_VOUCHER</span>
+
+<span class="yk">accountTypes:</span>
+  - <span class="yk">code:</span> <span class="ys">SYNDICATE_POOL</span>
+    <span class="yk">normalBalance:</span> <span class="yp">NORMAL_BALANCE_CREDIT</span>
+    <span class="yk">policies:</span>
+      <span class="yk">validation:</span> <span class="ys">"amount &gt; 0"</span>
+      <span class="yk">bucketing:</span> <span class="ys">"attributes.syndicate_id"</span>
+  - <span class="yk">code:</span> <span class="ys">BET_POSITION</span>
+    <span class="yk">normalBalance:</span> <span class="yp">NORMAL_BALANCE_DEBIT</span>
+    <span class="yk">allowedInstruments:</span> [<span class="ys">BET_UNIT</span>]
+  - <span class="yk">code:</span> <span class="ys">PLATFORM_COMMISSION</span>
+    <span class="yk">normalBalance:</span> <span class="yp">NORMAL_BALANCE_CREDIT</span>
+
+<span class="yk">valuationRules:</span>
+  - <span class="yk">name:</span> <span class="ys">bet_unit_to_gbp</span>
+    <span class="yk">method:</span> <span class="yp">VALUATION_METHOD_FIXED</span>
+
+<span class="yk">sagas:</span>
+  - <span class="yk">name:</span> <span class="ys">create_syndicate</span>
+  - <span class="yk">name:</span> <span class="ys">join_syndicate</span>
+  - <span class="yk">name:</span> <span class="ys">settle_syndicate</span>
+    <span class="yk">trigger:</span> <span class="ys">event:market-information.observation-recorded.v1</span>
+  - <span class="yk">name:</span> <span class="ys">refund_syndicate</span></code></pre>
+        </div>
+        <p class="code-caption">
+          <span>Abridged from a real cookbook pattern &mdash; the full platform is under <b>400 lines</b>.</span>
+          <a href="{{ .Site.Params.repoURL }}/tree/develop/cookbook/patterns/tote-betting" target="_blank" rel="noopener">Read the whole thing &rarr;</a>
         </p>
       </div>
     </div>
-  </section>
 
-  <!-- What You Get -->
-  <section class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">What You Get</h2>
-      <div class="solution-grid">
-        <div class="solution-item">
-          <h3>Bill</h3>
-          <p>
-            Define pricing rules, usage metering, and revenue splits in code.
-            Saga orchestration means settlement completes or reverts &mdash; no orphaned charges.
-          </p>
-        </div>
-        <div class="solution-item">
-          <h3>Know</h3>
-          <p>
-            Every transaction recorded in a double-entry ledger with an immutable audit trail.
-            When your auditor asks where the money went, you show them.
-          </p>
-        </div>
-        <div class="solution-item">
-          <h3>Collect</h3>
-          <p>
-            Stripe Connect integration handles multi-tenant payment collection.
-            Reconciliation detects variances between expected and actual.
-          </p>
-        </div>
-      </div>
+    <div class="stat-line reveal">
+      <div class="stat"><b>&lt; 400</b><span>lines of manifest for a complete betting platform</span></div>
+      <div class="stat"><b>0</b><span>code deployments to launch a new economy</span></div>
+      <div class="stat"><b>22</b><span>ready-made patterns in the cookbook</span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- How It Works -->
-  <section id="how-it-works" class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">How It Works</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          You write business logic in <a href="https://github.com/google/starlark-go" target="_blank" rel="noopener">Starlark</a>,
-          a deterministic Python subset. No imports, no filesystem, no network &mdash;
-          every script is guaranteed to terminate and produce the same result every time.
+<!-- ============ 03 · DURABLE SAGAS ============ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 03</span><span class="folio-rule"></span><span class="folio-label">Durable execution</span></div>
+    <h2 class="reveal">Like Temporal &mdash; except the books are built in.</h2>
+    <p class="lede reveal">
+      Workflow engines can promise your workflow finished. Meridian promises something stronger:
+      <strong>the ledger agrees it finished.</strong> Every multi-step movement of value either
+      completes, or its compensations run backwards until the books balance again. No orphaned
+      charges. No partial state. No 2am reconciliation spreadsheet.
+    </p>
+
+    <div class="saga-stage panel panel-engine reveal">
+      <div class="panel-bar"><span class="panel-dots"><span></span><span></span><span></span></span>saga: settle_syndicate · <span id="saga-status-bar">running</span></div>
+      <svg class="saga-svg" id="saga-svg" viewBox="0 0 1100 250" role="img" aria-label="Animation of a four-step saga where a step fails and compensations automatically reverse the completed steps until the ledger balances">
+        <defs>
+          <marker id="arr-fwd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#76819c"/>
+          </marker>
+          <marker id="arr-comp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="#f0796b"/>
+          </marker>
+        </defs>
+
+        <!-- forward edges -->
+        <line x1="235" y1="110" x2="305" y2="110" stroke="#2c3850" stroke-width="1.5" marker-end="url(#arr-fwd)"/>
+        <line x1="505" y1="110" x2="575" y2="110" stroke="#2c3850" stroke-width="1.5" marker-end="url(#arr-fwd)"/>
+        <line x1="775" y1="110" x2="845" y2="110" stroke="#2c3850" stroke-width="1.5" marker-end="url(#arr-fwd)"/>
+
+        <!-- steps -->
+        <g class="saga-step" id="sg-step-1">
+          <rect x="65" y="80" width="170" height="60" rx="12" fill="#0e1420" stroke="#2c3850" stroke-width="1.5"/>
+          <text x="150" y="106" text-anchor="middle" class="saga-step-label" fill="#d6deeb" font-size="12.5">reserve_funds</text>
+          <text x="150" y="124" text-anchor="middle" class="saga-status" id="sg-status-1" fill="#76819c">pending</text>
+        </g>
+        <g class="saga-step" id="sg-step-2">
+          <rect x="335" y="80" width="170" height="60" rx="12" fill="#0e1420" stroke="#2c3850" stroke-width="1.5"/>
+          <text x="420" y="106" text-anchor="middle" class="saga-step-label" fill="#d6deeb" font-size="12.5">post_to_ledger</text>
+          <text x="420" y="124" text-anchor="middle" class="saga-status" id="sg-status-2" fill="#76819c">pending</text>
+        </g>
+        <g class="saga-step" id="sg-step-3">
+          <rect x="605" y="80" width="170" height="60" rx="12" fill="#0e1420" stroke="#2c3850" stroke-width="1.5"/>
+          <text x="690" y="106" text-anchor="middle" class="saga-step-label" fill="#d6deeb" font-size="12.5">execute_payout</text>
+          <text x="690" y="124" text-anchor="middle" class="saga-status" id="sg-status-3" fill="#76819c">pending</text>
+        </g>
+        <g class="saga-step" id="sg-step-4">
+          <rect x="875" y="80" width="170" height="60" rx="12" fill="#0e1420" stroke="#2c3850" stroke-width="1.5"/>
+          <text x="960" y="106" text-anchor="middle" class="saga-step-label" fill="#d6deeb" font-size="12.5">confirm_settlement</text>
+          <text x="960" y="124" text-anchor="middle" class="saga-status" id="sg-status-4" fill="#76819c">pending</text>
+        </g>
+
+        <!-- compensation arcs (drawn right to left, above the steps) -->
+        <path id="sg-comp-3" class="comp-arc" d="M860 75 C800 30 750 30 700 72" fill="none" stroke="#f0796b" stroke-width="1.6" marker-end="url(#arr-comp)" opacity="0"/>
+        <path id="sg-comp-2" class="comp-arc" d="M600 75 C540 30 490 30 440 72" fill="none" stroke="#f0796b" stroke-width="1.6" marker-end="url(#arr-comp)" opacity="0"/>
+        <path id="sg-comp-1" class="comp-arc" d="M330 75 C270 30 220 30 170 72" fill="none" stroke="#f0796b" stroke-width="1.6" marker-end="url(#arr-comp)" opacity="0"/>
+        <text id="sg-comp-label" x="550" y="30" text-anchor="middle" class="saga-status" fill="#f0796b" opacity="0">compensations run backwards</text>
+
+        <!-- result badge -->
+        <g id="sg-result" opacity="0">
+          <rect x="400" y="180" width="300" height="44" rx="22" fill="#0e1420" stroke="#5ddc96" stroke-width="1.5"/>
+          <text x="550" y="202" text-anchor="middle" class="saga-status" fill="#5ddc96" font-size="12.5">LEDGER BALANCED · no partial state</text>
+          <text x="550" y="216" text-anchor="middle" class="saga-status" fill="#76819c" font-size="10">every step completed — or every step undone</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="saga-copy">
+      <div class="reveal">
+        <h3>Plain code, not a workflow DSL</h3>
+        <p>
+          Sagas are written in Starlark, the Python subset Google built for Bazel. Your team
+          reviews them like any other code. No imports, no network, no filesystem &mdash; the runtime
+          enforces step limits, so every workflow provably terminates.
         </p>
       </div>
-      <div class="code-example">
-        <pre><code class="language-python">deposit_saga = saga(name="current_account_deposit")
-
-def execute_deposit():
-    amount = Decimal(input_data["amount"])
-    account_id = input_data["account_id"]
-
-    step(name="log_position")
-    position_keeping.initiate_log(
-        position_id=account_id,
-        amount=amount,
-        currency=input_data["currency"],
-        direction="CREDIT",
-        transaction_id=input_data["transaction_id"],
-    )
-
-    step(name="post_to_ledger")
-    financial_accounting.capture_posting(
-        account_id=account_id,
-        amount=amount,
-        currency=input_data["currency"],
-        direction="CREDIT",
-        transaction_id=input_data["transaction_id"],
-    )
-
-execute_deposit()</code></pre>
-      </div>
-
-      <div class="arch-diagram">
-        <pre class="mermaid">
-sequenceDiagram
-    participant Client as Your System
-    participant Meridian as Meridian
-    participant Bank as Payment Network
-
-    Client->>Meridian: 1. Initiate Payment
-    Note over Meridian: Validate & Reserve Funds
-    Meridian->>Meridian: 2. Record Position
-    Meridian->>Bank: 3. Execute Payment
-    Bank-->>Meridian: Confirmation
-    Meridian->>Meridian: 4. Post to Ledger
-    Meridian-->>Client: 5. Complete
-
-    Note over Client,Bank: If anything fails, automatic rollback
-        </pre>
-      </div>
-    </div>
-  </section>
-
-  <!-- Built For Complex Billing -->
-  <section class="section pillar-section pillar-alt">
-    <div class="section-content">
-      <h2 class="pillar-title">Built For Complex Billing</h2>
-      <div class="solution-grid">
-        <div class="solution-item">
-          <h3>Usage Metering</h3>
-          <p>Ingest events, apply pricing rules, produce invoices. Handle time-of-use rates and tiered pricing.</p>
-        </div>
-        <div class="solution-item">
-          <h3>Revenue Splits</h3>
-          <p>Multi-party settlement with automatic distribution. Each participant gets their share, every time.</p>
-        </div>
-        <div class="solution-item">
-          <h3>Estimates &rarr; Actuals</h3>
-          <p>Bi-temporal data tracks what you knew and when. Reconcile forecasts against meter reads without re-running history.</p>
-        </div>
-        <div class="solution-item">
-          <h3>Multi-Asset</h3>
-          <p>Currency, kilowatt-hours, carbon credits, compute hours. Same ledger, same rigour, any unit of value.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Source Available -->
-  <section class="section pillar-section">
-    <div class="section-content">
-      <h2 class="pillar-title">Source Available</h2>
-      <div class="pillar-content">
-        <p class="stakes">
-          Business Source License 1.1. Use, modify, and deploy for any internal purpose.
-          Converts to Apache 2.0 on February 12, 2030.
-        </p>
-        <p class="proof">
-          Go &bull; Protocol Buffers + gRPC &bull; CockroachDB &bull; Apache Kafka &bull; Kubernetes &bull; Stripe Connect
+      <div class="reveal">
+        <h3>Compensation is the contract</h3>
+        <p>
+          Each step declares how to undo itself. When the payment network times out at the final
+          step, Meridian reverses every completed step automatically &mdash; and the audit trail
+          records the whole episode, including the failure.
         </p>
       </div>
-      <div class="hero-cta">
-        <a href="https://github.com/meridianhub/meridian" class="btn btn-primary" target="_blank" rel="noopener">
-          Read the Source
-        </a>
-        <a href="https://github.com/meridianhub/meridian/tree/develop/docs/adr" class="btn btn-primary" target="_blank" rel="noopener">
-          Architecture Decisions
-        </a>
-      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Contact -->
-  <section class="section contact-section">
-    <div class="section-content">
-      <h2>Looking for Design Partners</h2>
-      <p class="hero-subtext">
-        Meridian is in active development. Core ledger, saga orchestration, and Stripe Connect are implemented.
-        We're looking for companies with complex billing to build with.
-      </p>
-      <div class="hero-cta">
-        <a href="mailto:ben@meridianhub.org" class="btn btn-primary">
-          Get in Touch
-        </a>
+<!-- ============ 04 · THE LEDGER ============ -->
+<section class="section section-deep">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 04</span><span class="folio-rule"></span><span class="folio-label">The ledger underneath</span></div>
+    <h2 class="reveal">One ledger for everything your business calls value.</h2>
+    <p class="lede reveal">
+      Underneath the manifest and the sagas sits a double-entry ledger that treats money,
+      megawatts and carbon with the same rigour your bank applies to pounds.
+    </p>
+
+    <div class="pillars">
+      <div class="pillar-card reveal">
+        <span class="pillar-glyph">a</span>
+        <h3>Every asset, typed</h3>
+        <p>Currency, kWh, CO&#8322;e, compute hours, vouchers &mdash; native instruments in a single ledger, with type safety that refuses to add pounds to kilowatt-hours.</p>
+        <span class="pillar-foot">multi-asset · dimensioned units</span>
+      </div>
+      <div class="pillar-card reveal">
+        <span class="pillar-glyph">b</span>
+        <h3>Audit-grade by construction</h3>
+        <p>Double-entry posting with an immutable trail. When your auditor asks where the money went, the answer is a query &mdash; not an archaeology project.</p>
+        <span class="pillar-foot">immutable · bi-temporal</span>
+      </div>
+      <div class="pillar-card reveal">
+        <span class="pillar-glyph">c</span>
+        <h3>Data that knows its quality</h3>
+        <p>Every measurement carries what was known and when. The quality ladder &mdash; Estimate &rarr; Coefficient &rarr; Actual &rarr; Revised &mdash; absorbs late and out-of-order data without locking the database.</p>
+        <span class="pillar-foot">estimate &rarr; actual · wash &amp; reload</span>
+      </div>
+      <div class="pillar-card reveal">
+        <span class="pillar-glyph">d</span>
+        <h3>Collection included</h3>
+        <p>Stripe Connect for multi-tenant payment collection, dunning escalation, refund compensation, and reconciliation that flags variances before your customers do.</p>
+        <span class="pillar-foot">stripe connect · reconciliation</span>
       </div>
     </div>
-  </section>
-</article>
+  </div>
+</section>
+
+<!-- ============ 05 · COOKBOOK ============ -->
+<section class="section">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 05</span><span class="folio-rule"></span><span class="folio-label">The economy cookbook</span></div>
+    <div class="cookbook-head reveal">
+      <div>
+        <h2>Start from a working economy, not a blank page.</h2>
+        <p class="lede">
+          The cookbook is a registry of vetted patterns &mdash; manifest fragments plus sagas &mdash;
+          for whole business models. Copy one into your tenant, apply, and it runs.
+          Browse them live inside the demo.
+        </p>
+      </div>
+      <a class="btn btn-ghost" href="/cookbook/">Browse all patterns &rarr;</a>
+    </div>
+
+    <div class="pattern-grid">
+      {{ $patterns := .Site.Data.cookbook.patterns }}
+      {{ range $name := slice "tote-betting" "energy-settlement" "saas-billing" "carbon-offset" "dynamic-capacity-pricing" "kyc-compliance" }}
+        {{ range where $patterns "name" $name }}
+          {{ partial "pattern-card.html" (dict "pattern" . "repoURL" $.Site.Params.repoURL) }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 · QUICKSTART ============ -->
+<section class="section section-engine" id="quickstart">
+  <div class="section-inner">
+    <div class="folio reveal"><span class="folio-no">№ 06</span><span class="folio-rule"></span><span class="folio-label">Run it yourself</span></div>
+    <div class="quickstart-grid">
+      <div>
+        <h2 class="reveal">The whole engine, on your laptop, in one command.</h2>
+        <p class="lede reveal">
+          Every service compiles into a single binary. Docker Compose brings up the full
+          platform &mdash; ledger, sagas, web UI &mdash; with nothing to configure.
+        </p>
+        <ul class="quickstart-points reveal">
+          <li>Register customers, open accounts, watch postings hit the ledger</li>
+          <li>Every operation runs as a saga with automatic compensation</li>
+          <li>REST on <code>:8090</code>, gRPC on <code>:50051</code>, UI on <code>:5173</code></li>
+        </ul>
+      </div>
+      <div class="terminal reveal" aria-label="Quickstart commands">
+        <div><span class="t-prompt">$</span> <span class="t-cmd">git clone https://github.com/meridianhub/meridian.git</span></div>
+        <div><span class="t-prompt">$</span> <span class="t-cmd">cd meridian</span></div>
+        <div><span class="t-prompt">$</span> <span class="t-cmd">make dev-up</span></div>
+        <div class="t-out">✓ ledger · sagas · gateway · ui &nbsp;—&nbsp; ready</div>
+        <div class="t-out">→ open <a href="http://localhost:5173">http://localhost:5173</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · LICENCE ============ -->
+<section class="section">
+  <div class="section-inner section-inner-narrow">
+    <div class="folio reveal"><span class="folio-no">№ 07</span><span class="folio-rule"></span><span class="folio-label">The terms, plainly</span></div>
+    <h2 class="reveal">Source-available. Honestly priced. Eventually open.</h2>
+    <p class="lede reveal">
+      You're trusting this engine with your books, so the terms are on the front page.
+    </p>
+
+    <dl class="facts reveal">
+      <div class="fact-row"><dt>Licence</dt><dd>Business Source License 1.1 &mdash; read, modify, and deploy. The code is all there.</dd></div>
+      <div class="fact-row"><dt>Free in production</dt><dd>Up to <b>5,000 active accounts</b> across all tenants. Development, testing and evaluation are always free.</dd></div>
+      <div class="fact-row"><dt>Beyond that</dt><dd>A commercial licence &mdash; <a href="mailto:{{ .Site.Params.contactEmail }}">{{ .Site.Params.contactEmail }}</a></dd></div>
+      <div class="fact-row"><dt>And then</dt><dd>Converts to <b>Apache 2.0 on 12 February 2030</b>. Worst case, you wait us out.</dd></div>
+    </dl>
+
+    <p class="tech-strip reveal">
+      <span>Go</span><span>gRPC + Protocol Buffers</span><span>PostgreSQL / CockroachDB</span><span>Apache Kafka</span><span>Kubernetes</span><span>Starlark + CEL</span><span>Stripe Connect</span><span>OpenTelemetry</span>
+    </p>
+  </div>
+</section>
+
+<!-- ============ 08 · CTA ============ -->
+<section class="cta-final section-deep">
+  <div class="reveal">
+    <p class="hero-eyebrow">Design partners wanted</p>
+    <h2>Have an economy that doesn't fit the billing tools?</h2>
+    <p class="lede">
+      Usage that arrives late. Value that isn't money. Splits that auditors will read.
+      That's exactly what we built this for &mdash; and we're looking for a handful of teams
+      to build alongside.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:{{ .Site.Params.contactEmail }}">Talk to us</a>
+      <a class="btn btn-ghost" href="{{ .Site.Params.demoURL }}" target="_blank" rel="noopener">Or just try the demo</a>
+    </div>
+  </div>
+</section>
+
 {{ end }}
