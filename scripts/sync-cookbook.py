@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """Aggregate cookbook pattern metadata from the meridian repo into data/cookbook.json.
 
-Usage: scripts/sync-cookbook.py [path-to-meridian-checkout]
+Usage: scripts/sync-cookbook.py <path-to-meridian-checkout>
 """
 import json
 import sys
 from pathlib import Path
 
-meridian = Path(sys.argv[1] if len(sys.argv) > 1 else "../../../meridian/meridian-main")
+if len(sys.argv) < 2:
+    sys.exit(f"Usage: {sys.argv[0]} <path-to-meridian-checkout>")
+
+meridian = Path(sys.argv[1])
 patterns_dir = meridian / "cookbook" / "patterns"
+if not patterns_dir.is_dir():
+    sys.exit(f"Error: pattern directory not found: {patterns_dir}")
 
 patterns = []
 for pattern_json in sorted(patterns_dir.glob("*/pattern.json")):
